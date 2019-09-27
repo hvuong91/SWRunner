@@ -1,0 +1,27 @@
+﻿using SWRunner.Filters;
+using SWRunner.Runners;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SWRunner
+{
+    class SWRunner
+    {
+        private CairosRunner cairosRunner;
+        private DimensionalRunner dimensionalRunner;
+
+        private SWLogger logger = new SWLogger();
+
+        public CairosRunner CairosRunner { get { return cairosRunner; } }
+        public DimensionalRunner DimensionalRunner { get { return dimensionalRunner; } }
+        public SWLogger Logger { get { return logger; } }
+
+        SWRunner(CairosFilter cairosFilter, DimensionalFilter dimensionalFilter)
+        {
+            //TODO: logs, emulator, filter config
+            cairosRunner = new CairosRunner(cairosFilter);
+            dimensionalRunner = new DimensionalRunner(dimensionalFilter);
+        }
+    }
+}
