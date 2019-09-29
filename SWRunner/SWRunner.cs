@@ -1,8 +1,5 @@
 ﻿using SWRunner.Filters;
 using SWRunner.Runners;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SWRunner
 {
