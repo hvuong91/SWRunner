@@ -5,7 +5,7 @@ using SWRunner.Rewards;
 
 namespace SWRunner.Filters
 {
-    class CairosFilter : IFilter
+    public class CairosFilter : IFilter
     {
         public bool ShouldGet(Reward reward)
         {

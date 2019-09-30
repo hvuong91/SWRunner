@@ -6,12 +6,11 @@ namespace SWRunner.Runners
 {
     class RaidRunner : AbstractRunner
     {
-        public override void Collect()
+        public RaidRunner(string logFile) : base(logFile)
         {
-            throw new NotImplementedException();
         }
 
-        public override bool IsEnd()
+        public override void Collect()
         {
             throw new NotImplementedException();
         }

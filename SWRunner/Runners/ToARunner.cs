@@ -4,14 +4,13 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class ToARunner : AbstractRunner
+    public class ToARunner : AbstractRunner
     {
-        public override void Collect()
+        public ToARunner(string logFile) : base(logFile)
         {
-            throw new NotImplementedException();
         }
 
-        public override bool IsEnd()
+        public override void Collect()
         {
             throw new NotImplementedException();
         }

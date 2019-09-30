@@ -5,21 +5,16 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class CairosRunner : AbstractRunner
+    public class CairosRunner : AbstractRunner
     {
         CairosFilter filter;
 
-        public CairosRunner(CairosFilter filter)
+        public CairosRunner(CairosFilter filter, string logFile) : base(logFile)
         {
             this.filter = filter;
         }
 
         public override void Collect()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool IsEnd()
         {
             throw new NotImplementedException();
         }

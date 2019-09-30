@@ -9,17 +9,12 @@ namespace SWRunner.Runners
     {
         DimensionalFilter filter;
 
-        public DimensionalRunner(DimensionalFilter filter)
+        public DimensionalRunner(DimensionalFilter filter, string logFile) : base(logFile)
         {
             this.filter = filter;
         }
 
         public override void Collect()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool IsEnd()
         {
             throw new NotImplementedException();
         }
