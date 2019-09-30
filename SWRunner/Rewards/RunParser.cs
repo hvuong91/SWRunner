@@ -6,8 +6,6 @@ namespace SWRunner.Rewards
 {
     public static class RunParser
     {
-        private static IEnumerable<RunResult> records;
-
         public static RunResult GetRunResult(string runsPath)
         {
             RunResult result = null;

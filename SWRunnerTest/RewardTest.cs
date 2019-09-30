@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
+using SWEmulator;
 using SWRunner.Rewards;
+using System.Drawing;
 
 namespace SWRunnerTest
 {
@@ -41,6 +43,13 @@ namespace SWRunnerTest
             Assert.IsNotNull(result);
 
             Assert.AreEqual(RewardType.RUNE, result.GetReward().Type);
+        }
+
+        [Test]
+        public void Test()
+        {
+            NoxEmulator emulator = new NoxEmulator("Nox");
+            emulator.Click(new Point(1006, 594));
         }
     }
 }

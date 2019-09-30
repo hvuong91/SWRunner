@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SWEmulator\SWEmulator.csproj" />
     <ProjectReference Include="..\SWRunner\SWRunner.csproj" />
   </ItemGroup>
 
