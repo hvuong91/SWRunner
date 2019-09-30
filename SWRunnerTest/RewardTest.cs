@@ -32,5 +32,15 @@ namespace SWRunnerTest
             Assert.AreEqual(RewardType.OTHER, reward.Type);
             Assert.AreEqual(1, reward.Quantity);
         }
+
+        [Test]
+        public void GetRunResult_GivenCSV_GetLastRun()
+        {
+            string runsPath = @"C:\Users\Administrator\Desktop\Rune\test.csv";
+            RunResult result = RunParser.GetRunResult(runsPath);
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(RewardType.RUNE, result.GetReward().Type);
+        }
     }
 }
