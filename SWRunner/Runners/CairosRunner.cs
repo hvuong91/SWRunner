@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class CairosRunner : IRunner
+    class CairosRunner : AbstractRunner
     {
         CairosFilter filter;
 
@@ -13,24 +13,52 @@ namespace SWRunner.Runners
         {
             this.filter = filter;
         }
-        public void Collect()
+
+        public override void Collect()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsEnd()
+        public override bool IsEnd()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsFailed()
+        public override bool IsFailed()
         {
             throw new NotImplementedException();
         }
 
-        public void Run()
+        public override void Run()
         {
-            throw new NotImplementedException();
+            // 1. Check fail, do not revive. Jump to check refill
+            // 2. Check run finish
+            // 3. If not finish, wait 3-5s
+            // 4. If finish, collect reward with filter
+            // 5. Check for refill
+            // 6. Start
+
+            while (true)
+            {
+                if (IsFailed())
+                {
+                    SkipRevive();
+                }
+                else if (IsEnd())
+                {
+                    Collect();
+                }
+                else
+                {   
+                    // Run is not completed
+                    continue;
+                }
+
+                StartNewRun();
+                CheckRefill();
+                             
+            }
         }
+
     }
 }

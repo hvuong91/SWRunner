@@ -10,5 +10,8 @@ namespace SWRunner.Runners
         void Collect();
         bool IsEnd();
         bool IsFailed();
+        void SkipRevive();
+        void CheckRefill();
+        void StartNewRun();
     }
 }

@@ -4,24 +4,27 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class ToARunner : AbstractRunner
+    public abstract class AbstractRunner : IRunner
     {
-        public override void Collect()
+        public void CheckRefill()
         {
             throw new NotImplementedException();
         }
 
-        public override bool IsEnd()
+        public abstract void Collect();
+
+        public abstract bool IsEnd();
+
+        public abstract bool IsFailed();
+
+        public abstract void Run();
+
+        public void SkipRevive()
         {
             throw new NotImplementedException();
         }
 
-        public override bool IsFailed()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Run()
+        public void StartNewRun()
         {
             throw new NotImplementedException();
         }

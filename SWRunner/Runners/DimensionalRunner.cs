@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class DimensionalRunner : IRunner
+    class DimensionalRunner : AbstractRunner
     {
         DimensionalFilter filter;
 
@@ -13,22 +13,23 @@ namespace SWRunner.Runners
         {
             this.filter = filter;
         }
-        public void Collect()
+
+        public override void Collect()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsEnd()
+        public override bool IsEnd()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsFailed()
+        public override bool IsFailed()
         {
             throw new NotImplementedException();
         }
 
-        public void Run()
+        public override void Run()
         {
             throw new NotImplementedException();
         }

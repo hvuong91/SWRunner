@@ -4,24 +4,24 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class RaidRunner : IRunner
+    class RaidRunner : AbstractRunner
     {
-        public void Collect()
+        public override void Collect()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsEnd()
+        public override bool IsEnd()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsFailed()
+        public override bool IsFailed()
         {
             throw new NotImplementedException();
         }
 
-        public void Run()
+        public override void Run()
         {
             throw new NotImplementedException();
         }
