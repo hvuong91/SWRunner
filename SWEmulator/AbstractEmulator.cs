@@ -41,9 +41,13 @@ namespace SWEmulator
         private const int MIN_WAIT = 100;
         private const int MAX_WAIT = 200;
 
+        public int Width { get; set; }
+        public int Height { get; set; }
+
         public AbstractEmulator(string windowName)
         {
             MainWindow = GetMainWindow(windowName);
+            GetWindowSize(MainWindow);
         }
 
         public void Click(Point point)
@@ -55,5 +59,17 @@ namespace SWEmulator
         }
 
         public abstract IntPtr GetMainWindow(string windowName);
+
+        private void GetWindowSize(IntPtr hWnd)
+        {
+            if (!GetWindowRect(hWnd, out Rect rct))
+            {
+                // TODO: Log fail message
+                return;
+            }
+
+            Width = rct.right - rct.left;
+            Height = rct.bottom - rct.top;
+        }
     }
 }

@@ -1,10 +1,14 @@
 ﻿using CsvHelper;
+using SWEmulator;
+using SWRunner.Runners;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Reflection;
 
 namespace SWRunner.Rewards
 {
-    public static class RunParser
+    public static class Helper
     {
         public static RunResult GetRunResult(string runsPath)
         {
@@ -22,6 +26,25 @@ namespace SWRunner.Rewards
             }
 
             return result;
+        }
+
+        public static void UpdateRunConfig<T>(AbstractEmulator emulator, T runConfig) where T : RunConfig
+        {
+            FieldInfo[] fields = runConfig.GetType().GetFields();
+
+            int configW = runConfig.Width;
+            int configH = runConfig.Height;
+
+            foreach (FieldInfo field in fields)
+            {
+                if (field.FieldType == typeof(Point))
+                {
+                    Point point = (Point)field.GetValue(runConfig);
+                    point.X = emulator.Width * point.X / configW;
+                    point.Y = emulator.Height * point.Y / configH;
+                    field.SetValue(runConfig, point);
+                }
+            }
         }
 
         public static Reward GetReward(string path)

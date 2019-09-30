@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\TestConfig.xml" />
     <None Remove="TestData\testLogFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="TestData\TestConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\testLogFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

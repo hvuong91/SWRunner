@@ -18,5 +18,6 @@ namespace SWRunnerTest
 
             Assert.IsTrue(test.IsEnd());
         }
+
     }
 }

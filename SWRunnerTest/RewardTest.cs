@@ -39,7 +39,7 @@ namespace SWRunnerTest
         public void GetRunResult_GivenCSV_GetLastRun()
         {
             string runsPath = @"C:\Users\Administrator\Desktop\Rune\test.csv";
-            RunResult result = RunParser.GetRunResult(runsPath);
+            RunResult result = Helper.GetRunResult(runsPath);
             Assert.IsNotNull(result);
 
             Assert.AreEqual(RewardType.RUNE, result.GetReward().Type);
