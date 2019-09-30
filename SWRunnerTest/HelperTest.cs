@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SWEmulator;
+using SWRunner;
 using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
@@ -18,14 +19,8 @@ namespace SWRunnerTest
         [Test]
         public void Helper_GivenRunConfigAndEmulator_ProcessAllClickPoints()
         {
-            Foo foo = new Foo { A = 1, B = 2 };
 
-            FieldInfo[] fields = foo.GetType().GetFields();
-            fields[0].SetValue(foo, 10);
-
-            Assert.AreEqual(10, foo.A);
-
-            DungeonRunConfig runConfig = new DungeonRunConfig();
+            CairosRunnerConfig runConfig = new CairosRunnerConfig();
             runConfig.Width = 120;
             runConfig.Height = 100;
 
@@ -37,7 +32,7 @@ namespace SWRunnerTest
 
 
             System.Xml.Serialization.XmlSerializer writer =
-            new System.Xml.Serialization.XmlSerializer(typeof(RunConfig));
+            new System.Xml.Serialization.XmlSerializer(typeof(RunnerConfig));
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//TestConfig.xml";
             System.IO.FileStream file = System.IO.File.Create(path);
@@ -53,17 +48,17 @@ namespace SWRunnerTest
             emulator.Width = 20;
             emulator.Height = 50;
 
-            XmlSerializer serializer = new XmlSerializer(typeof(DungeonRunConfig), new XmlRootAttribute("RunConfig"));
+            XmlSerializer serializer = new XmlSerializer(typeof(CairosRunnerConfig), new XmlRootAttribute("RunConfig"));
 
             // Declare an object variable of the type to be deserialized.
-            DungeonRunConfig runConfig;
+            CairosRunnerConfig runConfig;
 
             string testConfigXml = @"TestData/TestConfig.xml";
 
             using (Stream reader = new FileStream(testConfigXml, FileMode.Open))
             {
                 // Call the Deserialize method to restore the object's state.
-                runConfig = (DungeonRunConfig)serializer.Deserialize(reader);
+                runConfig = (CairosRunnerConfig)serializer.Deserialize(reader);
             }
 
             Helper.UpdateRunConfig(emulator, runConfig);
@@ -71,10 +66,5 @@ namespace SWRunnerTest
             Assert.IsNotNull(runConfig);
         }
 
-        public class Foo
-        {
-            public int A;
-            public int B;
-        }
     }
 }

@@ -30,7 +30,7 @@ namespace SWRunner.Rewards
 
         public string Drop { get; set; }
 
-        public string grade { get; set; }
+        public string Grade { get; set; }
 
         public string Set { get; set; }
 
@@ -57,6 +57,7 @@ namespace SWRunner.Rewards
 
         [Index(19)]
         public string SubStat4 { get; set; }
+
     }
 
 }

@@ -1,12 +1,14 @@
 ﻿using CsvHelper;
 using SWEmulator;
+using SWRunner.Rewards;
 using SWRunner.Runners;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 
-namespace SWRunner.Rewards
+namespace SWRunner
 {
     public static class Helper
     {
@@ -28,7 +30,7 @@ namespace SWRunner.Rewards
             return result;
         }
 
-        public static void UpdateRunConfig<T>(AbstractEmulator emulator, T runConfig) where T : RunConfig
+        public static void UpdateRunConfig<T>(AbstractEmulator emulator, T runConfig) where T : RunnerConfig
         {
             FieldInfo[] fields = runConfig.GetType().GetFields();
 
@@ -47,14 +49,49 @@ namespace SWRunner.Rewards
             }
         }
 
-        public static Reward GetReward(string path)
+        public static Reward GetReward(RunResult runResult)
         {
-            return null;
+            Reward reward = null;
+
+            RewardType type = GetRewardType(runResult.Drop);
+
+            switch (type)
+            {
+                case RewardType.RUNE:
+                    reward = new Rune.RuneBuilder().Grade(runResult.Grade).Set(runResult.Set).Slot(runResult.Slot).
+                        Rarity(runResult.Rarity).MainStat(runResult.MainStat).PrefixStat(runResult.PrefixStat).
+                        SubStat1(runResult.SubStat1).SubStat2(runResult.SubStat2).SubStat3(runResult.SubStat3).
+                        SubStat4(runResult.SubStat4).Build();
+                    break;
+                case RewardType.GRINDSTONE:
+                    // TODO
+                case RewardType.ENCHANTED_GEM:
+                    // TODO
+                case RewardType.OTHER:
+                    throw new NotImplementedException();
+            }
+
+            return reward;
         }
 
-        public static Reward GetReward(string path, int row)
+        private static RewardType GetRewardType(string dropItem)
         {
-            return null;
+            RewardType type = RewardType.OTHER;
+
+            if (dropItem.Contains("Rune"))
+            {
+                type = RewardType.RUNE;
+            }
+            else if (dropItem.Contains("Grindstone"))
+            {
+                type = RewardType.GRINDSTONE;
+            }
+            else if (dropItem.Contains("Enchanted Gem"))
+            {
+                type = RewardType.ENCHANTED_GEM;
+            }
+
+            return type;
         }
 
     }
