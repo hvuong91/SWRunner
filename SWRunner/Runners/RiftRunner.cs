@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class RiftRunner : AbstractRunner
+    class RiftRunner : AbstractRunner<RunnerConfig>
     {
-        public RiftRunner(string logFile) : base(logFile)
+        public RiftRunner(string logFile) : base(logFile, null, null)
         {
         }
 

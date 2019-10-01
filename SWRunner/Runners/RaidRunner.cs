@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    class RaidRunner : AbstractRunner
+    class RaidRunner : AbstractRunner<RunnerConfig>
     {
-        public RaidRunner(string logFile) : base(logFile)
+        public RaidRunner(string logFile) : base(logFile, null, null)
         {
         }
 

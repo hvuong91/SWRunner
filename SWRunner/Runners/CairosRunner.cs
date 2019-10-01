@@ -1,22 +1,36 @@
-﻿using SWRunner.Filters;
+﻿using SWEmulator;
+using SWRunner.Filters;
+using SWRunner.Rewards;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SWRunner.Runners
 {
-    public class CairosRunner : AbstractRunner
+    // TODO: Ensure to wait for each click.
+    public class CairosRunner : AbstractRunner<CairosRunnerConfig>
     {
         CairosFilter filter;
 
-        public CairosRunner(CairosFilter filter, string logFile) : base(logFile)
+        public CairosRunner(CairosFilter filter, string logFile, CairosRunnerConfig runnerConfig, 
+            AbstractEmulator emulator) : base(logFile, runnerConfig, emulator)
         {
             this.filter = filter;
         }
 
         public override void Collect()
         {
-            throw new NotImplementedException();
+            RunResult runResult = Helper.GetRunResult(LogFile);
+            Reward reward = Helper.GetReward(runResult);
+
+            if (filter.ShouldGet(reward))
+            {
+                Emulator.Click(RunnerConfig.GetRune);
+            }
+            else
+            {
+                // TODO: Sell
+            }
         }
 
         public override bool IsFailed()

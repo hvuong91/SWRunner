@@ -7,6 +7,6 @@ namespace SWRunner.Runners
 {
     public class CairosRunnerConfig : RunnerConfig
     {
-
+        public Point GetRune;
     }
 }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    public class ToARunner : AbstractRunner
+    public class ToARunner : AbstractRunner<RunnerConfig>
     {
-        public ToARunner(string logFile) : base(logFile)
+        public ToARunner(string logFile) : base(logFile, null, null)
         {
         }
 

@@ -12,7 +12,7 @@ namespace SWRunnerTest
         [Test]
         public void IsEnd_GivenLogFileBeingModified_ReturnTrue()
         {
-            CairosRunner test = new CairosRunner(null, testLogFile);
+            CairosRunner test = new CairosRunner(null, testLogFile, null, null);
 
             File.WriteAllText(testLogFile, "Test");
 

@@ -1,15 +1,17 @@
-﻿using SWRunner.Filters;
+﻿using SWEmulator;
+using SWRunner.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SWRunner.Runners
 {
-    class DimensionalRunner : AbstractRunner
+    class DimensionalRunner : AbstractRunner<RunnerConfig>
     {
         DimensionalFilter filter;
 
-        public DimensionalRunner(DimensionalFilter filter, string logFile) : base(logFile)
+        public DimensionalRunner(DimensionalFilter filter, string logFile) 
+            : base(logFile, null, null)
         {
             this.filter = filter;
         }

@@ -17,8 +17,6 @@ namespace SWRunner
         SWRunner(CairosFilter cairosFilter, DimensionalFilter dimensionalFilter)
         {
             //TODO: logs, emulator, filter config
-            cairosRunner = new CairosRunner(cairosFilter, null);
-            dimensionalRunner = new DimensionalRunner(dimensionalFilter, null);
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RunConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="DungeonRunConfig">
+<RunConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CairosRunnerConfig">
   <Width>120</Width>
   <Height>100</Height>
   <StartPoint>
@@ -10,4 +10,8 @@
     <X>70</X>
     <Y>80</Y>
   </ReplayPoint>
+  <GetRune>
+    <X>100</X>
+    <Y>200</Y>
+  </GetRune>
 </RunConfig>

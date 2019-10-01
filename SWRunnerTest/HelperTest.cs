@@ -30,6 +30,8 @@ namespace SWRunnerTest
             runConfig.ReplayPoint.X = 70;
             runConfig.ReplayPoint.Y = 80;
 
+            runConfig.GetRune.X = 100;
+            runConfig.GetRune.Y = 200;
 
             System.Xml.Serialization.XmlSerializer writer =
             new System.Xml.Serialization.XmlSerializer(typeof(RunnerConfig));
