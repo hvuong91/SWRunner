@@ -11,7 +11,9 @@ namespace SWRunner.Runners
         public string LogFile { get; private set; }
         public T RunnerConfig { get; private set; }
         public AbstractEmulator Emulator { get; private set; }
-        public DateTime modifiedTime { get; private set; } = DateTime.Now;
+        public DateTime modifiedTime { get; protected set; }
+
+        public int MinEnergyRequired { get;  protected set; }
 
         public AbstractRunner(string logFile, T runnerConfig, AbstractEmulator emulator)
         {
@@ -23,7 +25,12 @@ namespace SWRunner.Runners
 
         public void CheckRefill()
         {
-            throw new NotImplementedException();
+            if (NeedRefill())
+            {
+                // TODO: Refill
+
+                Emulator.Click(RunnerConfig.ReplayPoint);
+            }
         }
 
         public abstract void Collect();
@@ -57,7 +64,22 @@ namespace SWRunner.Runners
             // TODO: Some runners won't support this
             // TODO: Ensure there's wait time
             Emulator.Click(RunnerConfig.ReplayPoint);
+
+            CheckRefill();
+
             Emulator.Click(RunnerConfig.StartPoint);
+        }
+
+        private bool NeedRefill()
+        {
+            return GetCurrentEnergy() < MinEnergyRequired;
+        }
+
+        private int GetCurrentEnergy()
+        {
+            // TODO
+
+            return 10;
         }
     }
 }

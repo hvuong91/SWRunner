@@ -27,7 +27,7 @@ namespace SWRunner.Rewards
             }
             else if (dropItem.Contains("Grindstone"))
             {
-                Type = RewardType.GRINDSTONE;
+                Type = RewardType.GRIND_STONE;
             }
             else if (dropItem.Contains("Enchanted Gem"))
             {
@@ -54,5 +54,5 @@ namespace SWRunner.Rewards
         }
     }
 
-    public enum RewardType { RUNE, GRINDSTONE, ENCHANTED_GEM, OTHER}
+    public enum RewardType { RUNE, GRIND_STONE, ENCHANTED_GEM, SUMMON_STONE, MYSTICAL_SCROLL, OTHER}
 }

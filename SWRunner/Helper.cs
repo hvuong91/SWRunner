@@ -60,7 +60,7 @@ namespace SWRunner
                         SubStat1(runResult.SubStat1).SubStat2(runResult.SubStat2).SubStat3(runResult.SubStat3).
                         SubStat4(runResult.SubStat4).Build();
                     break;
-                case RewardType.GRINDSTONE:
+                case RewardType.GRIND_STONE:
                     // TODO
                 case RewardType.ENCHANTED_GEM:
                     // TODO
@@ -107,11 +107,19 @@ namespace SWRunner
             }
             else if (dropItem.Contains("Grindstone"))
             {
-                type = RewardType.GRINDSTONE;
+                type = RewardType.GRIND_STONE;
             }
             else if (dropItem.Contains("Enchanted Gem"))
             {
                 type = RewardType.ENCHANTED_GEM;
+            }
+            else if (dropItem.Contains("Summoning Stones"))
+            {
+                type = RewardType.SUMMON_STONE;
+            }
+            else if (dropItem.Contains("Mystical Scroll"))
+            {
+                type = RewardType.MYSTICAL_SCROLL;
             }
 
             return type;
