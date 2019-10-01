@@ -15,5 +15,6 @@ namespace SWRunner.Runners
 
         public Point StartPoint;
         public Point ReplayPoint;
+        public Point NoRevivePoint;
     }
 }

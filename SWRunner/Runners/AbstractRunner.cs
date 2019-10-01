@@ -46,12 +46,18 @@ namespace SWRunner.Runners
 
         public void SkipRevive()
         {
-            throw new NotImplementedException();
+            // TODO: Some runnners won't support this
+            // TODO: Random click to pop up revive dialog
+
+            Emulator.Click(RunnerConfig.NoRevivePoint); //TODO: ensure there's wait time
         }
 
         public void StartNewRun()
         {
-            throw new NotImplementedException();
+            // TODO: Some runners won't support this
+            // TODO: Ensure there's wait time
+            Emulator.Click(RunnerConfig.ReplayPoint);
+            Emulator.Click(RunnerConfig.StartPoint);
         }
     }
 }
