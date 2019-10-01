@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWRunner.Runners
 {
-    public class DungeonRunConfig : RunConfig
+    public class CairosRunnerConfig : RunnerConfig
     {
 
     }

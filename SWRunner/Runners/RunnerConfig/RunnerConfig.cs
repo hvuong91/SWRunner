@@ -6,9 +6,9 @@ using System.Xml.Serialization;
 
 namespace SWRunner.Runners
 {
-    [XmlInclude(typeof(DungeonRunConfig))]
+    [XmlInclude(typeof(CairosRunnerConfig))]
     [Serializable, XmlRoot(ElementName = "RunConfig")]
-    public abstract class RunConfig
+    public abstract class RunnerConfig
     {
         public int Width;
         public int Height;
