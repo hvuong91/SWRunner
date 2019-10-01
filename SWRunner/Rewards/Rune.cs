@@ -7,9 +7,9 @@ namespace SWRunner.Rewards
     public class Rune : Reward
     {
         public string Grade { get; private set; }
-        public string Set { get; private set; }
+        public RUNESET Set { get; private set; }
         public string Slot { get; private set; }
-        public string Rarity { get; private set; }
+        public RARITY Rarity { get; private set; }
         public string MainStat { get; private set; }
         public string PrefixStat { get; private set; }
         public string SubStat1 { get; private set; }
@@ -17,7 +17,7 @@ namespace SWRunner.Rewards
         public string SubStat3 { get; private set; }
         public string SubStat4 { get; private set; }
 
-        private Rune(string grade, string set, string slot, string rarity,
+        private Rune(string grade, RUNESET set, string slot, RARITY rarity,
             string mainStat, string prefixStat, string subStat1, string subStat2, string subStat3, string subStat4) : base("Rune")
         {
             Grade = grade;
@@ -35,9 +35,9 @@ namespace SWRunner.Rewards
         public class RuneBuilder
         {
             private string grade;
-            private string set;
+            private RUNESET set;
             private string slot;
-            private string rarity;
+            private RARITY rarity;
             private string mainStat;
             private string prefixStat;
             private string subStat1;
@@ -54,7 +54,7 @@ namespace SWRunner.Rewards
 
             public RuneBuilder Set(string set)
             {
-                this.set = set;
+                this.set = Enum.TryParse(set, true, out RUNESET runeSet) ? runeSet : RUNESET.UNKNOWN;
                 return this;
             }
 
@@ -66,7 +66,7 @@ namespace SWRunner.Rewards
 
             public RuneBuilder Rarity(string rarity)
             {
-                this.rarity = rarity;
+                this.rarity = Enum.TryParse(rarity, true, out RARITY outRarity) ? outRarity : RARITY.UNKNOWN;
                 return this;
             }
 
@@ -112,6 +112,11 @@ namespace SWRunner.Rewards
                     prefixStat, subStat1, subStat2, subStat3, subStat4);
             }
         }
+
+        public enum RUNESET { VIOLENT, RAGE, ENERGY, FATAL, SWIFT, FOCUS, DESPAIR, ENDURE, 
+            REVENGE, WILL, NEMESIS, VAMPIRE, DESTROY, FIGHT, UNKNOWN}
+
+        public enum RARITY { NORMAL, RARE, MAGIC, HERO, LEGEND, UNKNOWN}
     }
     
 }

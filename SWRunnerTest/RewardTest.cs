@@ -3,6 +3,7 @@ using SWEmulator;
 using SWRunner;
 using SWRunner.Rewards;
 using System.Drawing;
+using static SWRunner.Rewards.Rune;
 
 namespace SWRunnerTest
 {
@@ -45,12 +46,33 @@ namespace SWRunnerTest
 
             Assert.AreEqual(RewardType.RUNE, result.GetReward().Type);
         }
+        
+        [Test]
+        public void GetRune_GivenRuneInfo_ReturnRune()
+        {
+            Rune rune = new Rune.RuneBuilder().Set("Violent").Rarity("Hero").Build();
+
+            Assert.AreEqual(rune.Type, RewardType.RUNE);
+            Assert.AreEqual(rune.Set, RUNESET.VIOLENT);
+            Assert.AreEqual(rune.Rarity, RARITY.HERO);
+        }
+
+        [Test]
+        public void GetRune_GivenInvalidRuneSet_ReturnUnknownRune()
+        {
+            Rune rune = new Rune.RuneBuilder().Set("Some invalid set").Rarity("blah").Build();
+
+            Assert.AreEqual(rune.Type, RewardType.RUNE);
+            Assert.AreEqual(rune.Set, RUNESET.UNKNOWN);
+            Assert.AreEqual(rune.Rarity, RARITY.UNKNOWN);
+        }
 
         [Test]
         public void Test()
         {
             NoxEmulator emulator = new NoxEmulator("Nox");
-            emulator.Click(new Point(1006, 594));
+            emulator.Click(new Point(1006, 594)); // Settings
         }
+
     }
 }
