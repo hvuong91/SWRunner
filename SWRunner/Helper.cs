@@ -34,16 +34,13 @@ namespace SWRunner
         {
             FieldInfo[] fields = runConfig.GetType().GetFields();
 
-            int configW = runConfig.Width;
-            int configH = runConfig.Height;
-
             foreach (FieldInfo field in fields)
             {
-                if (field.FieldType == typeof(Point))
+                if (field.FieldType == typeof(PointF))
                 {
-                    Point point = (Point)field.GetValue(runConfig);
-                    point.X = emulator.Width * point.X / configW;
-                    point.Y = emulator.Height * point.Y / configH;
+                    PointF point = (PointF)field.GetValue(runConfig);
+                    point.X = emulator.Width * point.X;
+                    point.Y = emulator.Height * point.Y;
                     field.SetValue(runConfig, point);
                 }
             }

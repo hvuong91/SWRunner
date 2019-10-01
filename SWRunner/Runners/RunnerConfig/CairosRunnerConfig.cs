@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 
 namespace SWRunner.Runners
 {
     public class CairosRunnerConfig : RunnerConfig
     {
-        public Point GetRune;
+        public PointF GetRunePoint;
     }
 }

@@ -25,7 +25,7 @@ namespace SWRunner.Runners
 
             if (filter.ShouldGet(reward))
             {
-                Emulator.Click(RunnerConfig.GetRune);
+                Emulator.Click(RunnerConfig.GetRunePoint);
             }
             else
             {

@@ -21,17 +21,15 @@ namespace SWRunnerTest
         {
 
             CairosRunnerConfig runConfig = new CairosRunnerConfig();
-            runConfig.Width = 120;
-            runConfig.Height = 100;
 
-            runConfig.StartPoint.X = 50;
-            runConfig.StartPoint.Y = 60;
+            runConfig.StartPoint.X = 0.841f;
+            runConfig.StartPoint.Y = 0.710f;
 
-            runConfig.ReplayPoint.X = 70;
-            runConfig.ReplayPoint.Y = 80;
+            runConfig.ReplayPoint.X = 0.323f;
+            runConfig.ReplayPoint.Y = 0.533f;
 
-            runConfig.GetRune.X = 100;
-            runConfig.GetRune.Y = 200;
+            runConfig.GetRunePoint.X = 0.584f;
+            runConfig.GetRunePoint.Y = 0.803f;
 
             System.Xml.Serialization.XmlSerializer writer =
             new System.Xml.Serialization.XmlSerializer(typeof(RunnerConfig));
@@ -47,8 +45,8 @@ namespace SWRunnerTest
         public void Test()
         {
             NoxEmulator emulator = new NoxEmulator("Nox");
-            emulator.Width = 20;
-            emulator.Height = 50;
+            emulator.Width = 1144;
+            emulator.Height = 644;
 
             XmlSerializer serializer = new XmlSerializer(typeof(CairosRunnerConfig), new XmlRootAttribute("RunConfig"));
 
@@ -66,6 +64,9 @@ namespace SWRunnerTest
             Helper.UpdateRunConfig(emulator, runConfig);
 
             Assert.IsNotNull(runConfig);
+
+            Assert.AreEqual((int)runConfig.ReplayPoint.X, 369);
+            Assert.AreEqual((int)runConfig.ReplayPoint.Y, 343);
         }
 
     }

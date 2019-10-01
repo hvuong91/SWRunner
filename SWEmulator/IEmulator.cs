@@ -6,7 +6,7 @@ namespace SWEmulator
     interface IEmulator
     {
 
-        void Click(Point point);
+        void Click(PointF point);
 
         IntPtr GetMainWindow(string windowName);
     }

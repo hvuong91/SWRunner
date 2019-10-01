@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using System.Xml.Serialization;
+using System.Windows;
+using System.Drawing;
 
 namespace SWRunner.Runners
 {
@@ -10,11 +9,9 @@ namespace SWRunner.Runners
     [Serializable, XmlRoot(ElementName = "RunConfig")]
     public abstract class RunnerConfig
     {
-        public int Width;
-        public int Height;
-
-        public Point StartPoint;
-        public Point ReplayPoint;
-        public Point NoRevivePoint;
+        public PointF StartPoint;
+        public PointF ReplayPoint;
+        public PointF NoRevivePoint;
     }
+
 }

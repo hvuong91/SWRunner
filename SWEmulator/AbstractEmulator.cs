@@ -50,9 +50,9 @@ namespace SWEmulator
             GetWindowSize(MainWindow);
         }
 
-        public void Click(Point point)
+        public void Click(PointF point)
         {
-            int coord = point.Y << 16 | point.X;
+            int coord = (int) point.Y << 16 | (int) point.X;
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONDOWN, 1, coord);
             Thread.Sleep(new Random().Next(MIN_WAIT, MAX_WAIT));
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONUP, 0, coord);

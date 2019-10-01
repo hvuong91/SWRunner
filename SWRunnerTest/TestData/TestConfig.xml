@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
 <RunConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CairosRunnerConfig">
-  <Width>120</Width>
-  <Height>100</Height>
   <StartPoint>
-    <X>50</X>
-    <Y>60</Y>
+    <X>0.841</X>
+    <Y>0.71</Y>
   </StartPoint>
   <ReplayPoint>
-    <X>70</X>
-    <Y>80</Y>
+    <X>0.323</X>
+    <Y>0.533</Y>
   </ReplayPoint>
-  <GetRune>
-    <X>100</X>
-    <Y>200</Y>
-  </GetRune>
+  <NoRevivePoint>
+    <X>0</X>
+    <Y>0</Y>
+  </NoRevivePoint>
+  <GetRunePoint>
+    <X>0.584</X>
+    <Y>0.803</Y>
+  </GetRunePoint>
 </RunConfig>
