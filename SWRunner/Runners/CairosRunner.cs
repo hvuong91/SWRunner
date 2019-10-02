@@ -43,11 +43,12 @@ namespace SWRunner.Runners
                 }
                 else
                 {
-                    // Run is not completed
+                    // Run is not completed yet
                     continue;
                 }
 
                 StartNewRun();
+                modifiedTime = DateTime.Now; // ?
             }
         }
 
