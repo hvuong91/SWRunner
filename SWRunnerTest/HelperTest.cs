@@ -69,5 +69,20 @@ namespace SWRunnerTest
             Assert.AreEqual((int)runConfig.ReplayPoint.Y, 343);
         }
 
+        [Test]
+        public void SolveQuizTest()
+        {
+            // Fire
+            string firePattern = @"unit_icon_(.)*_1_\d.png";
+            Assert.AreEqual(2, Helper.SolveQuiz(firePattern));
+
+            // Wind
+            string windPattern = @"unit_icon_(.)*_2_\d.png";
+            Assert.AreEqual(5, Helper.SolveQuiz(windPattern));
+
+            // Water
+            string waterPattern = @"unit_icon_(.)*_3_\d.png";
+            Assert.AreEqual(1, Helper.SolveQuiz(waterPattern));
+        }
     }
 }

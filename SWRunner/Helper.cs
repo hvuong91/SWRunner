@@ -1,12 +1,17 @@
-﻿using CsvHelper;
+﻿using AForge.Imaging;
+using AForge.Imaging.Filters;
+using CsvHelper;
 using SWEmulator;
 using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace SWRunner
 {
@@ -95,6 +100,86 @@ namespace SWRunner
             }
 
             return 100 * (diff / 255) / (img1.Width * img1.Height * 3);
+        }
+
+        public static int SolveQuiz(string pattern)
+        {
+
+            int matchedCounts = 0;
+
+            string captchaDirectory = @"Resources";
+
+            DirectoryInfo d = new DirectoryInfo(captchaDirectory);//Assuming Test is your Folder
+            FileInfo[] Files = d.GetFiles(); //Getting Text files
+
+            // Create regex for certain question type
+            //var regex = @"unit_icon_0032_1_1.png";
+
+            
+            for (int i = 1; i <= 8; i++)
+            {
+                Bitmap sourceImage = new Bitmap(@"C:\Test\sample" + i + ".png");
+                sourceImage = ConvertToFormat(sourceImage, PixelFormat.Format24bppRgb);
+                sourceImage = new ResizeBicubic((int)(sourceImage.Width * 0.4), (int)(sourceImage.Height * 0.4)).Apply(sourceImage);
+
+                foreach (FileInfo file in Files)
+                {
+                    Match match = Regex.Match(file.Name, pattern, RegexOptions.IgnoreCase);
+                    if (!match.Success)
+                    {
+                        continue;
+                    }
+
+                    //Bitmap sourceImage = new Bitmap(@"C:\Test\quiz_1920_1080.png");
+                    Bitmap template = new Bitmap(file.FullName);
+
+                    template = ConvertToFormat(template, PixelFormat.Format24bppRgb);
+                    template = new ResizeBicubic((int)(template.Width * 0.4), (int)(template.Height * 0.4)).Apply(template);
+                    ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.90f);
+
+                    TemplateMatch[] matchings = tm.ProcessImage(sourceImage, template);
+
+                    matchedCounts += matchings.Length;
+                }
+                Console.WriteLine(i);
+            }
+
+            return matchedCounts;
+        }
+
+        private static Bitmap ResizeImage(Bitmap image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+
+        private static Bitmap ConvertToFormat(Bitmap image, PixelFormat format)
+        {
+            Bitmap copy = new Bitmap(image.Width, image.Height, format);
+            using (Graphics gr = Graphics.FromImage(copy))
+            {
+                gr.DrawImage(image, new Rectangle(0, 0, copy.Width, copy.Height));
+            }
+            return copy;
         }
 
         private static RewardType GetRewardType(string dropItem)
