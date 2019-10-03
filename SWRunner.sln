@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWRunnerApp", "SWRunnerApp\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWEmulator", "SWEmulator\SWEmulator.csproj", "{F3EABFD7-635A-422D-B6FE-54F298ABF8BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWRunnerTest", "SWRunnerTest\SWRunnerTest.csproj", "{22958EA2-F597-4C68-A6AF-76BE68BAC77C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWRunnerTest", "SWRunnerTest\SWRunnerTest.csproj", "{22958EA2-F597-4C68-A6AF-76BE68BAC77C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
