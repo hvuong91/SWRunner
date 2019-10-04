@@ -28,7 +28,7 @@ namespace SWRunner.Runners
             // 4. If finish, collect reward with filter
             // 5. Check for refill
             // 6. Start
-            modifiedTime = DateTime.Now;
+            ModifiedTime = DateTime.Now;
 
             while (true)
             {
@@ -49,7 +49,7 @@ namespace SWRunner.Runners
                 }
 
                 StartNewRun();
-                modifiedTime = DateTime.Now; // ?
+                ModifiedTime = DateTime.Now; // ?
             }
         }
 

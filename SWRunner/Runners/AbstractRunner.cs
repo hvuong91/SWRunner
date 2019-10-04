@@ -12,7 +12,7 @@ namespace SWRunner.Runners
         public string LogFile { get; private set; }
         public T RunnerConfig { get; private set; }
         public AbstractEmulator Emulator { get; private set; }
-        public DateTime modifiedTime { get; protected set; }
+        public DateTime ModifiedTime { get; protected set; }
 
         public int MinEnergyRequired { get;  protected set; }
         public TimeSpan MaxRunTime { get; protected set; }
@@ -44,9 +44,9 @@ namespace SWRunner.Runners
         {
             // Check last modification timestamp of log file
             DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
-            if (lastModifiedTime > modifiedTime)
+            if (lastModifiedTime > ModifiedTime)
             {
-                modifiedTime = lastModifiedTime;
+                ModifiedTime = lastModifiedTime;
                 return true;
             }
             return false;
@@ -66,7 +66,7 @@ namespace SWRunner.Runners
             // TODO: Some runnners won't support this
             // TODO: Random click to pop up revive dialog
             Thread.Sleep(1000);
-            Emulator.Click(RunnerConfig.NoRevivePoint); //TODO: This should be random click
+            Emulator.RandomClick();
 
             Thread.Sleep(1000);
             Emulator.Click(RunnerConfig.NoRevivePoint);
@@ -96,7 +96,8 @@ namespace SWRunner.Runners
 
         protected int GetCurrentEnergy()
         {
-            // TODO
+            // TODO: Get current energy to determine whether a refill should happen
+            // This will ignore the refill event as 10 is greater than default required energy
 
             return 10;
         }
