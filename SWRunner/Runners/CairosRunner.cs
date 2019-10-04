@@ -66,10 +66,10 @@ namespace SWRunner.Runners
                         break;
                     case RewardType.MYSTICAL_SCROLL:
                     case RewardType.SUMMON_STONE:
-                        Emulator.Click(RunnerConfig.GetMysticalScroll);
+                        Emulator.Click(RunnerConfig.GetMysticalScrollPoint);
                         break;
                     default:
-                        Emulator.Click(RunnerConfig.GetOther);
+                        Emulator.Click(RunnerConfig.GetOtherPoint);
                         break;
                 }
             }

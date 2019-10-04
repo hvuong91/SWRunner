@@ -6,13 +6,12 @@ namespace SWRunner.Runners
     {
         // Rune
         public PointF GetRunePoint;
-
         public PointF SellRunePoint;
         public PointF ConfirmSellRunePoint;
 
         // Other reward
-        public PointF GetMysticalScroll;
-        public PointF GetOther;
+        public PointF GetMysticalScrollPoint;
+        public PointF GetOtherPoint;
 
     }
 }

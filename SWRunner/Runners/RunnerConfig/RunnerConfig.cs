@@ -9,9 +9,20 @@ namespace SWRunner.Runners
     [Serializable, XmlRoot(ElementName = "RunConfig")]
     public abstract class RunnerConfig
     {
+        // Basic
         public PointF StartPoint;
         public PointF ReplayPoint;
         public PointF NoRevivePoint;
+
+        // Refill
+        public PointF OpenShopPoint;
+        public PointF BuyEnergyWithCrystalPoint;
+        public PointF ConfirmBuyPoint;
+        public PointF BuyOKPoint;
+        public PointF CloseShopPoint;
+
+        // Captcha
+        // TODO
     }
 
 }

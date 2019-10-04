@@ -22,14 +22,28 @@ namespace SWRunnerTest
 
             CairosRunnerConfig runConfig = new CairosRunnerConfig();
 
-            runConfig.StartPoint.X = 0.841f;
-            runConfig.StartPoint.Y = 0.710f;
+            // Basic
+            runConfig.StartPoint = new System.Drawing.PointF(0.841f, 0.710f);
+            runConfig.ReplayPoint = new System.Drawing.PointF(0.323f, 0.533f);
+            runConfig.NoRevivePoint = new System.Drawing.PointF(0.651f, 0.666f);
 
-            runConfig.ReplayPoint.X = 0.323f;
-            runConfig.ReplayPoint.Y = 0.533f;
+            // Refill
+            runConfig.OpenShopPoint = new System.Drawing.PointF(0.401f, 0.615f);
+            runConfig.BuyEnergyWithCrystalPoint = new System.Drawing.PointF(0.423f, 0.525f);
+            runConfig.ConfirmBuyPoint = new System.Drawing.PointF(0.418f, 0.606f);
+            runConfig.BuyOKPoint = new System.Drawing.PointF(0.502f, 0.599f);
+            runConfig.CloseShopPoint = new System.Drawing.PointF(0.499f, 0.868f);
 
-            runConfig.GetRunePoint.X = 0.584f;
-            runConfig.GetRunePoint.Y = 0.803f;
+            // TODO: Captcha
+
+            // Cairos config
+            runConfig.GetRunePoint = new System.Drawing.PointF(0.584f, 0.803f);
+            runConfig.SellRunePoint = new System.Drawing.PointF(0.417f, 0.807f);
+            runConfig.ConfirmSellRunePoint = new System.Drawing.PointF(0.408f, 0.595f);
+
+            runConfig.GetMysticalScrollPoint = new System.Drawing.PointF(0.499f, 0.767f);
+            runConfig.GetOtherPoint = new System.Drawing.PointF(0.499f, 0.829f);
+
 
             System.Xml.Serialization.XmlSerializer writer =
             new System.Xml.Serialization.XmlSerializer(typeof(RunnerConfig));
