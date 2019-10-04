@@ -21,11 +21,6 @@ namespace SWRunner.Runners
             throw new NotImplementedException();
         }
 
-        public override bool IsFailed()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Run()
         {
             throw new NotImplementedException();

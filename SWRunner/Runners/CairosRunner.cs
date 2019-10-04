@@ -18,6 +18,7 @@ namespace SWRunner.Runners
         {
             this.filter = filter;
             MinEnergyRequired = 8;
+            MaxRunTime = new TimeSpan(0, 2, 0); // TODO: This should come from the constructor params
         }
         public override void Run()
         {
@@ -54,6 +55,12 @@ namespace SWRunner.Runners
 
         public override void Collect()
         {
+            // Random click twice to pop up the reward dialog
+            Emulator.RandomClick();
+            Thread.Sleep(500);
+            Emulator.RandomClick();
+
+
             RunResult runResult = Helper.GetRunResult(LogFile);
             Reward reward = Helper.GetReward(runResult);
 
@@ -81,11 +88,6 @@ namespace SWRunner.Runners
                 Emulator.Click(RunnerConfig.ConfirmSellRunePoint);
             }
             Thread.Sleep(4000); // Wait for server response
-        }
-
-        public override bool IsFailed()
-        {
-            throw new NotImplementedException();
         }
 
     }

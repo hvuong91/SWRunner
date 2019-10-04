@@ -8,6 +8,8 @@ namespace SWEmulator
 
         void Click(PointF point);
 
+        void RandomClick();
+
         IntPtr GetMainWindow(string windowName);
     }
 }

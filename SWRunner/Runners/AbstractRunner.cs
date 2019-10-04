@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace SWRunner.Runners
 {
@@ -14,6 +15,8 @@ namespace SWRunner.Runners
         public DateTime modifiedTime { get; protected set; }
 
         public int MinEnergyRequired { get;  protected set; }
+        public TimeSpan MaxRunTime { get; protected set; }
+        
 
         public AbstractRunner(string logFile, T runnerConfig, AbstractEmulator emulator)
         {
@@ -28,6 +31,8 @@ namespace SWRunner.Runners
             if (NeedRefill())
             {
                 // TODO: Refill
+                Thread.Sleep(20000);
+
 
                 Emulator.Click(RunnerConfig.ReplayPoint);
             }
@@ -47,7 +52,12 @@ namespace SWRunner.Runners
             return false;
         }
 
-        public abstract bool IsFailed();
+        public bool IsFailed()
+        {
+            // Check last modification timestamp of log file
+            DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
+            return (DateTime.Now - lastModifiedTime) > MaxRunTime;
+        }
 
         public abstract void Run();
 
@@ -55,31 +65,46 @@ namespace SWRunner.Runners
         {
             // TODO: Some runnners won't support this
             // TODO: Random click to pop up revive dialog
+            Thread.Sleep(1000);
+            Emulator.Click(RunnerConfig.NoRevivePoint); //TODO: This should be random click
 
-            Emulator.Click(RunnerConfig.NoRevivePoint); //TODO: ensure there's wait time
+            Thread.Sleep(1000);
+            Emulator.Click(RunnerConfig.NoRevivePoint);
+
+            Thread.Sleep(2000);
         }
 
         public void StartNewRun()
         {
             // TODO: Some runners won't support this
-            // TODO: Ensure there's wait time
+            Thread.Sleep(3000);
+            RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
+            // Click twice to pop up replay option
+            RandomSleep();
             CheckRefill();
 
+            RandomSleep();
             Emulator.Click(RunnerConfig.StartPoint);
         }
 
-        private bool NeedRefill()
+        protected bool NeedRefill()
         {
             return GetCurrentEnergy() < MinEnergyRequired;
         }
 
-        private int GetCurrentEnergy()
+        protected int GetCurrentEnergy()
         {
             // TODO
 
             return 10;
+        }
+
+        protected void RandomSleep()
+        {
+            int randomWaitTime = new Random().Next(200, 1000);
+            Thread.Sleep(randomWaitTime);
         }
     }
 }

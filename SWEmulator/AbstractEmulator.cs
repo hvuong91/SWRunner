@@ -56,6 +56,19 @@ namespace SWEmulator
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONDOWN, 1, coord);
             Thread.Sleep(new Random().Next(MIN_WAIT, MAX_WAIT));
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONUP, 0, coord);
+
+            // Random sleep after click
+            int randomWaitTime = new Random().Next(500);
+            Thread.Sleep(randomWaitTime);
+        }
+
+        public void RandomClick()
+        {
+            int randomX = new Random().Next(Width / 2) + 200;
+            int randomY = new Random().Next(Height / 2) + 200;
+
+            Click(new PointF(randomX, randomY));
+            Thread.Sleep(200);
         }
 
         public abstract IntPtr GetMainWindow(string windowName);
