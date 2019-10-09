@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SWRunner.Runners;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +14,6 @@ namespace SWRunnerApp
     public partial class MainWindow : Window
     {
         private SWRunnerPresenter Presenter { get; } = new SWRunnerPresenter();
-
-        private CancellationTokenSource tokenSource;
 
         BackgroundWorker backgroundWorker = new BackgroundWorker();
 
@@ -60,17 +60,26 @@ namespace SWRunnerApp
             BackgroundWorker worker = (BackgroundWorker)sender;
             while (!worker.CancellationPending)
             {
-                //TODO: Call actual runner from argument
+                IRunner runner = (IRunner) e.Argument;
+                runner.Run();
                 Thread.Sleep(1000);
-                worker.ReportProgress(0, e.Argument);
+
+                if (!worker.CancellationPending)
+                {
+                    worker.ReportProgress(0, "Logging message to be here");
+                }
+
             }
         }
 
         private void StartCairos_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Add runner object to runworkerasync call
-            backgroundWorker.RunWorkerAsync("This should be runner object");
+            while (backgroundWorker.IsBusy) { }
+            Presenter.ActiveRunner = Presenter.CairosRunner;
+            backgroundWorker.RunWorkerAsync(Presenter.CairosRunner);
 
+            // Update buttons
             btnStopRun.IsEnabled = true;
 
             btnCairos.IsEnabled = false;
@@ -79,11 +88,16 @@ namespace SWRunnerApp
         private void BtnStopRun_Click(object sender, RoutedEventArgs e)
         {
             // Cancel backgroundworkers
+            Presenter.ActiveRunner.StopRunner();
+            Presenter.ActiveRunner = null;
+
             backgroundWorker.CancelAsync();
+
+            // Update buttons
             btnStopRun.IsEnabled = false;
 
-            // Enable other buttons
             btnCairos.IsEnabled = true;
+
         }
 
         private void Log_TextChanged(object sender, TextChangedEventArgs e)

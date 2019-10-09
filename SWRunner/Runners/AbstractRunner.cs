@@ -18,6 +18,8 @@ namespace SWRunner.Runners
         
         public string FullLogFile { get; private set; }
 
+        public bool Stop { get; set; } = false;
+
         public AbstractRunner(string logFile, string fullLogFile, T runnerConfig, AbstractEmulator emulator)
         {
             LogFile = logFile;
@@ -129,5 +131,9 @@ namespace SWRunner.Runners
             Thread.Sleep(randomWaitTime);
         }
 
+        public void StopRunner()
+        {
+            Stop = true;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SWRunner.Runners
 {
-    interface IRunner
+    public interface IRunner
     {
         void Run();
         void Collect();
@@ -9,5 +9,6 @@
         void SkipRevive();
         void CheckRefill();
         void StartNewRun();
+        void StopRunner();
     }
 }

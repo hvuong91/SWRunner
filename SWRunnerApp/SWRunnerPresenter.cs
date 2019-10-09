@@ -13,6 +13,8 @@ namespace SWRunnerApp
 {
     class SWRunnerPresenter
     {
+        public IRunner ActiveRunner { get; set; }
+
         public CairosRunner CairosRunner { get; private set; }
 
         public SWRunnerPresenter()

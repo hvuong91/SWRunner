@@ -27,11 +27,11 @@ namespace SWRunner.Runners
             // 5. Check for refill
             // 6. Start
             ModifiedTime = DateTime.Now;
+            Stop = false;
 
-            while (true)
+            while (!Stop)
             {
                 Thread.Sleep(3000);
-
                 if (IsFailed())
                 {
                     SkipRevive();
@@ -47,7 +47,8 @@ namespace SWRunner.Runners
                 }
 
                 StartNewRun();
-                ModifiedTime = DateTime.Now; // ?
+                Thread.Sleep(3000);
+                Stop = true;
             }
         }
 
