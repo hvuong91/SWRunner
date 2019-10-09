@@ -33,12 +33,24 @@ namespace SWRunner.Runners
         {
             if (NeedRefill())
             {
-                // TODO: Refill
-                Thread.Sleep(20000);
+                Emulator.Click(RunnerConfig.OpenShopPoint);
+                Helper.Sleep(2000, 3000);
+
+                Emulator.Click(RunnerConfig.BuyEnergyWithCrystalPoint);
+                Helper.Sleep(1000, 2000);
+
+                Emulator.Click(RunnerConfig.ConfirmBuyPoint);
+                Helper.Sleep(8000, 10000);
+
+                Emulator.Click(RunnerConfig.BuyOKPoint);
+                Helper.Sleep(1500, 2000);
+
+                Emulator.Click(RunnerConfig.CloseShopPoint);
+                Helper.Sleep(1500, 2000);
+
                 Emulator.Click(RunnerConfig.ReplayPoint);
             }
 
-            Emulator.Click(RunnerConfig.ReplayPoint);
         }
 
         public abstract void Collect();

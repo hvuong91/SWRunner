@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace SWRunner
 {
@@ -170,6 +171,12 @@ namespace SWRunner
             }
 
             return false;
+        }
+
+        public static void Sleep(int min, int max)
+        {
+            int sleepTime = new Random().Next(min, max);
+            Thread.Sleep(sleepTime);
         }
 
         private static Bitmap ResizeImage(Bitmap image, int width, int height)
