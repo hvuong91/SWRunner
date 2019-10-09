@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace SWRunner.Runners
+﻿namespace SWRunner.Runners
 {
     interface IRunner
     {
-        Task Run(CancellationToken ct);
+        void Run();
         void Collect();
         bool IsEnd();
         bool IsFailed();

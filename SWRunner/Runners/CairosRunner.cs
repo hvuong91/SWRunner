@@ -2,10 +2,7 @@
 using SWRunner.Filters;
 using SWRunner.Rewards;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SWRunner.Runners
 {
@@ -21,7 +18,7 @@ namespace SWRunner.Runners
             MinEnergyRequired = 8;
             MaxRunTime = new TimeSpan(0, 2, 0); // TODO: This should come from the constructor params
         }
-        public override async Task Run(CancellationToken ct)
+        public override void Run()
         {
             // 1. Check fail, do not revive. Jump to check refill
             // 2. Check run finish
@@ -33,8 +30,7 @@ namespace SWRunner.Runners
 
             while (true)
             {
-                await Task.Delay(3000, ct);
-                //Thread.Sleep(3000);
+                Thread.Sleep(3000);
 
                 if (IsFailed())
                 {
@@ -58,14 +54,13 @@ namespace SWRunner.Runners
         public override void Collect()
         {
             // Random click twice to pop up the reward dialog
-            Task.Delay(8000);
-            //Thread.Sleep(8000); // Wait for end animation
+            Thread.Sleep(8000); // Wait for end animation
             Emulator.RandomClick();
-            Task.Delay(2000);
-            //Thread.Sleep(2000); // wait for treasure box to pop up
+
+            Thread.Sleep(2000); // wait for treasure box to pop up
             Emulator.RandomClick();
-            Task.Delay(2000);
-            //Thread.Sleep(2000); // wait for reward to pop up
+
+            Thread.Sleep(2000); // wait for reward to pop up
 
 
             RunResult runResult = Helper.GetRunResult(LogFile);
@@ -91,12 +86,11 @@ namespace SWRunner.Runners
             {
                 // Only Rune needs to be sold
                 Emulator.Click(RunnerConfig.SellRunePoint);
-                Task.Delay(1500);
-                //Thread.Sleep(1500); // Wait for confirmation dialog
+                Thread.Sleep(1500); // Wait for confirmation dialog
                 Emulator.Click(RunnerConfig.ConfirmSellRunePoint);
             }
-            Task.Delay(4000);
-            //Thread.Sleep(4000); // Wait for server response
+
+            Thread.Sleep(4000); // Wait for server response
         }
 
     }

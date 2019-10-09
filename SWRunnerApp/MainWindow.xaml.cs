@@ -1,20 +1,8 @@
-﻿using SWRunner.Runners;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
+﻿using System;
+using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SWRunnerApp
 {
@@ -26,58 +14,76 @@ namespace SWRunnerApp
         private SWRunnerPresenter Presenter { get; } = new SWRunnerPresenter();
 
         private CancellationTokenSource tokenSource;
+
+        BackgroundWorker backgroundWorker = new BackgroundWorker();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            backgroundWorker = new BackgroundWorker
+            {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true
+            };
+            backgroundWorker.DoWork += BackgroundWorkerOnDoWork;
+            backgroundWorker.ProgressChanged += BackgroundWorkerOnProgressChanged;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorkerRunCompleted;
         }
 
-        private async void StartCairos_Click(object sender, RoutedEventArgs e)
+        private void BackgroundWorkerOnProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //MessageBox.Show(ConfigurationManager.AppSettings["CairosRunnerConfig"]);
+            object userObject = e.UserState;
+            int percentage = e.ProgressPercentage;
 
-            if (tokenSource != null)
+            log.Text += DateTime.Now + ": " + userObject + Environment.NewLine;
+        }
+
+        private void BackgroundWorkerRunCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
             {
-                tokenSource.Cancel();
+                log.Text += DateTime.Now + ": === Canceled ===" + Environment.NewLine;
+            }
+            else if (e.Error != null)
+            {
+                log.Text += DateTime.Now + ": === Error!!! ===" + Environment.NewLine;
             }
             else
             {
-                tokenSource = new CancellationTokenSource();
-                ((Button)sender).Content = "Cancel";
-                try
-                {
-                    while (true)
-                    {
-                        await Presenter.CairosRunner.Run(tokenSource.Token);
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                    log.Text += "Canceled";
-                }
-                catch (Exception ex)
-                {
-                    log.Text += "Something wrong:" + ex;
-                }
+                log.Text += DateTime.Now + ": === Stopped ===" + Environment.NewLine; 
             }
-
-            tokenSource = null;
         }
 
-        private async Task RunCairos(CancellationToken ct)
+        private void BackgroundWorkerOnDoWork(object sender, DoWorkEventArgs e)
         {
-            await Presenter.CairosRunner.Run(ct);
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            while (!worker.CancellationPending)
+            {
+                //TODO: Call actual runner from argument
+                Thread.Sleep(1000);
+                worker.ReportProgress(0, e.Argument);
+            }
         }
 
-        private async Task DoWorkAsyncInfiniteLoop(CancellationToken ct)
+        private void StartCairos_Click(object sender, RoutedEventArgs e)
         {
-            // do the work in the loop
-            string newData = DateTime.Now.ToLongTimeString();
+            // TODO: Add runner object to runworkerasync call
+            backgroundWorker.RunWorkerAsync("This should be runner object");
 
-            // update the UI
-            log.Text += newData + Environment.NewLine;
+            btnStopRun.IsEnabled = true;
 
-            // don't run again for at least 200 milliseconds
-            await Task.Delay(1000, ct);
+            btnCairos.IsEnabled = false;
+        }
+
+        private void BtnStopRun_Click(object sender, RoutedEventArgs e)
+        {
+            // Cancel backgroundworkers
+            backgroundWorker.CancelAsync();
+            btnStopRun.IsEnabled = false;
+
+            // Enable other buttons
+            btnCairos.IsEnabled = true;
         }
 
         private void Log_TextChanged(object sender, TextChangedEventArgs e)

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SWEmulator
 {
@@ -42,6 +39,9 @@ namespace SWEmulator
         private const int MIN_WAIT = 100;
         private const int MAX_WAIT = 200;
 
+        private const int OFFSET_X = 7;
+        private const int OFFSET_Y = 5;
+
         public int Width { get; set; }
         public int Height { get; set; }
 
@@ -53,7 +53,11 @@ namespace SWEmulator
 
         public void Click(PointF point)
         {
-            int coord = (int) point.Y << 16 | (int) point.X;
+            // Set up random pos for each time
+            int offSetX = new Random().Next(2 * OFFSET_X) - OFFSET_X;
+            int offSetY = new Random().Next(2 * OFFSET_Y) - OFFSET_Y;
+            int coord = (int) (point.Y + OFFSET_Y) << 16 | (int) (point.X + OFFSET_X);
+
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONDOWN, 1, coord);
             Thread.Sleep(new Random().Next(MIN_WAIT, MAX_WAIT));
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONUP, 0, coord);

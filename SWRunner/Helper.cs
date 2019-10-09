@@ -5,14 +5,12 @@ using SWEmulator;
 using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SWRunner
 {
@@ -172,11 +170,6 @@ namespace SWRunner
             }
 
             return false;
-        }
-
-        public static async Task Delay(int milSeconds)
-        {
-            await Task.Delay(milSeconds);
         }
 
         private static Bitmap ResizeImage(Bitmap image, int width, int height)

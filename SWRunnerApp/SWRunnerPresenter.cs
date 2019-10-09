@@ -15,8 +15,6 @@ namespace SWRunnerApp
     {
         public CairosRunner CairosRunner { get; private set; }
 
-        public bool Stop { get; set; } = false;
-
         public SWRunnerPresenter()
         {
             InitCairosRunner();

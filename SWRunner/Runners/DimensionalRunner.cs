@@ -1,10 +1,5 @@
-﻿using SWEmulator;
-using SWRunner.Filters;
+﻿using SWRunner.Filters;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SWRunner.Runners
 {
@@ -23,7 +18,7 @@ namespace SWRunner.Runners
             throw new NotImplementedException();
         }
 
-        public override async Task Run(CancellationToken ct)
+        public override void Run()
         {
             throw new NotImplementedException();
         }
