@@ -23,7 +23,7 @@ namespace SWRunnerApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SWRunnerPresenter Present { get; } = new SWRunnerPresenter();
+        private SWRunnerPresenter Presenter { get; } = new SWRunnerPresenter();
 
         private CancellationTokenSource tokenSource;
         public MainWindow()
@@ -47,16 +47,25 @@ namespace SWRunnerApp
                 {
                     while (true)
                     {
-                        await DoWorkAsyncInfiniteLoop(tokenSource.Token);
+                        await Presenter.CairosRunner.Run(tokenSource.Token);
                     }
                 }
                 catch (OperationCanceledException)
                 {
                     log.Text += "Canceled";
                 }
+                catch (Exception ex)
+                {
+                    log.Text += "Something wrong:" + ex;
+                }
             }
 
             tokenSource = null;
+        }
+
+        private async Task RunCairos(CancellationToken ct)
+        {
+            await Presenter.CairosRunner.Run(ct);
         }
 
         private async Task DoWorkAsyncInfiniteLoop(CancellationToken ct)
