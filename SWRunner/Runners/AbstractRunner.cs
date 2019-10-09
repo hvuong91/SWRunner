@@ -1,4 +1,5 @@
 ﻿using SWEmulator;
+using SWRunner.Rewards;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -13,20 +14,23 @@ namespace SWRunner.Runners
         public AbstractEmulator Emulator { get; private set; }
         public DateTime ModifiedTime { get; protected set; }
 
-        public int MinEnergyRequired { get;  protected set; }
+        public int MinEnergyRequired { get; protected set; }
         public TimeSpan MaxRunTime { get; protected set; }
-        
+
         public string FullLogFile { get; private set; }
 
         public bool Stop { get; set; } = false;
 
-        public AbstractRunner(string logFile, string fullLogFile, T runnerConfig, AbstractEmulator emulator)
+        public RunnerLogger Logger {get; private set;}
+
+        public AbstractRunner(string logFile, string fullLogFile, T runnerConfig, AbstractEmulator emulator, RunnerLogger logger)
         {
             LogFile = logFile;
             FullLogFile = fullLogFile;
             Emulator = emulator;
             RunnerConfig = runnerConfig;
             Helper.UpdateRunConfig(emulator, runnerConfig);
+            Logger = logger;
         }
 
         public void CheckRefill()

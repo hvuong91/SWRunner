@@ -1,4 +1,5 @@
 ﻿using SWRunner.Filters;
+using SWRunner.Rewards;
 using System;
 
 namespace SWRunner.Runners
@@ -8,7 +9,7 @@ namespace SWRunner.Runners
         DimensionalFilter filter;
 
         public DimensionalRunner(DimensionalFilter filter, string logFile, string fullLogFile) 
-            : base(logFile, fullLogFile, null, null)
+            : base(logFile, fullLogFile, null, null, null)
         {
             this.filter = filter;
         }

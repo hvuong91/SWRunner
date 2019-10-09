@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SWRunner.Rewards;
+using System;
 
 namespace SWRunner.Runners
 {
     class RiftRunner : AbstractRunner<RunnerConfig>
     {
-        public RiftRunner(string logFile) : base(logFile, "", null, null)
+        public RiftRunner(string logFile) : base(logFile, "", null, null, null)
         {
         }
 

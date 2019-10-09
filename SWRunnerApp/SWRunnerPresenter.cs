@@ -1,4 +1,5 @@
 ﻿using SWEmulator;
+using SWRunner;
 using SWRunner.Filters;
 using SWRunner.Runners;
 using System;
@@ -17,8 +18,11 @@ namespace SWRunnerApp
 
         public CairosRunner CairosRunner { get; private set; }
 
-        public SWRunnerPresenter()
+        public RunnerLogger Logger { get; private set; }
+
+        public SWRunnerPresenter(RunnerLogger logger)
         {
+            Logger = logger;
             InitCairosRunner();
         }
 
@@ -38,7 +42,7 @@ namespace SWRunnerApp
             }
 
             // TODO
-            CairosRunner = new CairosRunner(new CairosFilter(), runLog, fullLog, runConfig, new NoxEmulator());
+            CairosRunner = new CairosRunner(new CairosFilter(), runLog, fullLog, runConfig, new NoxEmulator(), Logger);
         }
 
     }

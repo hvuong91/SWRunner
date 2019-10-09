@@ -8,11 +8,8 @@ namespace SWRunner
         private CairosRunner cairosRunner;
         private DimensionalRunner dimensionalRunner;
 
-        private SWLogger logger = new SWLogger();
-
         public CairosRunner CairosRunner { get { return cairosRunner; } }
         public DimensionalRunner DimensionalRunner { get { return dimensionalRunner; } }
-        public SWLogger Logger { get { return logger; } }
 
         SWRunner(CairosFilter cairosFilter, DimensionalFilter dimensionalFilter)
         {

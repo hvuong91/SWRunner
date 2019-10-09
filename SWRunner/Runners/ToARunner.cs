@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SWRunner.Rewards;
+using System;
 
 namespace SWRunner.Runners
 {
     public class ToARunner : AbstractRunner<RunnerConfig>
     {
-        public ToARunner(string logFile) : base(logFile, "", null, null)
+        public ToARunner(string logFile) : base(logFile, "", null, null, null)
         {
         }
 

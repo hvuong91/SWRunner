@@ -1,4 +1,5 @@
-﻿using SWRunner.Runners;
+﻿using SWRunner;
+using SWRunner.Runners;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -13,13 +14,19 @@ namespace SWRunnerApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SWRunnerPresenter Presenter { get; } = new SWRunnerPresenter();
+        private SWRunnerPresenter Presenter { get; set; } 
+        private RunnerLogger Logger { get; set; }
 
         BackgroundWorker backgroundWorker = new BackgroundWorker();
+
+
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Logger = new RunnerLogger();
+            Presenter = new SWRunnerPresenter(Logger);
 
             backgroundWorker = new BackgroundWorker
             {
@@ -66,7 +73,7 @@ namespace SWRunnerApp
 
                 if (!worker.CancellationPending)
                 {
-                    worker.ReportProgress(0, "Logging message to be here");
+                    worker.ReportProgress(0, Logger.Message);
                 }
 
             }

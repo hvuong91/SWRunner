@@ -12,7 +12,7 @@ namespace SWRunner.Runners
         CairosFilter filter;
 
         public CairosRunner(CairosFilter filter, string logFile, string fullLogFile, CairosRunnerConfig runnerConfig, 
-            AbstractEmulator emulator) : base(logFile, fullLogFile, runnerConfig, emulator)
+            AbstractEmulator emulator, RunnerLogger logger) : base(logFile, fullLogFile, runnerConfig, emulator, logger)
         {
             this.filter = filter;
             MinEnergyRequired = 8;
@@ -67,7 +67,9 @@ namespace SWRunner.Runners
             RunResult runResult = Helper.GetRunResult(LogFile);
             Reward reward = Helper.GetReward(runResult);
 
-            if (filter.ShouldGet(reward))
+            bool getReward = filter.ShouldGet(reward);
+
+            if (getReward)
             {
                 switch (reward.Type)
                 {
@@ -90,6 +92,8 @@ namespace SWRunner.Runners
                 Thread.Sleep(1500); // Wait for confirmation dialog
                 Emulator.Click(RunnerConfig.ConfirmSellRunePoint);
             }
+
+            Logger.Log(runResult, reward, getReward);
 
             Thread.Sleep(4000); // Wait for server response
         }
