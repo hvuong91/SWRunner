@@ -10,6 +10,6 @@ namespace SWEmulator
 
         void RandomClick();
 
-        IntPtr GetMainWindow(string windowName);
+        IntPtr GetMainWindow();
     }
 }

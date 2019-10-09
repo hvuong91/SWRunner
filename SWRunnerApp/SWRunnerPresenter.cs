@@ -25,17 +25,20 @@ namespace SWRunnerApp
         private void InitCairosRunner()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(CairosRunnerConfig), new XmlRootAttribute("RunConfig"));
-            string testConfigXml = ConfigurationManager.AppSettings["CairosRunnerConfig"];
+            string configXml = ConfigurationManager.AppSettings["CairosRunnerConfig"];
+            string runLog = ConfigurationManager.AppSettings["RunsLog"];
+            string fullLog = ConfigurationManager.AppSettings["FullLog"];
+
             CairosRunnerConfig runConfig;
 
-            using (Stream reader = new FileStream(testConfigXml, FileMode.Open))
+            using (Stream reader = new FileStream(configXml, FileMode.Open))
             {
                 // Call the Deserialize method to restore the object's state.
                 runConfig = (CairosRunnerConfig)serializer.Deserialize(reader);
             }
 
             // TODO
-            CairosRunner = new CairosRunner(new CairosFilter(), "", runConfig, new NoxEmulator(""));
+            CairosRunner = new CairosRunner(new CairosFilter(), runLog, fullLog, runConfig, new NoxEmulator());
         }
 
     }

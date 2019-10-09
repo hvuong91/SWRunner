@@ -70,7 +70,7 @@ namespace SWRunnerTest
         [Test]
         public void Test()
         {
-            NoxEmulator emulator = new NoxEmulator("Nox");
+            NoxEmulator emulator = new NoxEmulator();
             emulator.Click(new Point(1006, 594)); // Settings
         }
 

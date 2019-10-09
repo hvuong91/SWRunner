@@ -58,7 +58,7 @@ namespace SWRunnerTest
         [Test]
         public void Test()
         {
-            NoxEmulator emulator = new NoxEmulator("Nox");
+            NoxEmulator emulator = new NoxEmulator();
             emulator.Width = 1144;
             emulator.Height = 644;
 

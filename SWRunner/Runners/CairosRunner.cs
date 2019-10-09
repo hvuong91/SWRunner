@@ -13,8 +13,8 @@ namespace SWRunner.Runners
     {
         CairosFilter filter;
 
-        public CairosRunner(CairosFilter filter, string logFile, CairosRunnerConfig runnerConfig, 
-            AbstractEmulator emulator) : base(logFile, runnerConfig, emulator)
+        public CairosRunner(CairosFilter filter, string logFile, string fullLogFile, CairosRunnerConfig runnerConfig, 
+            AbstractEmulator emulator) : base(logFile, fullLogFile, runnerConfig, emulator)
         {
             this.filter = filter;
             MinEnergyRequired = 8;

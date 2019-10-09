@@ -44,9 +44,9 @@ namespace SWEmulator
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public AbstractEmulator(string windowName)
+        public AbstractEmulator()
         {
-            MainWindow = GetMainWindow(windowName);
+            MainWindow = GetMainWindow();
             GetWindowSize(MainWindow);
         }
 
@@ -71,7 +71,7 @@ namespace SWEmulator
             Thread.Sleep(200);
         }
 
-        public abstract IntPtr GetMainWindow(string windowName);
+        public abstract IntPtr GetMainWindow();
 
         private void GetWindowSize(IntPtr hWnd)
         {

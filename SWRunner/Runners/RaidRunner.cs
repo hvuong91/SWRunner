@@ -6,7 +6,7 @@ namespace SWRunner.Runners
 {
     class RaidRunner : AbstractRunner<RunnerConfig>
     {
-        public RaidRunner(string logFile) : base(logFile, null, null)
+        public RaidRunner(string logFile) : base(logFile, "",  null, null)
         {
         }
 

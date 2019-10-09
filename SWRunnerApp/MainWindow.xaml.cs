@@ -31,9 +31,9 @@ namespace SWRunnerApp
             InitializeComponent();
         }
 
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private async void StartCairos_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(ConfigurationManager.AppSettings["CairosRunnerConfig"]);
+            //MessageBox.Show(ConfigurationManager.AppSettings["CairosRunnerConfig"]);
 
             if (tokenSource != null)
             {
@@ -45,7 +45,10 @@ namespace SWRunnerApp
                 ((Button)sender).Content = "Cancel";
                 try
                 {
-                    await DoWorkAsyncInfiniteLoop(tokenSource.Token);
+                    while (true)
+                    {
+                        await DoWorkAsyncInfiniteLoop(tokenSource.Token);
+                    }
                 }
                 catch (OperationCanceledException)
                 {
@@ -58,17 +61,14 @@ namespace SWRunnerApp
 
         private async Task DoWorkAsyncInfiniteLoop(CancellationToken ct)
         {
-            while (true)
-            {
-                // do the work in the loop
-                string newData = DateTime.Now.ToLongTimeString();
+            // do the work in the loop
+            string newData = DateTime.Now.ToLongTimeString();
 
-                // update the UI
-                log.Text += newData + Environment.NewLine;
+            // update the UI
+            log.Text += newData + Environment.NewLine;
 
-                // don't run again for at least 200 milliseconds
-                await Task.Delay(1000, ct);
-            }
+            // don't run again for at least 200 milliseconds
+            await Task.Delay(1000, ct);
         }
 
         private void Log_TextChanged(object sender, TextChangedEventArgs e)

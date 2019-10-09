@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace SWRunner.Runners
@@ -17,10 +18,12 @@ namespace SWRunner.Runners
         public int MinEnergyRequired { get;  protected set; }
         public TimeSpan MaxRunTime { get; protected set; }
         
+        public string FullLogFile { get; private set; }
 
-        public AbstractRunner(string logFile, T runnerConfig, AbstractEmulator emulator)
+        public AbstractRunner(string logFile, string fullLogFile, T runnerConfig, AbstractEmulator emulator)
         {
             LogFile = logFile;
+            FullLogFile = fullLogFile;
             Emulator = emulator;
             RunnerConfig = runnerConfig;
             Helper.UpdateRunConfig(emulator, runnerConfig);
@@ -94,12 +97,32 @@ namespace SWRunner.Runners
             return GetCurrentEnergy() < MinEnergyRequired;
         }
 
-        protected int GetCurrentEnergy()
+        public int GetCurrentEnergy()
         {
-            // TODO: Get current energy to determine whether a refill should happen
-            // This will ignore the refill event as 10 is greater than default required energy
+            int result = -1;
+            string line = "";
+            string temp = "";
+            StreamReader file = new StreamReader(FullLogFile);
+            while ((temp = file.ReadLine()) != null)
+            {
+                if (temp.Contains("Result"))
+                {
+                    line = temp;
+                }
+            }
 
-            return 10;
+            string pattern = "(.*wizard_energy\":)(\\d *)(.*)";
+
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match match = regex.Match(line);
+            if (match.Success)
+            {
+                Group group = match.Groups[2];
+                result = Int32.Parse(group.Value);
+            }
+
+            file.Close();
+            return result;
         }
 
         protected void RandomSleep()

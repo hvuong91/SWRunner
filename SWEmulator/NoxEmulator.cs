@@ -6,12 +6,11 @@ namespace SWEmulator
 {
     public class NoxEmulator : AbstractEmulator
     {
-        public NoxEmulator(string windowName) : base(windowName)
-        {
+        public NoxEmulator() { 
             // Do nothing for now
         }
 
-        public override IntPtr GetMainWindow(string windowName)
+        public override IntPtr GetMainWindow()
         {
             // 1. Caption: "Nox", Class: "Qt5QWindowIcon"
             // 2. Caption: "ScreenBoardClassWindow", Class: "Qt5QWindowIcon"

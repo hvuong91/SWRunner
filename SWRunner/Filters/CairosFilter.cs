@@ -5,6 +5,8 @@ namespace SWRunner.Filters
     public class CairosFilter : IFilter
     {
         // TOOD: Needs better logic for filter out runes
+        public CairosFilter() { }
+
         public bool ShouldGet(Reward reward)
         {
             // Take all non-rune drops
