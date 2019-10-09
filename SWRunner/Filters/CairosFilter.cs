@@ -10,7 +10,7 @@ namespace SWRunner.Filters
         public bool ShouldGet(Reward reward)
         {
             // Take all non-rune drops
-            if (reward.GetType() == typeof(Rune))
+            if (reward.GetType() != typeof(Rune))
             {
                 return true;
             }

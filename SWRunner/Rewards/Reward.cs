@@ -12,6 +12,13 @@ namespace SWRunner.Rewards
 
         public string Drop { get; private set; }
 
+        public Reward(string dropItem, RewardType type)
+        {
+            Drop = dropItem;
+            Type = type;
+            SetQuantity(dropItem);
+        }
+
         public Reward(string dropItem)
         {
             Drop = dropItem;

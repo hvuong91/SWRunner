@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SWRunner.Runners
 {
@@ -34,11 +35,13 @@ namespace SWRunner.Runners
             if (NeedRefill())
             {
                 // TODO: Refill
-                Thread.Sleep(20000);
-
+                //Thread.Sleep(20000);
+                Helper.Delay(20000);
 
                 Emulator.Click(RunnerConfig.ReplayPoint);
             }
+
+            Emulator.Click(RunnerConfig.ReplayPoint);
         }
 
         public abstract void Collect();
@@ -58,29 +61,33 @@ namespace SWRunner.Runners
         public bool IsFailed()
         {
             // Check last modification timestamp of log file
-            DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
-            return (DateTime.Now - lastModifiedTime) > MaxRunTime;
+             DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
+            return (DateTime.Now - ModifiedTime) > MaxRunTime;
         }
 
-        public abstract void Run();
+        public abstract Task Run(CancellationToken ct);
 
         public void SkipRevive()
         {
             // TODO: Some runnners won't support this
             // TODO: Random click to pop up revive dialog
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            Task.Delay(1000);
             Emulator.RandomClick();
 
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            Task.Delay(1000);
             Emulator.Click(RunnerConfig.NoRevivePoint);
 
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            Task.Delay(2000);
         }
 
         public void StartNewRun()
         {
             // TODO: Some runners won't support this
-            Thread.Sleep(3000);
+            Task.Delay(3000);
+            //Thread.Sleep(3000);
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
@@ -128,7 +135,9 @@ namespace SWRunner.Runners
         protected void RandomSleep()
         {
             int randomWaitTime = new Random().Next(200, 1000);
-            Thread.Sleep(randomWaitTime);
+            //Thread.Sleep(randomWaitTime);
+            Task.Delay(randomWaitTime);
         }
+
     }
 }

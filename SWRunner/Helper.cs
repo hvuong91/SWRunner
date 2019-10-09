@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SWRunner
 {
@@ -70,7 +71,9 @@ namespace SWRunner
                 case RewardType.ENCHANTED_GEM:
                     // TODO
                 case RewardType.OTHER:
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
+                    reward = new Reward(runResult.Drop, type);
+                    break;
             }
 
             return reward;
@@ -169,6 +172,11 @@ namespace SWRunner
             }
 
             return false;
+        }
+
+        public static async Task Delay(int milSeconds)
+        {
+            await Task.Delay(milSeconds);
         }
 
         private static Bitmap ResizeImage(Bitmap image, int width, int height)

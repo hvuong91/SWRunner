@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SWEmulator
 {
@@ -58,7 +59,7 @@ namespace SWEmulator
             PostMessage(MainWindow, Win32Constants.WM_LBUTTONUP, 0, coord);
 
             // Random sleep after click
-            int randomWaitTime = new Random().Next(500);
+            int randomWaitTime = new Random().Next(300);
             Thread.Sleep(randomWaitTime);
         }
 

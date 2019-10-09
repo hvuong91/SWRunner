@@ -3,6 +3,8 @@ using SWRunner.Filters;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SWRunner.Runners
 {
@@ -21,7 +23,7 @@ namespace SWRunner.Runners
             throw new NotImplementedException();
         }
 
-        public override void Run()
+        public override async Task Run(CancellationToken ct)
         {
             throw new NotImplementedException();
         }
