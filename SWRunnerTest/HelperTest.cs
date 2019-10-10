@@ -118,6 +118,8 @@ namespace SWRunnerTest
                                  GraphicsUnit.Pixel);
             }
             target.Save("C:\\TestWin32\\test1.png", ImageFormat.Png);
+
+            Helper.GetQuizImages(src);
         }
     }
 }

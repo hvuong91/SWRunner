@@ -82,6 +82,21 @@ namespace SWEmulator
             Thread.Sleep(randomWaitTime);
         }
 
+        public void Click(Point point)
+        {
+            int offSetX = new Random().Next(2 * OFFSET_X) - OFFSET_X;
+            int offSetY = new Random().Next(2 * OFFSET_Y) - OFFSET_Y;
+            int coord = (point.Y + OFFSET_Y) << 16 | (point.X + OFFSET_X);
+
+            PostMessage(MainWindow, Win32Constants.WM_LBUTTONDOWN, 1, coord);
+            Thread.Sleep(new Random().Next(MIN_WAIT, MAX_WAIT));
+            PostMessage(MainWindow, Win32Constants.WM_LBUTTONUP, 0, coord);
+
+            // Random sleep after click
+            int randomWaitTime = new Random().Next(300);
+            Thread.Sleep(randomWaitTime);
+        }
+
         public void RandomClick()
         {
             int randomX = new Random().Next(Width / 2) + 200;
