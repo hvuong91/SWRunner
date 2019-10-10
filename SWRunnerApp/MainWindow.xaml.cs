@@ -41,9 +41,13 @@ namespace SWRunnerApp
         private void BackgroundWorkerOnProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             object userObject = e.UserState;
-            int percentage = e.ProgressPercentage;
 
-            log.Text += DateTime.Now + ": " + userObject + Environment.NewLine;
+            RunnerLogger logger = (RunnerLogger)e.UserState;
+
+            log.Text += DateTime.Now + ": " + logger.Message + Environment.NewLine;
+
+            lblRuneCollect.Content = "Rune Collect: " + Logger.GetRunes;
+            lblRuneSell.Content = "Rune Sell: " + Logger.SellRunes;
         }
 
         private void BackgroundWorkerRunCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -69,11 +73,11 @@ namespace SWRunnerApp
             {
                 IRunner runner = (IRunner) e.Argument;
                 runner.Run();
-                Thread.Sleep(1000);
-
+                Debug.WriteLine("Finish run");
                 if (!worker.CancellationPending)
                 {
-                    worker.ReportProgress(0, Logger.Message);
+                    Debug.WriteLine("Start logging ...");
+                    worker.ReportProgress(0, Logger);
                 }
 
             }

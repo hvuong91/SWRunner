@@ -351,7 +351,7 @@ namespace SWRunner
         {
             RewardType type = RewardType.OTHER;
 
-            if (dropItem.Contains("Rune"))
+            if (dropItem.Contains("Rune") && !dropItem.Contains("Rune Piece"))
             {
                 type = RewardType.RUNE;
             }

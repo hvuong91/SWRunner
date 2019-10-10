@@ -32,6 +32,37 @@ namespace SWRunner.Rewards
             SubStat4 = subStat4;
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(Set);
+            sb.Append("(").Append(Slot).Append(")").Append(" - ");
+            sb.Append(MainStat).Append(Environment.NewLine);
+            if (!string.IsNullOrEmpty(PrefixStat))
+            {
+                sb.Append("Prefix: ").Append(PrefixStat).Append(Environment.NewLine);
+            }
+            if (!string.IsNullOrEmpty(SubStat1))
+            {
+                sb.Append("SubStat 1: ").Append(SubStat1).Append(Environment.NewLine);
+            }
+            if (!string.IsNullOrEmpty(SubStat2))
+            {
+                sb.Append("SubStat 2: ").Append(SubStat2).Append(Environment.NewLine);
+            }
+            if (!string.IsNullOrEmpty(SubStat3))
+            {
+                sb.Append("SubStat 3: ").Append(SubStat3).Append(Environment.NewLine);
+            }
+            if (!string.IsNullOrEmpty(SubStat4))
+            {
+                sb.Append("SubStat 4: ").Append(SubStat4).Append(Environment.NewLine);
+            }
+
+            return sb.ToString();
+        }
+
         public class RuneBuilder
         {
             private string grade;

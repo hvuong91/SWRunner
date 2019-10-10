@@ -21,7 +21,7 @@
                             <RowDefinition Height="2*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <GroupBox Header="Test" Grid.Row="0">
+                        <GroupBox Header="Dungeon" Grid.Row="0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -39,7 +39,7 @@
                                 <Button Content="Stop Run" Grid.ColumnSpan="2" Grid.Row="2" Margin="10" IsEnabled="False" Name="btnStopRun" Click="BtnStopRun_Click"/>
                             </Grid>
                         </GroupBox>
-                        <GroupBox Header="Test 2" Grid.Row="1">
+                        <GroupBox Header="Arena" Grid.Row="1">
                         </GroupBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -48,9 +48,18 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <GroupBox Header="Logs" Grid.Row="0">
-                            <TextBox Text="All log should be here" TextWrapping="Wrap" Name="log" TextChanged="Log_TextChanged" VerticalScrollBarVisibility="Visible"/>
+                            <TextBox TextWrapping="Wrap" Name="log" TextChanged="Log_TextChanged" VerticalScrollBarVisibility="Visible"/>
                         </GroupBox>
-                        <GroupBox Header="Drop Info" Grid.Row="1"/>
+                        <GroupBox Header="Drop Info" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" FontSize="20" Name="lblRuneCollect">Rune collect: 0</Label>
+                                <Label Grid.Column="1" FontSize="20" Name="lblRuneSell">Rune Sell: 0</Label>
+                            </Grid>
+                        </GroupBox>
                     </Grid>
                 </Grid>
             </TabItem>

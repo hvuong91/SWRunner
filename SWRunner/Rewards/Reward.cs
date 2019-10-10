@@ -59,6 +59,11 @@ namespace SWRunner.Rewards
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return Drop;
+        }
     }
 
     public enum RewardType { RUNE, GRIND_STONE, ENCHANTED_GEM, SUMMON_STONE, MYSTICAL_SCROLL, OTHER}

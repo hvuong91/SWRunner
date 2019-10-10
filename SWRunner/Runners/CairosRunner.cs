@@ -2,6 +2,7 @@
 using SWRunner.Filters;
 using SWRunner.Rewards;
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace SWRunner.Runners
@@ -27,17 +28,19 @@ namespace SWRunner.Runners
             // 5. Check for refill
             // 6. Start
             ModifiedTime = DateTime.Now;
-            Stop = false;
 
             while (!Stop)
             {
+                Debug.WriteLine("Checking run status ...");
                 Thread.Sleep(3000);
                 if (IsFailed())
                 {
+                    Debug.WriteLine("Run Failed");
                     SkipRevive();
                 }
                 else if (IsEnd())
                 {
+                    Debug.WriteLine("Collecting reward");
                     Collect();
                 }
                 else
@@ -47,8 +50,7 @@ namespace SWRunner.Runners
                 }
 
                 StartNewRun();
-                Thread.Sleep(3000);
-                Stop = true;
+                break;
             }
         }
 
@@ -95,7 +97,7 @@ namespace SWRunner.Runners
 
             Logger.Log(runResult, reward, getReward);
 
-            Thread.Sleep(4000); // Wait for server response
+            Thread.Sleep(3000); // Wait for server response
         }
 
     }

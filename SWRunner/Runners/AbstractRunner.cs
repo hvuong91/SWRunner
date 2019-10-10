@@ -1,6 +1,7 @@
 ﻿using SWEmulator;
 using SWRunner.Rewards;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -37,6 +38,7 @@ namespace SWRunner.Runners
         {
             if (NeedRefill())
             {
+                Debug.WriteLine("Perform refill");
                 Emulator.Click(RunnerConfig.OpenShopPoint);
                 Helper.Sleep(2000, 3000);
 
@@ -54,7 +56,7 @@ namespace SWRunner.Runners
 
                 Emulator.Click(RunnerConfig.ReplayPoint);
             }
-
+            Debug.WriteLine("No need to refill");
         }
 
         public abstract void Collect();
@@ -100,8 +102,8 @@ namespace SWRunner.Runners
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
-            // Click twice to pop up replay option
             RandomSleep();
+            Debug.WriteLine("Checking for refill ...");
             CheckRefill();
 
             RandomSleep();
@@ -127,7 +129,7 @@ namespace SWRunner.Runners
                 }
             }
 
-            string pattern = "(.*wizard_energy\":)(\\d *)(.*)";
+            string pattern = @"(.*wizard_energy" + "\"" +":)" + @"(\d*)(.*)";
 
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             Match match = regex.Match(line);
