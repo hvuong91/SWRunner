@@ -14,8 +14,4 @@
     <ProjectReference Include="..\SWEmulator\SWEmulator.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)Resources\captcha\*&quot; &quot;$(ProjectDir)$(OutDir)Resources&quot; /e /y /i" />
-  </Target>
-
 </Project>
