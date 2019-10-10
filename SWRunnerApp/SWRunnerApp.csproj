@@ -22,4 +22,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\Resources\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\%(RecursiveDir)\%(Filename)%(Extension)" />
+  </ItemGroup>
+
 </Project>
