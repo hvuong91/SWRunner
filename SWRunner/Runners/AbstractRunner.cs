@@ -15,7 +15,7 @@ namespace SWRunner.Runners
         public DateTime ModifiedTime { get; protected set; }
 
         public int MinEnergyRequired { get; protected set; }
-        public TimeSpan MaxRunTime { get; protected set; }
+        public TimeSpan MaxRunTime { get; set; }
 
         public string FullLogFile { get; private set; }
 

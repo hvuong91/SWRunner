@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SWEmulator;
+using SWRunner;
 using SWRunner.Filters;
 using SWRunner.Runners;
 using System.IO;
@@ -15,7 +16,7 @@ namespace SWRunnerTest
         public void IsEnd_GivenLogFileBeingModified_ReturnTrue()
         {
             CairosRunner test = new CairosRunner(
-                new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log - Copy.txt", new CairosRunnerConfig(), new NoxEmulator());
+                new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log - Copy.txt", new CairosRunnerConfig(), new NoxEmulator(), new RunnerLogger());
 
             File.WriteAllText(testLogFile, "Test");
 

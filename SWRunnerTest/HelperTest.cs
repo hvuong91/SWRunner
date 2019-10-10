@@ -44,7 +44,6 @@ namespace SWRunnerTest
             runConfig.GetMysticalScrollPoint = new System.Drawing.PointF(0.499f, 0.767f);
             runConfig.GetOtherPoint = new System.Drawing.PointF(0.499f, 0.829f);
 
-
             System.Xml.Serialization.XmlSerializer writer =
             new System.Xml.Serialization.XmlSerializer(typeof(RunnerConfig));
 

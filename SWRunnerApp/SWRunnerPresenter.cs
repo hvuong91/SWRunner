@@ -43,6 +43,7 @@ namespace SWRunnerApp
 
             // TODO
             CairosRunner = new CairosRunner(new CairosFilter(), runLog, fullLog, runConfig, new NoxEmulator(), Logger);
+            CairosRunner.MaxRunTime = new TimeSpan(0, 0, Int32.Parse(ConfigurationManager.AppSettings["CairosMaxRunTimeInSeconds"]));
         }
 
     }

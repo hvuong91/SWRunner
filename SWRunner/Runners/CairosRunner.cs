@@ -9,14 +9,14 @@ namespace SWRunner.Runners
     // TODO: Ensure to wait for each click.
     public class CairosRunner : AbstractRunner<CairosRunnerConfig>
     {
-        CairosFilter filter;
+        CairosFilter Filter { get; set; }
 
         public CairosRunner(CairosFilter filter, string logFile, string fullLogFile, CairosRunnerConfig runnerConfig, 
             AbstractEmulator emulator, RunnerLogger logger) : base(logFile, fullLogFile, runnerConfig, emulator, logger)
         {
-            this.filter = filter;
+            Filter = filter;
             MinEnergyRequired = 8;
-            MaxRunTime = new TimeSpan(0, 2, 0); // TODO: This should come from the constructor params
+            MaxRunTime = new TimeSpan(0, 2, 0); //This would be overriden
         }
         public override void Run()
         {
@@ -67,7 +67,7 @@ namespace SWRunner.Runners
             RunResult runResult = Helper.GetRunResult(LogFile);
             Reward reward = Helper.GetReward(runResult);
 
-            bool getReward = filter.ShouldGet(reward);
+            bool getReward = Filter.ShouldGet(reward);
 
             if (getReward)
             {
