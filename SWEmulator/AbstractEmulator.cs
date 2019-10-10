@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -32,7 +33,20 @@ namespace SWEmulator
             public int top;
             public int right;
             public int bottom;
+            public int Width
+            {
+                get { return right - left; }
+            }
+
+            public int Height
+            {
+                get { return bottom - top; }
+            }
         }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
         protected IntPtr MainWindow { get; private set; }
 
@@ -44,6 +58,7 @@ namespace SWEmulator
 
         public int Width { get; set; }
         public int Height { get; set; }
+        public object PixelFormat { get; private set; }
 
         public AbstractEmulator()
         {
@@ -76,6 +91,24 @@ namespace SWEmulator
             Thread.Sleep(200);
         }
 
+        public Bitmap PrintWindow(IntPtr mainWindow)
+        {
+            Rect rc;
+            GetWindowRect(mainWindow, out rc);
+
+            Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Graphics gfxBmp = Graphics.FromImage(bmp);
+            IntPtr hdcBitmap = gfxBmp.GetHdc();
+
+            PrintWindow(mainWindow, hdcBitmap, 0);
+
+            gfxBmp.ReleaseHdc(hdcBitmap);
+            gfxBmp.Dispose();
+
+            bmp.Save("C:\\TestWin32\\test.png", ImageFormat.Png);
+            return bmp;
+        }
+
         public abstract IntPtr GetMainWindow();
 
         private void GetWindowSize(IntPtr hWnd)
@@ -89,5 +122,7 @@ namespace SWEmulator
             Width = rct.right - rct.left;
             Height = rct.bottom - rct.top;
         }
+
+
     }
 }

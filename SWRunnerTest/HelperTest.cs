@@ -6,6 +6,8 @@ using SWRunner.Runners;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -96,6 +98,26 @@ namespace SWRunnerTest
             // Water
             string waterPattern = @"unit_icon_(.)*_3_\d.png";
             Assert.AreEqual(1, Helper.SolveQuiz(waterPattern));
+        }
+
+        [Test]
+        public void TestPrintScreen()
+        {
+            NoxEmulator emulator = new NoxEmulator();
+            IntPtr paintHwnd = AbstractEmulator.FindWindow(null, "Untitled - Paint");
+
+            Bitmap src = emulator.PrintWindow(paintHwnd);
+
+            Rectangle cropRect = new Rectangle(100, 100, 80, 80);
+            Bitmap target = new Bitmap(cropRect.Width, cropRect.Height);
+
+            using (Graphics g = Graphics.FromImage(target))
+            {
+                g.DrawImage(src, new Rectangle(0, 0, target.Width, target.Height),
+                                 cropRect,
+                                 GraphicsUnit.Pixel);
+            }
+            target.Save("C:\\TestWin32\\test1.png", ImageFormat.Png);
         }
     }
 }
