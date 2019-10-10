@@ -363,7 +363,7 @@ namespace SWRunner
             {
                 type = RewardType.ENCHANTED_GEM;
             }
-            else if (dropItem.Contains("Summoning Stones"))
+            else if (dropItem.Contains("Summoning Stone"))
             {
                 type = RewardType.SUMMON_STONE;
             }
