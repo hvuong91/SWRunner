@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Resources\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\%(RecursiveDir)\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\captcha\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\captcha\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\*.txt" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>
