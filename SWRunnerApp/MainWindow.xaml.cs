@@ -88,12 +88,29 @@ namespace SWRunnerApp
             // TODO: Add runner object to runworkerasync call
             while (backgroundWorker.IsBusy) { }
             Presenter.ActiveRunner = Presenter.CairosRunner;
-            backgroundWorker.RunWorkerAsync(Presenter.CairosRunner);
+            backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
 
             // Update buttons
-            btnStopRun.IsEnabled = true;
+            UpdateButtons();
+        }
 
-            btnCairos.IsEnabled = false;
+        private void StartToa_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Add runner object to runworkerasync call
+            while (backgroundWorker.IsBusy) { }
+            Presenter.ActiveRunner = Presenter.ToaRunner;
+            backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
+
+            // Update buttons
+            UpdateButtons();
+        }
+
+        private void UpdateButtons()
+        {
+            btnStopRun.IsEnabled = !btnStopRun.IsEnabled;
+
+            btnCairos.IsEnabled = !btnCairos.IsEnabled;
+            btnToa.IsEnabled = !btnToa.IsEnabled;
         }
 
         private void BtnStopRun_Click(object sender, RoutedEventArgs e)
@@ -105,9 +122,7 @@ namespace SWRunnerApp
             backgroundWorker.CancelAsync();
 
             // Update buttons
-            btnStopRun.IsEnabled = false;
-
-            btnCairos.IsEnabled = true;
+            UpdateButtons();
 
         }
 

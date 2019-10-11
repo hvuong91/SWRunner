@@ -89,8 +89,8 @@ namespace SWRunner
                 case RewardType.GRIND_STONE:
                     // TODO
                 case RewardType.ENCHANTED_GEM:
-                    // TODO
-                case RewardType.OTHER:
+                // TODO
+                default:
                     //throw new NotImplementedException();
                     reward = new Reward(runResult.Drop, type);
                     break;

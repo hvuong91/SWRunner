@@ -23,5 +23,10 @@ namespace SWEmulator
             return mainWindow;
         }
 
+        public override IntPtr GetScreen()
+        {
+            IntPtr parent = AbstractEmulator.FindWindow("Qt5QWindowIcon", "Nox");
+            return parent;
+        }
     }
 }

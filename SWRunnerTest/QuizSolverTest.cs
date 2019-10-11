@@ -18,7 +18,7 @@ namespace SWRunnerTest
         public void TestGetQuizPattern()
         {
             // All water
-            Bitmap sourceImage = new Bitmap(quizImgDir + "\\3.png");
+            Bitmap sourceImage = new Bitmap(quizImgDir + "\\1.png");
 
 
             string pattern = QuizSolver.GetQuizPattern(sourceImage);

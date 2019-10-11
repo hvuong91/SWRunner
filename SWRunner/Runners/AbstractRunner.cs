@@ -2,6 +2,7 @@
 using SWRunner.Rewards;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -102,7 +103,7 @@ namespace SWRunner.Runners
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
-            RandomSleep();
+            Thread.Sleep(1000); // ensure refill window is pop up
             Debug.WriteLine("Checking for refill ...");
             CheckRefill();
 
@@ -112,7 +113,10 @@ namespace SWRunner.Runners
 
         protected bool NeedRefill()
         {
-            return GetCurrentEnergy() < MinEnergyRequired;
+            Bitmap screenShot = Emulator.PrintWindow(Emulator.Screen);
+            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(800, 550, 400, 200));
+            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\gift_box.PNG"));
+            //return GetCurrentEnergy() < MinEnergyRequired;
         }
 
         public int GetCurrentEnergy()

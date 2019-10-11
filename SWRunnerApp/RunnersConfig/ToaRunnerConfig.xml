@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RunConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CairosRunnerConfig">
+<RunConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="ToaRunnerConfig">
   <StartPoint>
     <X>0.841</X>
     <Y>0.71</Y>
@@ -32,24 +32,4 @@
     <X>0.499</X>
     <Y>0.868</Y>
   </CloseShopPoint>
-  <GetRunePoint>
-    <X>0.584</X>
-    <Y>0.803</Y>
-  </GetRunePoint>
-  <SellRunePoint>
-    <X>0.417</X>
-    <Y>0.807</Y>
-  </SellRunePoint>
-  <ConfirmSellRunePoint>
-    <X>0.408</X>
-    <Y>0.595</Y>
-  </ConfirmSellRunePoint>
-  <GetMysticalScrollPoint>
-    <X>0.480</X>
-    <Y>0.850</Y>
-  </GetMysticalScrollPoint>
-  <GetOtherPoint>
-    <X>0.480</X>
-    <Y>0.766</Y>
-  </GetOtherPoint>
 </RunConfig>

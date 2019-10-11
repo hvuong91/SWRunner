@@ -25,32 +25,32 @@ namespace SWRunnerTest
             CairosRunnerConfig runConfig = new CairosRunnerConfig();
 
             // Basic
-            runConfig.StartPoint = new System.Drawing.PointF(0.841f, 0.710f);
-            runConfig.ReplayPoint = new System.Drawing.PointF(0.323f, 0.533f);
-            runConfig.NoRevivePoint = new System.Drawing.PointF(0.651f, 0.666f);
+            runConfig.StartPoint = new PointF(0.841f, 0.710f);
+            runConfig.ReplayPoint = new PointF(0.323f, 0.533f);
+            runConfig.NoRevivePoint = new PointF(0.651f, 0.666f);
 
             // Refill
-            runConfig.OpenShopPoint = new System.Drawing.PointF(0.401f, 0.615f);
-            runConfig.BuyEnergyWithCrystalPoint = new System.Drawing.PointF(0.423f, 0.525f);
-            runConfig.ConfirmBuyPoint = new System.Drawing.PointF(0.418f, 0.606f);
-            runConfig.BuyOKPoint = new System.Drawing.PointF(0.502f, 0.599f);
-            runConfig.CloseShopPoint = new System.Drawing.PointF(0.499f, 0.868f);
+            runConfig.OpenShopPoint = new PointF(0.401f, 0.615f);
+            runConfig.BuyEnergyWithCrystalPoint = new PointF(0.423f, 0.525f);
+            runConfig.ConfirmBuyPoint = new PointF(0.418f, 0.606f);
+            runConfig.BuyOKPoint = new PointF(0.502f, 0.599f);
+            runConfig.CloseShopPoint = new PointF(0.499f, 0.868f);
 
             // TODO: Captcha
 
             // Cairos config
-            runConfig.GetRunePoint = new System.Drawing.PointF(0.584f, 0.803f);
-            runConfig.SellRunePoint = new System.Drawing.PointF(0.417f, 0.807f);
-            runConfig.ConfirmSellRunePoint = new System.Drawing.PointF(0.408f, 0.595f);
+            runConfig.GetRunePoint = new PointF(0.584f, 0.803f);
+            runConfig.SellRunePoint = new PointF(0.417f, 0.807f);
+            runConfig.ConfirmSellRunePoint = new PointF(0.408f, 0.595f);
 
-            runConfig.GetMysticalScrollPoint = new System.Drawing.PointF(0.499f, 0.767f);
-            runConfig.GetOtherPoint = new System.Drawing.PointF(0.499f, 0.829f);
+            runConfig.GetMysticalScrollPoint = new PointF(0.499f, 0.767f);
+            runConfig.GetOtherPoint = new PointF(0.499f, 0.829f);
 
-            System.Xml.Serialization.XmlSerializer writer =
-            new System.Xml.Serialization.XmlSerializer(typeof(RunnerConfig));
+            XmlSerializer writer =
+            new XmlSerializer(typeof(RunnerConfig));
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//TestConfig.xml";
-            System.IO.FileStream file = System.IO.File.Create(path);
+            FileStream file = File.Create(path);
 
             writer.Serialize(file, runConfig);
             file.Close();

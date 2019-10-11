@@ -2,6 +2,8 @@
 using SWEmulator;
 using SWRunner;
 using SWRunner.Rewards;
+using SWRunnerApp;
+using System;
 using System.Drawing;
 using static SWRunner.Rewards.Rune;
 
@@ -10,6 +12,8 @@ namespace SWRunnerTest
     [TestFixture]
     class RewardTest
     {
+        public object QuizSolve { get; private set; }
+
         [Test]
         public void Reward_GivenRuneDrop_SetRuneTypeQuantity1()
         {
@@ -73,6 +77,34 @@ namespace SWRunnerTest
             NoxEmulator emulator = new NoxEmulator();
             emulator.Click(new Point(1006, 594)); // Settings
         }
+        
+        [Test]
+        public void TestPrintWindow()
+        {
+            NoxEmulator emulator = new NoxEmulator();
 
+            IntPtr parent = AbstractEmulator.FindWindow("Qt5QWindowIcon", "Nox");
+            IntPtr subWindow = AbstractEmulator.FindWindowEx(parent, IntPtr.Zero, "Qt5QWindowIcon", "ScreenBoardClassWindow");
+            IntPtr mainWindow = AbstractEmulator.FindWindowEx(subWindow, IntPtr.Zero, "Qt5QWindowIcon", "QWidgetClassWindow");
+            IntPtr sub = AbstractEmulator.FindWindowEx(mainWindow, IntPtr.Zero, "subWin", "sub");
+
+            emulator.PrintWindow(parent);
+        }
+
+        [Test]
+        public void TestMatchImage()
+        {
+            NoxEmulator emulator = new NoxEmulator();
+
+            IntPtr parent = AbstractEmulator.FindWindow("Qt5QWindowIcon", "Nox");
+            Bitmap source = emulator.PrintWindow(parent);
+
+            Bitmap crop = BitmapUtils.CropImage(source, new Rectangle(800, 550, 400, 200));
+
+
+            string test1 = @"C:\Users\Administrator\Desktop\1\dungeonEnergy.png";
+            string test2 = @"E:\SWRunner\Resources\general\gift_box.png";
+            Assert.AreEqual(1, QuizSolver.FindMatchImage(crop, new Bitmap(test2)));
+        }
     }
 }

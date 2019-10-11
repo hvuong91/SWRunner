@@ -49,20 +49,22 @@ namespace SWEmulator
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
         protected IntPtr MainWindow { get; private set; }
+        public IntPtr Screen { get; private set; }
 
-        private const int MIN_WAIT = 100;
-        private const int MAX_WAIT = 200;
+        private const int MIN_WAIT = 200;
+        private const int MAX_WAIT = 300;
 
         private const int OFFSET_X = 7;
         private const int OFFSET_Y = 5;
 
         public int Width { get; set; }
         public int Height { get; set; }
-        public object PixelFormat { get; private set; }
 
         public AbstractEmulator()
         {
             MainWindow = GetMainWindow();
+            Screen = GetScreen();
+
             GetWindowSize(MainWindow);
         }
 
@@ -111,7 +113,7 @@ namespace SWEmulator
             Rect rc;
             GetWindowRect(mainWindow, out rc);
 
-            Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
             IntPtr hdcBitmap = gfxBmp.GetHdc();
 
@@ -124,7 +126,21 @@ namespace SWEmulator
             return bmp;
         }
 
+        public void PressEsc()
+        {
+            PressKey(Win32Constants.VK_ESCAPE);
+        }
+
+        public void PressKey(int key)
+        {
+            PostMessage(MainWindow, Win32Constants.WM_KEYDOWN, key, 0);
+            Thread.Sleep(200);
+            PostMessage(MainWindow, Win32Constants.WM_KEYUP, key, 0);
+        }
+
         public abstract IntPtr GetMainWindow();
+
+        public abstract IntPtr GetScreen();
 
         private void GetWindowSize(IntPtr hWnd)
         {

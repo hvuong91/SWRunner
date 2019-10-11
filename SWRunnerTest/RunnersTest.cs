@@ -25,5 +25,12 @@ namespace SWRunnerTest
             test.GetCurrentEnergy();
         }
 
+        [Test]
+        public void TestKeySend()
+        {
+            NoxEmulator emulator = new NoxEmulator();
+            emulator.PressEsc();
+        }
+
     }
 }

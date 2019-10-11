@@ -17,13 +17,14 @@ namespace SWRunnerApp
         public IRunner ActiveRunner { get; set; }
 
         public CairosRunner CairosRunner { get; private set; }
-
+        public ToARunner ToaRunner { get; private set; }
         public RunnerLogger Logger { get; private set; }
 
         public SWRunnerPresenter(RunnerLogger logger)
         {
             Logger = logger;
             InitCairosRunner();
+            InitToaRunner();
         }
 
         private void InitCairosRunner()
@@ -44,6 +45,25 @@ namespace SWRunnerApp
             // TODO
             CairosRunner = new CairosRunner(new CairosFilter(), runLog, fullLog, runConfig, new NoxEmulator(), Logger);
             CairosRunner.MaxRunTime = new TimeSpan(0, 0, Int32.Parse(ConfigurationManager.AppSettings["CairosMaxRunTimeInSeconds"]));
+        }
+
+        private void InitToaRunner()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(ToaRunnerConfig), new XmlRootAttribute("RunConfig"));
+            string configXml = ConfigurationManager.AppSettings["ToaRunnerConfig"];
+            string toaLog = ConfigurationManager.AppSettings["ToaLog"];
+            string fullLog = ConfigurationManager.AppSettings["FullLog"];
+
+            ToaRunnerConfig runConfig;
+
+            using (Stream reader = new FileStream(configXml, FileMode.Open))
+            {
+                // Call the Deserialize method to restore the object's state.
+                runConfig = (ToaRunnerConfig)serializer.Deserialize(reader);
+            }
+
+            // TODO
+            ToaRunner = new ToARunner(toaLog, fullLog, runConfig, new NoxEmulator(), Logger);
         }
 
     }

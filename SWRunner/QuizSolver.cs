@@ -92,6 +92,23 @@ namespace SWRunnerApp
             return CropImage(source, rec);
         }
 
+        public static int FindMatchImage(Bitmap source, Bitmap template)
+        {
+            int result = 0;
+
+            source = ConvertToFormat(source, PixelFormat.Format24bppRgb);
+            source = new ResizeBicubic((int)(source.Width * 0.4), (int)(source.Height * 0.4)).Apply(source);
+
+            template = ConvertToFormat(template, PixelFormat.Format24bppRgb);
+            template = new ResizeBicubic((int)(template.Width * 0.4), (int)(template.Height * 0.4)).Apply(template);
+
+            ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.90f);
+
+            TemplateMatch[] matchings = tm.ProcessImage(source, template);
+
+            return matchings.Length;
+        }
+
         public static Bitmap CropImage(Bitmap source, Rectangle rec)
         {
             Bitmap target = new Bitmap(rec.Width, rec.Height);
