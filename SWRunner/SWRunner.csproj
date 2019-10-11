@@ -14,4 +14,9 @@
     <ProjectReference Include="..\SWEmulator\SWEmulator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\Resources\captcha\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\captcha\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\captchaPopup\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\captchaPopup\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\*.txt" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>

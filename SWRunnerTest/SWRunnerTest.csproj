@@ -35,4 +35,9 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\Resources\captcha\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\TestData\captcha\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\captchaPopup\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\TestData\captchaPopup\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\quiz_img\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\TestData\quiz_img\%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>
