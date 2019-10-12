@@ -57,7 +57,7 @@ namespace SWRunner
             return result;
         }
 
-        public static void UpdateRunConfig<T>(AbstractEmulator emulator, T runConfig) where T : RunnerConfig
+        public static void UpdateRunConfig<T>(AbstractEmulator emulator, T runConfig) where T : AbstractRunnerConfig
         {
             FieldInfo[] fields = runConfig.GetType().GetFields();
 

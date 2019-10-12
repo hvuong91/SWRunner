@@ -3,7 +3,7 @@ using System;
 
 namespace SWRunner.Runners
 {
-    class RaidRunner : AbstractRunner<RunnerConfig>
+    class RaidRunner : AbstractRunner<AbstractRunnerConfig>
     {
         public RaidRunner(string logFile) : base(logFile, "",  null, null, null)
         {

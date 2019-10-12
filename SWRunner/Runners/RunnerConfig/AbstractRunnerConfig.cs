@@ -7,7 +7,7 @@ namespace SWRunner.Runners
 {
     [XmlInclude(typeof(CairosRunnerConfig))]
     [Serializable, XmlRoot(ElementName = "RunConfig")]
-    public abstract class RunnerConfig
+    public abstract class AbstractRunnerConfig
     {
         // Basic
         public PointF StartPoint;

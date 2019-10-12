@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SWRunner.Runners
 { 
-    public class ToaRunnerConfig : RunnerConfig
+    public class ToaRunnerConfig : AbstractRunnerConfig
     {
         // Nothing to add here
     }

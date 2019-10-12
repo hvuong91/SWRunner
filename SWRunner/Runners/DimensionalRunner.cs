@@ -1,17 +1,71 @@
-﻿using SWRunner.Filters;
+﻿using SWEmulator;
+using SWRunner.Filters;
 using SWRunner.Rewards;
 using System;
+using System.Diagnostics;
+using System.Threading;
 
 namespace SWRunner.Runners
 {
-    class DimensionalRunner : AbstractRunner<RunnerConfig>
+    class DimensionalRunner : AbstractRunner<AbstractRunnerConfig>
     {
-        DimensionalFilter filter;
+        private DimensionalFilter Filter { get; set; }
 
-        public DimensionalRunner(DimensionalFilter filter, string logFile, string fullLogFile) 
-            : base(logFile, fullLogFile, null, null, null)
+        public DimensionalRunner(DimensionalFilter filter,
+                                 string logFile,
+                                 string fullLogFile,
+                                 DimensionalRunnerConfig runnerConfig,
+                                 AbstractEmulator emulator,
+                                 RunnerLogger logger)
+            : base(logFile, fullLogFile, runnerConfig, emulator, logger)
         {
-            this.filter = filter;
+            Filter = filter;
+        }
+
+        public override void Run()
+        {
+            // 1. Check fail, do not revive.
+            // 2. Check run finish
+            // 3. If not finish, wait 3-5s
+            // 4. If finish, collect reward with filter
+            // 6. Start
+            ModifiedTime = DateTime.Now;
+
+            while (!Stop)
+            {
+                Debug.WriteLine("Checking run status ...");
+                Thread.Sleep(3000);
+                if (IsFailed())
+                {
+                    Debug.WriteLine("Run Failed");
+                    SkipRevive();
+                }
+                else if (IsEnd())
+                {
+                    Debug.WriteLine("Collecting reward");
+                    Collect();
+                }
+                else
+                {
+                    // Run is not completed yet
+                    continue;
+                }
+
+                StartNewRun();
+                break;
+            }
+        }
+
+        public override void StartNewRun()
+        {
+            Thread.Sleep(3000);
+            RandomSleep();
+            Emulator.Click(RunnerConfig.ReplayPoint);
+
+            Thread.Sleep(1000); // ensure refill window is pop up
+
+            RandomSleep();
+            Emulator.Click(RunnerConfig.StartPoint);
         }
 
         public override void Collect()
@@ -19,9 +73,5 @@ namespace SWRunner.Runners
             throw new NotImplementedException();
         }
 
-        public override void Run()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

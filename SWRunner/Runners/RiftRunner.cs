@@ -3,7 +3,7 @@ using System;
 
 namespace SWRunner.Runners
 {
-    class RiftRunner : AbstractRunner<RunnerConfig>
+    class RiftRunner : AbstractRunner<AbstractRunnerConfig>
     {
         public RiftRunner(string logFile) : base(logFile, "", null, null, null)
         {

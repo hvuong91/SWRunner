@@ -47,7 +47,7 @@ namespace SWRunnerTest
             runConfig.GetOtherPoint = new PointF(0.499f, 0.829f);
 
             XmlSerializer writer =
-            new XmlSerializer(typeof(RunnerConfig));
+            new XmlSerializer(typeof(AbstractRunnerConfig));
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//TestConfig.xml";
             FileStream file = File.Create(path);

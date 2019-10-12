@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace SWRunner.Runners
 {
-    public abstract class AbstractRunner<T> : IRunner where T : RunnerConfig
+    public abstract class AbstractRunner<T> : IRunner where T : AbstractRunnerConfig
     {
         public string LogFile { get; private set; }
         public T RunnerConfig { get; private set; }
@@ -96,9 +96,8 @@ namespace SWRunner.Runners
             Thread.Sleep(2000);
         }
 
-        public void StartNewRun()
+        public virtual void StartNewRun()
         {
-            // TODO: Some runners won't support this
             Thread.Sleep(3000);
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);

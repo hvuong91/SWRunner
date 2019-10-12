@@ -2,7 +2,7 @@
 
 namespace SWRunner.Runners
 {
-    public class CairosRunnerConfig : RunnerConfig
+    public class CairosRunnerConfig : AbstractRunnerConfig
     {
         // Rune
         public PointF GetRunePoint;
