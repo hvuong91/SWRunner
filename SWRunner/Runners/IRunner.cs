@@ -10,5 +10,6 @@
         void CheckRefill();
         void StartNewRun();
         void StopRunner();
+        void ReadyRunner();
     }
 }

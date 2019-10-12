@@ -157,5 +157,10 @@ namespace SWRunner.Runners
         {
             Stop = true;
         }
+
+        public void ReadyRunner()
+        {
+            Stop = false;
+        }
     }
 }

@@ -69,9 +69,11 @@ namespace SWRunnerApp
         private void BackgroundWorkerOnDoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = (BackgroundWorker)sender;
+            IRunner runner = (IRunner)e.Argument;
+            runner.ReadyRunner();
+
             while (!worker.CancellationPending)
             {
-                IRunner runner = (IRunner) e.Argument;
                 runner.Run();
                 Debug.WriteLine("Finish run");
                 if (!worker.CancellationPending)
