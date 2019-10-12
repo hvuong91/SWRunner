@@ -49,8 +49,7 @@ namespace SWEmulator
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
         protected IntPtr MainWindow { get; private set; }
-        public IntPtr Screen { get; private set; }
-
+        
         private const int MIN_WAIT = 200;
         private const int MAX_WAIT = 300;
 
@@ -63,7 +62,6 @@ namespace SWEmulator
         public AbstractEmulator()
         {
             MainWindow = GetMainWindow();
-            Screen = GetScreen();
 
             GetWindowSize(MainWindow);
         }
@@ -140,7 +138,7 @@ namespace SWEmulator
 
         public abstract IntPtr GetMainWindow();
 
-        public abstract IntPtr GetScreen();
+        public abstract Bitmap PrintWindow();
 
         private void GetWindowSize(IntPtr hWnd)
         {

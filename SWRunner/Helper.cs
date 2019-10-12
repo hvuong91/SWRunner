@@ -6,6 +6,7 @@ using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -130,7 +131,7 @@ namespace SWRunner
 
             int matchedCounts = 0;
 
-            string captchaDirectory = @"Resources";
+            string captchaDirectory = @"Resources\captcha\";
 
             DirectoryInfo d = new DirectoryInfo(captchaDirectory);//Assuming Test is your Folder
             FileInfo[] Files = d.GetFiles(); //Getting Text files
@@ -162,9 +163,12 @@ namespace SWRunner
 
                     TemplateMatch[] matchings = tm.ProcessImage(sourceImage, template);
 
-                    matchedCounts += matchings.Length;
+                    if (matchings.Length > 0)
+                    {
+                        matchedCounts += matchings.Length;
+                    }
                 }
-                Console.WriteLine(i);
+                Debug.WriteLine(i);
             }
 
             return matchedCounts;

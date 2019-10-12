@@ -113,7 +113,7 @@ namespace SWRunner.Runners
 
         protected bool NeedRefill()
         {
-            Bitmap screenShot = Emulator.PrintWindow(Emulator.Screen);
+            Bitmap screenShot = Emulator.PrintWindow();
             Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(800, 550, 400, 200));
             return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\gift_box.PNG"));
             //return GetCurrentEnergy() < MinEnergyRequired;

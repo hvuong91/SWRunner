@@ -49,5 +49,10 @@ namespace SWRunner
             }
             return copy;
         }
+
+        public static Bitmap Resize(Bitmap source, int newWidth, int newHeight)
+        {
+            return new ResizeBicubic(newWidth, newHeight).Apply(source);
+        }
     }
 }
