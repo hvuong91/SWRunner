@@ -18,6 +18,7 @@ namespace SWRunnerApp
 
         public CairosRunner CairosRunner { get; private set; }
         public ToARunner ToaRunner { get; private set; }
+        public RiftRunner RiftRunner { get; private set; }
         public RunnerLogger Logger { get; private set; }
 
         public SWRunnerPresenter(RunnerLogger logger)
@@ -25,6 +26,7 @@ namespace SWRunnerApp
             Logger = logger;
             InitCairosRunner();
             InitToaRunner();
+            InitRiftRunner();
         }
 
         private void InitCairosRunner()
@@ -64,6 +66,25 @@ namespace SWRunnerApp
 
             // TODO
             ToaRunner = new ToARunner(toaLog, fullLog, runConfig, new NoxEmulator(), Logger);
+        }
+
+        private void InitRiftRunner()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(RiftRunnerConfig), new XmlRootAttribute("RunConfig"));
+            string configXml = ConfigurationManager.AppSettings["RiftRunnerConfig"];
+            string riftLog = ConfigurationManager.AppSettings["Riftlog"];
+            string fullLog = ConfigurationManager.AppSettings["FullLog"];
+
+            RiftRunnerConfig runConfig;
+
+            using (Stream reader = new FileStream(configXml, FileMode.Open))
+            {
+                // Call the Deserialize method to restore the object's state.
+                runConfig = (RiftRunnerConfig)serializer.Deserialize(reader);
+            }
+
+            // TODO
+            RiftRunner = new RiftRunner(new RiftFilter(),riftLog, fullLog, runConfig, new NoxEmulator(), Logger);
         }
 
     }

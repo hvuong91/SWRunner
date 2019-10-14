@@ -84,7 +84,7 @@ namespace SWRunnerApp
 
         public static string GetQuizPattern(Bitmap screen, int width, int height)
         {
-            string pattern = String.Empty;
+             string pattern = String.Empty;
             double scale = 0.8;
 
             Rectangle rec = new Rectangle((int)(400 * width / BASE_WIDTH),

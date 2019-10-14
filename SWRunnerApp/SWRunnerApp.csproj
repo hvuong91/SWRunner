@@ -20,6 +20,9 @@
     <None Update="RunnersConfig\CairosRunnerConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="RunnersConfig\RiftRunnerConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="RunnersConfig\ToaRunnerConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

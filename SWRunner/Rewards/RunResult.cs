@@ -20,13 +20,13 @@ namespace SWRunner.Rewards
             return reward;
         }
 
-        public DateTime Date { get; set; }
+        //public DateTime Date { get; set; }
 
         [BooleanTrueValues("win")]
-        [BooleanFalseValues("lose")]
+        [BooleanFalseValues(new string[] { "lose", "Did not kill" })]
         public bool Result { get; set; }
 
-        public DateTime Time { get; set; }
+        //public DateTime Time { get; set; }
 
         public string Drop { get; set; }
 

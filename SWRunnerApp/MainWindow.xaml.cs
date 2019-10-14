@@ -108,12 +108,24 @@ namespace SWRunnerApp
             UpdateButtons();
         }
 
+        private void StartRift_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Add runner object to runworkerasync call
+            while (backgroundWorker.IsBusy) { }
+            Presenter.ActiveRunner = Presenter.RiftRunner;
+            backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
+
+            // Update buttons
+            UpdateButtons();
+        }
+
         private void UpdateButtons()
         {
             btnStopRun.IsEnabled = !btnStopRun.IsEnabled;
 
             btnCairos.IsEnabled = !btnCairos.IsEnabled;
             btnToa.IsEnabled = !btnToa.IsEnabled;
+            btnRift.IsEnabled = !btnRift.IsEnabled;
         }
 
         private void BtnStopRun_Click(object sender, RoutedEventArgs e)
