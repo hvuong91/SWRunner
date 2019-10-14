@@ -59,6 +59,7 @@ namespace SWRunnerApp
             else if (e.Error != null)
             {
                 log.Text += DateTime.Now + ": === Error!!! ===" + Environment.NewLine;
+                log.Text += e.ToString() + Environment.NewLine;
             }
             else
             {

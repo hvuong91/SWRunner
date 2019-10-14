@@ -36,7 +36,8 @@ namespace SWRunner.Rewards
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Set);
+            sb.Append(Set).Append(" ").Append(Grade);
+            sb.Append(" - ").Append(Rarity).Append(" ");
             sb.Append("(").Append(Slot).Append(")").Append(" - ");
             sb.Append(MainStat).Append(Environment.NewLine);
             if (!string.IsNullOrEmpty(PrefixStat))

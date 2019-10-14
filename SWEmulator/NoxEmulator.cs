@@ -10,6 +10,8 @@ namespace SWEmulator
     {
         public IntPtr Screen { get; private set; }
 
+        private const int topMenuHeight = 35;
+
         public NoxEmulator() { 
             Screen = GetScreen();
         }

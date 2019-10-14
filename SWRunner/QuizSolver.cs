@@ -26,29 +26,37 @@ namespace SWRunnerApp
 
         // Quiz pattern
         public static readonly string ALL_WATER = @"unit_icon_(.)*_0_\d.png";
-        public static readonly string EXCLUDE_WATER = "";
+        public static readonly string EXCLUDE_WATER = "exclude water";
 
         public static readonly string ALL_FIRE = @"unit_icon_(.)*_1_\d.png";
         public static readonly string EXCLUDE_FIRE = "^(?!(" + ALL_FIRE + ")).*";
 
         public static readonly string ALL_WIND = @"unit_icon_(.)*_2_\d.png";
-        public static readonly string EXCLUDE_WIND = "";
+        public static readonly string EXCLUDE_WIND = "exclude wind";
 
-        public static readonly string ANGELMON = @"(unit_icon_0016_.*)|(unit_icon_0019_.*)|(unit_icon_0030_.*)";
+        public static readonly string ANGELMON = @"(unit_icon_0016_\d_4.*)|(unit_icon_0019_\d_0.*)|(unit_icon_0030_.*)";
+        public static readonly string EXCLUDE_ANGELMON = "exclude angelmon";
 
-        public static readonly string CAIROS = @"(unit_icon_0008_\d_1.*)|(unit_icon_0008_\d_2.*)|(unit_icon_0008_\d_0.*)|(unit_icon_0035_\d_1.*)";
+        public static readonly string CAIROS = @"(gray_)?(unit_icon_0008_\d_1.*)|(gray_)?(unit_icon_0008_\d_2.*)|(gray_)?(unit_icon_0008_\d_0.*)|(gray_)?(unit_icon_0035_\d_1.*)";
+        public static readonly string EXCLUDE_CAIROS = "exclude cairos";
+
+        public static readonly string BOSS = @"(gray_)?(unit_icon_0008_\d_1.*)|(gray_)?(unit_icon_0008_\d_2.*)|(gray_)?(unit_icon_0008_\d_0.*)|(gray_)?(unit_icon_0035_\d_1.*)|(gray_)?(unit_icon_0051_\d_4.*)|(gray_)?(unit_icon_0034_0_3.*)|(gray_)?(unit_icon_0042_\d_3.*)|(gray_)?(unit_icon_0045_\d_4.*)|(gray_)?(unit_icon_0012_4_3.*)|(gray_)?(unit_icon_0019_\d_4.*)";
+        public static readonly string EXCLUDE_BOSS = "exclude boss";
+
+        public static readonly string ELLIA = @"(gray_)?irene.*";
+        public static readonly string EXCLUDE_ELLIA = "exclude ellia";
 
         private static readonly Dictionary<int, Rectangle> ANSWER_POS_DICT = new Dictionary<int, Rectangle>()
         {
-            {1, new Rectangle(530,400,200,200) },
-            {2, new Rectangle(750,400,200,200) },
-            {3, new Rectangle(970,400,200,200) },
-            {4, new Rectangle(1190,400,200,200) },
+            {1, new Rectangle(530,400,230,230) },
+            {2, new Rectangle(750,400,230,230) },
+            {3, new Rectangle(970,400,230,230) },
+            {4, new Rectangle(1190,400,230,230) },
 
-            {5, new Rectangle(530,600,200,200) },
-            {6, new Rectangle(750,600,200,200) },
-            {7, new Rectangle(970,600,200,200) },
-            {8, new Rectangle(1190,600,200,200) }
+            {5, new Rectangle(530,600,230,230) },
+            {6, new Rectangle(750,600,230,230) },
+            {7, new Rectangle(970,600,230,230) },
+            {8, new Rectangle(1190,600,230,230) }
         };
 
         public static void SolveQuiz(AbstractEmulator emulator)
@@ -62,7 +70,7 @@ namespace SWRunnerApp
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = GetAnswer(screen, i);
-                if (IsCorrectAnswer(answer, quizPattern))
+                if (IsCorrectAnswer(answer, quizPattern, screen.Width, screen.Height))
                 {
                     Debug.WriteLine("Found answer at pos: " + i);
                     emulator.Click(answer.point);
@@ -77,7 +85,7 @@ namespace SWRunnerApp
         public static string GetQuizPattern(Bitmap screen, int width, int height)
         {
             string pattern = String.Empty;
-            double scale = 0.7;
+            double scale = 0.8;
 
             Rectangle rec = new Rectangle((int)(400 * width / BASE_WIDTH),
                                           (int)(250 * height / BASE_HEIGHT),
@@ -145,21 +153,48 @@ namespace SWRunnerApp
             }
             else if (pattern.Contains("angelmon"))
             {
-                pattern = ANGELMON;
+                if (pattern.Contains("excluding"))
+                {
+                    pattern = EXCLUDE_ANGELMON;
+                }
+                else
+                {
+                    pattern = ANGELMON;
+                }
             }
             else if (pattern.Contains("cairos"))
             {
-                pattern = CAIROS;
+                if (pattern.Contains("excluding"))
+                {
+                    pattern = EXCLUDE_CAIROS;
+                }
+                else
+                {
+                    pattern = CAIROS;
+                }
             }
             else if (pattern.Contains("boss"))
             {
-                // TODO
+                if (pattern.Contains("excluding"))
+                {
+                    pattern = EXCLUDE_BOSS;
+                }
+                else
+                {
+                    pattern = BOSS;
+                }
             }
             else if (pattern.Contains("ellia"))
             {
-                // TODO
+                if (pattern.Contains("excluding"))
+                {
+                    pattern = EXCLUDE_ELLIA;
+                }
+                else
+                {
+                    pattern = ELLIA;
+                }
             }
-
 
             return pattern;
         }
@@ -181,11 +216,12 @@ namespace SWRunnerApp
             return (new Point(rec.X + rec.Width / 2, rec.Y + rec.Height / 2), answerImg);
         }
 
-        public static bool IsCorrectAnswer((Point point, Bitmap img) answer, string pattern)
+        public static bool IsCorrectAnswer((Point point, Bitmap img) answer, string pattern, int w, int h)
         {
-            //answer.img = new Bitmap(@"C:\Test\sample" + 1 + ".png");
+
+            float scale = 0.30f;
             answer.img = ConvertToFormat(answer.img, PixelFormat.Format24bppRgb);
-            answer.img = new ResizeBicubic((int)(answer.img.Width * 0.4), (int)(answer.img.Height * 0.4)).Apply(answer.img);
+            answer.img = new ResizeBicubic((int)(answer.img.Width * scale), (int)(answer.img.Height * scale)).Apply(answer.img);
 
             DirectoryInfo d = new DirectoryInfo(CAPTCHA_DIR);//Assuming Test is your Folder
             FileInfo[] Files = d.GetFiles(); //Getting Text files
@@ -208,7 +244,23 @@ namespace SWRunnerApp
                 pattern = ALL_WATER;
                 excluded = true;
             }
+            else if (pattern == EXCLUDE_BOSS)
+            {
+                pattern = BOSS;
+                excluded = true;
+            }
+            else if (pattern == EXCLUDE_CAIROS)
+            {
+                pattern = CAIROS;
+                excluded = true;
+            }
+            else if (pattern == EXCLUDE_ELLIA)
+            {
+                pattern = ELLIA;
+                excluded = true;
+            }
 
+            int i = 0;
             foreach (FileInfo file in Files)
             {
                 
@@ -230,10 +282,13 @@ namespace SWRunnerApp
                     //ignore
                     continue;
                 }
-                template = ConvertToFormat(template, PixelFormat.Format24bppRgb);
-                template = new ResizeBicubic((int)(template.Width * 0.4), (int)(template.Height * 0.4)).Apply(template);
 
-                ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.92f);
+                template = ConvertToFormat(template, PixelFormat.Format24bppRgb);
+                template = BitmapUtils.Resize(template, template.Width * w / BASE_WIDTH, template.Height * h / BASE_HEIGHT);
+
+                template = new ResizeBicubic((int)(template.Width * scale), (int)(template.Height * scale)).Apply(template);
+
+                ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.88f);
 
                 TemplateMatch[] matchings = tm.ProcessImage(answer.img, template);
 
@@ -245,6 +300,7 @@ namespace SWRunnerApp
                 {
                     return false;
                 }
+
             }
 
             return excluded;
@@ -281,9 +337,14 @@ namespace SWRunnerApp
             }
 
             // Test
-            target.Save("C:\\TestWin32\\crop.png", ImageFormat.Png);
+            target.Save("C:\\TestWin32\\crop-quiz.png", ImageFormat.Png);
 
             return target;
+        }
+
+        private static bool IsAttributePattern(string pattern)
+        {
+            return pattern == ALL_FIRE || pattern == ALL_WATER || pattern == ALL_WIND || pattern == EXCLUDE_FIRE || pattern == EXCLUDE_WATER || pattern == EXCLUDE_WIND;
         }
 
         private static Bitmap ConvertToFormat(Bitmap image, PixelFormat format)
@@ -294,6 +355,41 @@ namespace SWRunnerApp
                 gr.DrawImage(image, new Rectangle(0, 0, copy.Width, copy.Height));
             }
             return copy;
+        }
+
+        public static Bitmap MakeGrayscale3(Bitmap original)
+        {
+            //create a blank bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            //get a graphics object from the new image
+            Graphics g = Graphics.FromImage(newBitmap);
+
+            //create the grayscale ColorMatrix
+            ColorMatrix colorMatrix = new ColorMatrix(
+               new float[][]
+               {
+         new float[] {.3f, .3f, .3f, 0, 0},
+         new float[] {.59f, .59f, .59f, 0, 0},
+         new float[] {.11f, .11f, .11f, 0, 0},
+         new float[] {0, 0, 0, 1, 0},
+         new float[] {0, 0, 0, 0, 1}
+               });
+
+            //create some image attributes
+            ImageAttributes attributes = new ImageAttributes();
+
+            //set the color matrix attribute
+            attributes.SetColorMatrix(colorMatrix);
+
+            //draw the original image on the new image
+            //using the grayscale color matrix
+            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+               0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+
+            //dispose the Graphics object
+            g.Dispose();
+            return newBitmap;
         }
     }
 }

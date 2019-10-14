@@ -25,15 +25,17 @@ namespace SWRunner
             return target;
         }
 
-        public static bool FindMatchImage(Bitmap source, Bitmap template)
+        public static bool FindMatchImage(Bitmap source, Bitmap template, float percentMatch)
         {
+            float scale = 0.4f;
             source = ConvertToFormat(source, PixelFormat.Format24bppRgb);
-            source = new ResizeBicubic((int)(source.Width * 0.4), (int)(source.Height * 0.4)).Apply(source);
+            source = new ResizeBicubic((int)(source.Width * scale), (int)(source.Height * scale)).Apply(source);
+
 
             template = ConvertToFormat(template, PixelFormat.Format24bppRgb);
-            template = new ResizeBicubic((int)(template.Width * 0.4), (int)(template.Height * 0.4)).Apply(template);
+            template = new ResizeBicubic((int)(template.Width * scale), (int)(template.Height * scale)).Apply(template);
 
-            ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.90f);
+            ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(percentMatch);
 
             TemplateMatch[] matchings = tm.ProcessImage(source, template);
 

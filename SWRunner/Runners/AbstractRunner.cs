@@ -77,23 +77,27 @@ namespace SWRunner.Runners
         public bool IsFailed()
         {
             // Check last modification timestamp of log file
-             DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
-            return (DateTime.Now - ModifiedTime) > MaxRunTime;
+            //DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
+            //return (DateTime.Now - ModifiedTime) > MaxRunTime;
+
+            Bitmap screenShot = Emulator.PrintWindow();
+            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
+                500 * Emulator.Width / 1920, 250 * Emulator.Height / 1080));
+            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal.PNG"), 0.80f);
         }
 
         public abstract void Run();
 
         public void SkipRevive()
         {
-            // TODO: Some runnners won't support this
-            // TODO: Random click to pop up revive dialog
+            Thread.Sleep(1500);
+            Debug.WriteLine("Skip revive");
+            Emulator.Click(RunnerConfig.NoRevivePoint);
+
             Thread.Sleep(1000);
             Emulator.RandomClick();
 
             Thread.Sleep(1000);
-            Emulator.Click(RunnerConfig.NoRevivePoint);
-
-            Thread.Sleep(2000);
         }
 
         public virtual void StartNewRun()
@@ -102,7 +106,7 @@ namespace SWRunner.Runners
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
-            Thread.Sleep(1000); // ensure refill window is pop up
+            Thread.Sleep(1500); // ensure refill window is pop up
             Debug.WriteLine("Checking for refill ...");
             CheckRefill();
 
@@ -110,11 +114,12 @@ namespace SWRunner.Runners
             Emulator.Click(RunnerConfig.StartPoint);
         }
 
-        protected bool NeedRefill()
+        public bool NeedRefill()
         {
             Bitmap screenShot = Emulator.PrintWindow();
-            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(800, 550, 400, 200));
-            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\gift_box.PNG"));
+            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(900 * Emulator.Width / 1920, 550 * Emulator.Height / 1080, 
+                500 * Emulator.Width / 1920, 300 * Emulator.Height / 1080));
+            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\gift_box.PNG"), 0.80f);
             //return GetCurrentEnergy() < MinEnergyRequired;
         }
 

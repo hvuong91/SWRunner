@@ -80,7 +80,7 @@ namespace SWRunner.Runners
                         break;
                     case RewardType.MYSTICAL_SCROLL:
                     case RewardType.SUMMON_STONE:
-                        Emulator.Click(RunnerConfig.GetMysticalScrollPoint);
+                        Emulator.PressEsc();
                         break;
                     default:
                         Emulator.Click(RunnerConfig.GetOtherPoint);

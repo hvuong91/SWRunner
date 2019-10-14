@@ -29,19 +29,6 @@ namespace SWRunnerTest
         }
 
         [Test]
-        public void TestGetQuizPatternWithResizeImage()
-        {
-            // All water
-            Bitmap sourceImage = new Bitmap(@"C:\TestWin32\720-1.png");
-
-
-            string pattern = QuizSolver.GetQuizPattern(sourceImage, 1280, 720);
-
-            Assert.AreEqual(QuizSolver.ALL_WATER, pattern);
-
-        }
-
-        [Test]
         public void TestCropImage()
         {
             Bitmap sourceImage = new Bitmap(quizImgDir + "\\1.png");
@@ -83,7 +70,7 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
@@ -108,7 +95,7 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
@@ -133,7 +120,7 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
@@ -144,7 +131,7 @@ namespace SWRunnerTest
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+        [Test, Ignore("Takes too long")]
         public void TestCorrectAnswerAllFire()
         {
             string testScreenPath = quizImgDir + "\\4.png";
@@ -158,7 +145,7 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
@@ -183,7 +170,7 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
@@ -208,7 +195,7 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
@@ -233,13 +220,110 @@ namespace SWRunnerTest
             for (int i = 1; i <= 8; i++)
             {
                 (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
-                if (QuizSolver.IsCorrectAnswer(answer, quizPattern))
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1920, 1080))
                 {
                     actual += i;
                     //emulator.Click(answer.point);
                 }
             }
             string expected = "568";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestCorrectAnswerBoss()
+        {
+            string testScreenPath = quizImgDir + "\\10.png";
+            Bitmap testScreen = new Bitmap(testScreenPath);
+
+            string quizPattern = QuizSolver.GetQuizPattern(testScreen, 1280, 720);
+
+            Assert.AreEqual(QuizSolver.BOSS, quizPattern);
+
+            string actual = "";
+            for (int i = 1; i <= 8; i++)
+            {
+                (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1280, 720))
+                {
+                    actual += i;
+                    //emulator.Click(answer.point);
+                }
+            }
+            string expected = "147";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test, Ignore("Ignore for now")]
+        public void CreateGrayImages()
+        {
+            string testScreenPath = quizImgDir + "\\10.png";
+            Bitmap testScreen = new Bitmap(testScreenPath);
+
+            string quizPattern = QuizSolver.ANGELMON;
+
+            //Assert.AreEqual(QuizSolver.BOSS, quizPattern);
+
+            string actual = "";
+            for (int i = 1; i <= 8; i++)
+            {
+                (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1280, 720))
+                {
+                    actual += i;
+                    //emulator.Click(answer.point);
+                }
+            }
+        }
+
+        [Test]
+        public void TestCorrectAnswerBoss2()
+        {
+            string testScreenPath = quizImgDir + "\\11.png";
+            Bitmap testScreen = new Bitmap(testScreenPath);
+
+            string quizPattern = QuizSolver.GetQuizPattern(testScreen, 1280, 720);
+
+            Assert.AreEqual(QuizSolver.BOSS, quizPattern);
+
+            string actual = "";
+            for (int i = 1; i <= 8; i++)
+            {
+                (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1280, 720))
+                {
+                    actual += i;
+                    //emulator.Click(answer.point);
+                }
+            }
+            string expected = "23";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestCorrectAnswerEllia()
+        {
+            string testScreenPath = quizImgDir + "\\9.png";
+            Bitmap testScreen = new Bitmap(testScreenPath);
+
+            string quizPattern = QuizSolver.GetQuizPattern(testScreen, 1280, 720);
+
+            Assert.AreEqual(QuizSolver.ELLIA, quizPattern);
+
+            string actual = "";
+            for (int i = 1; i <= 8; i++)
+            {
+                (Point point, Bitmap img) answer = QuizSolver.GetAnswer(testScreen, i);
+                if (QuizSolver.IsCorrectAnswer(answer, quizPattern, 1280, 720))
+                {
+                    actual += i;
+                    //emulator.Click(answer.point);
+                }
+            }
+            string expected = "35";
 
             Assert.AreEqual(expected, actual);
         }

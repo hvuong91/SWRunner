@@ -13,16 +13,22 @@ namespace SWRunnerTest
         private const string testLogFile = @"TestData/testLogFile.txt"; 
 
         [Test]
-        public void IsEnd_GivenLogFileBeingModified_ReturnTrue()
+        public void TestNeedRefill()
         {
             CairosRunner test = new CairosRunner(
                 new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log.txt", new CairosRunnerConfig(), new NoxEmulator(), new RunnerLogger());
 
-            File.WriteAllText(testLogFile, "Test");
-
-            //Assert.IsTrue(te st.IsEnd());
-
             test.GetCurrentEnergy();
+            Assert.True(test.NeedRefill());
+        }
+
+        [Test]
+        public void TestIsFailedRun()
+        {
+            CairosRunner test = new CairosRunner(
+                new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log.txt", new CairosRunnerConfig(), new NoxEmulator(), new RunnerLogger());
+
+            Assert.True(test.IsFailed());
         }
 
         [Test]
@@ -30,6 +36,13 @@ namespace SWRunnerTest
         {
             NoxEmulator emulator = new NoxEmulator();
             emulator.PressEsc();
+        }
+
+        [Test]
+        public void EmulatorTestQuiz()
+        {
+            NoxEmulator emulator = new NoxEmulator();
+            emulator.PrintWindow();
         }
 
     }
