@@ -52,13 +52,13 @@ namespace SWRunner.Runners
         public override void Collect()
         {
             // Random click twice to pop up the reward dialog
-            Thread.Sleep(8000); // Wait for end animation
+            Thread.Sleep(10000); // Wait for end animation
             Emulator.RandomClick();
 
-            Thread.Sleep(2000); // wait for treasure box to pop up
+            Thread.Sleep(3000); // wait for treasure box to pop up
             Emulator.RandomClick();
 
-            Thread.Sleep(4000); // wait for reward to pop up
+            Thread.Sleep(5000); // wait for reward to pop up
 
             RunResult runResult = Helper.GetRunResult(LogFile);
             Reward reward = Helper.GetReward(runResult);
@@ -68,10 +68,10 @@ namespace SWRunner.Runners
             if (!getReward)
             {
                 Emulator.Click(RunnerConfig.RuneInfoPoint);
-                Thread.Sleep(1500);
+                Thread.Sleep(2000);
 
                 Emulator.Click(RunnerConfig.SellRunePoint);
-                Thread.Sleep(1000);
+                Thread.Sleep(1500);
                 Emulator.Click(RunnerConfig.ConfirmSellRunePoint);
                 Thread.Sleep(1500);
                 Logger.Log("Sell: " + Environment.NewLine + reward.ToString());
@@ -81,6 +81,7 @@ namespace SWRunner.Runners
                 Logger.Log("Get: " + reward.ToString());
             }
 
+            Thread.Sleep(3000);
             Emulator.PressEsc();
         }
 

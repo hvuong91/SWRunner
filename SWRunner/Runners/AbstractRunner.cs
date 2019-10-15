@@ -37,6 +37,20 @@ namespace SWRunner.Runners
 
         public void CheckRefill()
         {
+            Debug.WriteLine("Checking for refill ...");
+            bool needRefill = false;
+            // TODO: check this 3 times for now
+            for (int i = 0; i < 3; i++)
+            {
+                needRefill = NeedRefill();
+                if (needRefill)
+                {
+                    break;
+                }
+                Thread.Sleep(1000);
+                Debug.WriteLine("Checking for refill " + i + " ...");
+            }
+
             if (NeedRefill())
             {
                 Debug.WriteLine("Perform refill");
@@ -106,7 +120,7 @@ namespace SWRunner.Runners
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
-            Thread.Sleep(1500); // ensure refill window is pop up
+            Thread.Sleep(3500); // ensure refill window is pop up
             Debug.WriteLine("Checking for refill ...");
             CheckRefill();
 
@@ -117,9 +131,9 @@ namespace SWRunner.Runners
         public bool NeedRefill()
         {
             Bitmap screenShot = Emulator.PrintWindow();
-            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(900 * Emulator.Width / 1920, 550 * Emulator.Height / 1080, 
+            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080, 
                 500 * Emulator.Width / 1920, 300 * Emulator.Height / 1080));
-            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\gift_box.PNG"), 0.80f);
+            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.78f);
             //return GetCurrentEnergy() < MinEnergyRequired;
         }
 
