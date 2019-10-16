@@ -88,9 +88,11 @@ namespace SWRunner
                         SubStat4(runResult.SubStat4).Build();
                     break;
                 case RewardType.GRIND_STONE:
-                    // TODO
+                    reward = new Grindstone(runResult.Drop, "", "", "");
+                    break;
                 case RewardType.ENCHANTED_GEM:
-                // TODO
+                    reward = new EnchantedGem(runResult.Drop);
+                    break;
                 default:
                     //throw new NotImplementedException();
                     reward = new Reward(runResult.Drop, type);
