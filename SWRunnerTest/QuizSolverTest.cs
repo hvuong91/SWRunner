@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SWEmulator;
 using SWRunner;
 using SWRunnerApp;
 using System;
@@ -326,6 +327,13 @@ namespace SWRunnerTest
             string expected = "35";
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestQuiz()
+        {
+            NoxEmulator emulator = new NoxEmulator();
+            emulator.PrintWindow();
         }
     }
 }

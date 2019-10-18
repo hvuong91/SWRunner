@@ -32,7 +32,7 @@ namespace SWRunner.Runners
             while (!Stop)
             {
                 Debug.WriteLine("Checking run status ...");
-                Thread.Sleep(3000);
+                Thread.Sleep(5000);
                 if (IsFailed())
                 {
                     Debug.WriteLine("Run Failed");

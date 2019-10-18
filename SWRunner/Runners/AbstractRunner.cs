@@ -1,5 +1,6 @@
 ﻿using SWEmulator;
 using SWRunner.Rewards;
+using SWRunnerApp;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -38,18 +39,8 @@ namespace SWRunner.Runners
         public void CheckRefill()
         {
             Debug.WriteLine("Checking for refill ...");
-            bool needRefill = false;
-            // TODO: check this 3 times for now
-            for (int i = 0; i < 3; i++)
-            {
-                needRefill = NeedRefill();
-                if (needRefill)
-                {
-                    break;
-                }
-                Thread.Sleep(1000);
-                Debug.WriteLine("Checking for refill " + i + " ...");
-            }
+            // TODO: check this twice for now
+            
 
             if (NeedRefill())
             {
@@ -59,6 +50,20 @@ namespace SWRunner.Runners
 
                 Emulator.Click(RunnerConfig.BuyEnergyWithCrystalPoint);
                 Helper.Sleep(1000, 2000);
+
+                Bitmap screen = Emulator.PrintWindow();
+                string pattern = QuizSolver.GetQuizPattern(screen, Emulator.Width, Emulator.Height);
+                if (!string.IsNullOrEmpty(pattern))
+                {
+                    while (!string.IsNullOrEmpty(pattern))
+                    {
+                        QuizSolver.SolveQuiz(Emulator);
+                        Thread.Sleep(3000);
+                        Emulator.PressEsc();
+                        Thread.Sleep(1000);
+                    }
+                }
+
 
                 Emulator.Click(RunnerConfig.ConfirmBuyPoint);
                 Helper.Sleep(8000, 10000);
@@ -94,10 +99,20 @@ namespace SWRunner.Runners
             //DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
             //return (DateTime.Now - ModifiedTime) > MaxRunTime;
 
-            Bitmap screenShot = Emulator.PrintWindow();
-            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
-                500 * Emulator.Width / 1920, 250 * Emulator.Height / 1080));
-            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal.PNG"), 0.80f);
+            bool failed = false;
+            for (int i = 0; i < 3; i++)
+            {
+                Bitmap screenShot = Emulator.PrintWindow();
+                Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
+                    500 * Emulator.Width / 1920, 250 * Emulator.Height / 1080));
+                failed = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal.PNG"), 0.82f);
+                Thread.Sleep(100);
+                if (failed)
+                {
+                    break;
+                }
+            }
+            return failed;
         }
 
         public abstract void Run();
@@ -130,10 +145,22 @@ namespace SWRunner.Runners
 
         public bool NeedRefill()
         {
-            Bitmap screenShot = Emulator.PrintWindow();
-            Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080, 
-                500 * Emulator.Width / 1920, 300 * Emulator.Height / 1080));
-            return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.78f);
+            bool needRefill = false;
+
+            for (int i = 0; i < 3; i++)
+            {
+                Bitmap screenShot = Emulator.PrintWindow();
+                Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
+                    500 * Emulator.Width / 1920, 500 * Emulator.Height / 1080));
+                needRefill = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.80f);
+                if (needRefill)
+                {
+                    break;
+                }
+                Thread.Sleep(500);
+            }
+
+            return needRefill;
             //return GetCurrentEnergy() < MinEnergyRequired;
         }
 

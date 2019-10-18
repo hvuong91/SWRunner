@@ -63,9 +63,15 @@ namespace SWRunnerApp
         {
             // Capture screen with quiz 
             Bitmap screen = emulator.PrintWindow(emulator.GetMainWindow());
-            screen = ConvertToFormat(screen, PixelFormat.Format24bppRgb);
+            //screen = ConvertToFormat(screen, PixelFormat.Format24bppRgb);
 
             string quizPattern = GetQuizPattern(screen, emulator.Width, emulator.Height);
+
+            if (string.IsNullOrEmpty(quizPattern))
+            {
+                Debug.WriteLine("No Quiz found");
+                return;
+            }
 
             for (int i = 1; i <= 8; i++)
             {
@@ -77,7 +83,8 @@ namespace SWRunnerApp
                 }
             }
 
-            // TODO: Click OK
+            // TODO: Put this in config settings
+            emulator.Click(new Point((int)(emulator.Width * 0.501), (int)(emulator.Height * 0.835)));
         }
         
         // The following methods should be private.
@@ -288,7 +295,7 @@ namespace SWRunnerApp
 
                 template = new ResizeBicubic((int)(template.Width * scale), (int)(template.Height * scale)).Apply(template);
 
-                ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.88f);
+                ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.89f);
 
                 TemplateMatch[] matchings = tm.ProcessImage(answer.img, template);
 

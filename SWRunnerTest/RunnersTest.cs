@@ -18,7 +18,6 @@ namespace SWRunnerTest
             CairosRunner test = new CairosRunner(
                 new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log.txt", new CairosRunnerConfig(), new NoxEmulator(), new RunnerLogger());
 
-            test.GetCurrentEnergy();
             Assert.True(test.NeedRefill());
         }
 

@@ -27,7 +27,7 @@ namespace SWRunner
 
         public static bool FindMatchImage(Bitmap source, Bitmap template, float percentMatch)
         {
-            float scale = 0.4f;
+            float scale = 0.45f;
             source = ConvertToFormat(source, PixelFormat.Format24bppRgb);
             source = new ResizeBicubic((int)(source.Width * scale), (int)(source.Height * scale)).Apply(source);
 
