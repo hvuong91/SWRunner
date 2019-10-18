@@ -42,6 +42,14 @@ namespace SWRunnerTest
         }
 
         [Test]
+        public void TestGrindStoneCreation()
+        {
+            Grindstone grindStone = new Grindstone("Violent", "%ATK", "5", "10");
+            Assert.AreEqual(RUNESET.VIOLENT, grindStone.Set);
+            Assert.AreEqual(RARITY.LEGEND, grindStone.Rarity);
+        }
+
+        [Test]
         public void GetRunResult_GivenCSV_GetLastRun()
         {
             string runsPath = @"C:\Users\Administrator\Desktop\Rune\test.csv";
