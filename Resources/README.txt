@@ -1,1 +1,0 @@
-The creator of the images in these folders is Com2Us.
