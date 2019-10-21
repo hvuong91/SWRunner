@@ -105,7 +105,7 @@ namespace SWRunner.Runners
             return false;
         }
 
-        public bool IsFailed()
+        public virtual bool IsFailed()
         {
             // Check last modification timestamp of log file
             //DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);

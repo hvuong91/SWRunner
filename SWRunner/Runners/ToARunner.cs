@@ -60,5 +60,11 @@ namespace SWRunner.Runners
                 break;
             }
         }
+
+        public override bool IsFailed()
+        {
+            //  No crystal icon in ToA revive, need to do something different.
+            return false;
+        }
     }
 }

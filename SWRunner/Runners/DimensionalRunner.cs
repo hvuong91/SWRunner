@@ -62,7 +62,7 @@ namespace SWRunner.Runners
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
-            Thread.Sleep(1000); // ensure refill window is pop up
+            Thread.Sleep(1000);
 
             RandomSleep();
             Emulator.Click(RunnerConfig.StartPoint);
@@ -70,7 +70,19 @@ namespace SWRunner.Runners
 
         public override void Collect()
         {
-            throw new NotImplementedException();
+            // Random click twice to pop up the reward dialog
+            Thread.Sleep(9000); // Wait for end animation
+            Emulator.RandomClick();
+
+            Thread.Sleep(1500); // wait for treasure box to pop up
+            Emulator.RandomClick();
+
+            Thread.Sleep(2500); // wait for reward to pop up
+
+            // TODO: need filter once SWEX is updated
+            Emulator.PressEsc();
+
+            Thread.Sleep(2000); // Wait for server response
         }
 
     }
