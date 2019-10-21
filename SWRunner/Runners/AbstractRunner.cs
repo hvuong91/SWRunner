@@ -38,10 +38,6 @@ namespace SWRunner.Runners
 
         public void CheckRefill()
         {
-            Debug.WriteLine("Checking for refill ...");
-            // TODO: check this twice for now
-            
-
             if (NeedRefill())
             {
                 Debug.WriteLine("Perform refill");
@@ -51,16 +47,17 @@ namespace SWRunner.Runners
                 Emulator.Click(RunnerConfig.BuyEnergyWithCrystalPoint);
                 Helper.Sleep(1000, 2000);
 
-                Bitmap screen = Emulator.PrintWindow();
-                string pattern = QuizSolver.GetQuizPattern(screen, Emulator.Width, Emulator.Height);
+                string pattern = TryGetQuizPattern();
                 if (!string.IsNullOrEmpty(pattern))
                 {
                     while (!string.IsNullOrEmpty(pattern))
                     {
+                        Debug.Write("Try to solve: " + pattern);
                         QuizSolver.SolveQuiz(Emulator);
                         Thread.Sleep(3000);
                         Emulator.PressEsc();
                         Thread.Sleep(1000);
+                        pattern = TryGetQuizPattern();
                     }
                 }
 
@@ -77,6 +74,21 @@ namespace SWRunner.Runners
                 Emulator.Click(RunnerConfig.ReplayPoint);
             }
             Debug.WriteLine("No need to refill");
+        }
+
+        private string TryGetQuizPattern()
+        {
+            string pattern = string.Empty;
+            for (int i = 0; i < 3; i++)
+            {
+                pattern = QuizSolver.GetQuizPattern(Emulator.PrintWindow(), Emulator.Width, Emulator.Height); 
+                if (!string.IsNullOrEmpty(pattern))
+                {
+                    break;
+                }
+            }
+
+            return pattern;
         }
 
         public abstract void Collect();
@@ -104,8 +116,8 @@ namespace SWRunner.Runners
             {
                 Bitmap screenShot = Emulator.PrintWindow();
                 Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
-                    500 * Emulator.Width / 1920, 250 * Emulator.Height / 1080));
-                failed = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal.PNG"), 0.82f);
+                    500 * Emulator.Width / 1920, 300 * Emulator.Height / 1080));
+                failed = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal.PNG"), 0.81f);
                 Thread.Sleep(100);
                 if (failed)
                 {
@@ -131,12 +143,11 @@ namespace SWRunner.Runners
 
         public virtual void StartNewRun()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
             Thread.Sleep(3500); // ensure refill window is pop up
-            Debug.WriteLine("Checking for refill ...");
             CheckRefill();
 
             RandomSleep();
@@ -149,10 +160,11 @@ namespace SWRunner.Runners
 
             for (int i = 0; i < 3; i++)
             {
+                Debug.WriteLine("Checking for refill ...");
                 Bitmap screenShot = Emulator.PrintWindow();
                 Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
-                    500 * Emulator.Width / 1920, 500 * Emulator.Height / 1080));
-                needRefill = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.80f);
+                    500 * Emulator.Width / 1920, 600 * Emulator.Height / 1080));
+                needRefill = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.79f);
                 if (needRefill)
                 {
                     break;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
@@ -108,19 +109,23 @@ namespace SWEmulator
 
         public Bitmap PrintWindow(IntPtr mainWindow)
         {
+            
             Rect rc;
             GetWindowRect(mainWindow, out rc);
 
-            Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
+            Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format24bppRgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
             IntPtr hdcBitmap = gfxBmp.GetHdc();
 
             PrintWindow(mainWindow, hdcBitmap, 0);
 
             gfxBmp.ReleaseHdc(hdcBitmap);
+
+            bmp.Save("C:\\TestWin32\\test.png", ImageFormat.Bmp);
+
+            Thread.Sleep(500);
             gfxBmp.Dispose();
 
-            bmp.Save("C:\\TestWin32\\test.png", ImageFormat.Png);
             return bmp;
         }
 

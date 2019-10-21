@@ -62,7 +62,7 @@ namespace SWRunnerApp
         public static void SolveQuiz(AbstractEmulator emulator)
         {
             // Capture screen with quiz 
-            Bitmap screen = emulator.PrintWindow(emulator.GetMainWindow());
+            Bitmap screen = emulator.PrintWindow();
             //screen = ConvertToFormat(screen, PixelFormat.Format24bppRgb);
 
             string quizPattern = GetQuizPattern(screen, emulator.Width, emulator.Height);
@@ -91,7 +91,7 @@ namespace SWRunnerApp
 
         public static string GetQuizPattern(Bitmap screen, int width, int height)
         {
-             string pattern = String.Empty;
+            string pattern = String.Empty;
             double scale = 0.8;
 
             Rectangle rec = new Rectangle((int)(400 * width / BASE_WIDTH),
@@ -123,6 +123,11 @@ namespace SWRunnerApp
                 {
                     pattern += file.Name + " ";
                 }
+            }
+
+            if (string.IsNullOrEmpty(pattern))
+            {
+                return pattern;
             }
 
            if (pattern.Contains("water"))

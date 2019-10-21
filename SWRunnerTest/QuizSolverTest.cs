@@ -333,7 +333,7 @@ namespace SWRunnerTest
         public void TestQuiz()
         {
             NoxEmulator emulator = new NoxEmulator();
-            emulator.PrintWindow();
+            QuizSolver.SolveQuiz(emulator);
         }
     }
 }

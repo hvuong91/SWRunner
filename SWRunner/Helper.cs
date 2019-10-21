@@ -176,65 +176,6 @@ namespace SWRunner
             return matchedCounts;
         }
 
-        /// <summary>
-        /// Return match images based on their order. 
-        /// </summary>
-        /// <returns></returns>
-        public static List<Point> SolveSWQuiz(string fullLogFile, AbstractEmulator emulator)
-        {
-            List<Point> result = new List<Point>();
-
-            // Get images, save as list of Bitmap
-            Bitmap screen = emulator.PrintWindow(emulator.GetMainWindow());
-            List<Bitmap> answers = GetQuizImages(screen);
-
-            // Get answer pattern from quiz question
-            string pattern = string.Empty;
-            string quiz = GetQuiz(fullLogFile);
-            answerPatterns.TryGetValue(quiz, out pattern);
-
-            // Solve quiz
-            DirectoryInfo d = new DirectoryInfo(@"Resources");//Assuming Test is your Folder
-            FileInfo[] Files = d.GetFiles(); //Getting Text files
-
-            for (int i = 0; i < 8; i++)
-            {
-                Bitmap sourceImage = answers[i];
-                sourceImage = ConvertToFormat(sourceImage, PixelFormat.Format24bppRgb);
-                sourceImage = new ResizeBicubic((int)(sourceImage.Width * 0.4), (int)(sourceImage.Height * 0.4)).Apply(sourceImage);
-
-                foreach (FileInfo file in Files)
-                {
-                    Match match = Regex.Match(file.Name, pattern, RegexOptions.IgnoreCase);
-                    if (!match.Success)
-                    {
-                        continue;
-                    }
-
-                    //Bitmap sourceImage = new Bitmap(@"C:\Test\quiz_1920_1080.png");
-                    Bitmap template = new Bitmap(file.FullName);
-
-                    template = ConvertToFormat(template, PixelFormat.Format24bppRgb);
-                    template = new ResizeBicubic((int)(template.Width * 0.4), (int)(template.Height * 0.4)).Apply(template);
-                    ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0.90f);
-
-                    TemplateMatch[] matchings = tm.ProcessImage(screen, template);
-
-                    if (matchings.Length > 0)
-                    {
-                        // Found answer
-                        Point point = new Point();
-                        Rectangle rec = answersPos[i];
-                        point.X = (rec.X + rec.Width) / 2;
-                        point.Y = (rec.Y + rec.Height) / 2;
-                        result.Add(point);
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public static List<Bitmap> GetQuizImages(Bitmap screen)
         {
             List<Bitmap> answers = new List<Bitmap>();

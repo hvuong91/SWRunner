@@ -31,7 +31,6 @@ namespace SWRunner.Runners
 
             while (!Stop)
             {
-                Debug.WriteLine("Checking run status ...");
                 Thread.Sleep(5000);
                 if (IsFailed())
                 {
@@ -50,6 +49,7 @@ namespace SWRunner.Runners
                 }
 
                 StartNewRun();
+                Debug.WriteLine("Checking run status ...");
                 break;
             }
         }
@@ -57,13 +57,13 @@ namespace SWRunner.Runners
         public override void Collect()
         {
             // Random click twice to pop up the reward dialog
-            Thread.Sleep(8000); // Wait for end animation
+            Thread.Sleep(9000); // Wait for end animation
             Emulator.RandomClick();
 
-            Thread.Sleep(2000); // wait for treasure box to pop up
+            Thread.Sleep(1500); // wait for treasure box to pop up
             Emulator.RandomClick();
 
-            Thread.Sleep(2000); // wait for reward to pop up
+            Thread.Sleep(2500); // wait for reward to pop up
 
 
             RunResult runResult = Helper.GetRunResult(LogFile);
@@ -73,6 +73,7 @@ namespace SWRunner.Runners
 
             if (getReward)
             {
+                Debug.WriteLine("Get reward");
                 switch (reward.Type)
                 {
                     case RewardType.RUNE:
@@ -89,15 +90,17 @@ namespace SWRunner.Runners
             }
             else
             {
+                Debug.WriteLine("Sell rune");
                 // Only Rune needs to be sold
                 Emulator.Click(RunnerConfig.SellRunePoint);
                 Thread.Sleep(1500); // Wait for confirmation dialog
+                Debug.WriteLine("Confirm sell rune");
                 Emulator.Click(RunnerConfig.ConfirmSellRunePoint);
             }
 
             Logger.Log(runResult, reward, getReward);
 
-            Thread.Sleep(3000); // Wait for server response
+            Thread.Sleep(2000); // Wait for server response
         }
 
     }
