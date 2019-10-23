@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SWRunner.Rewards;
+using Rune = SWRunner.Rewards.Rune;
 
 namespace SWRunner.Filters
 {
@@ -28,6 +29,18 @@ namespace SWRunner.Filters
             // TODO
             return true;
         }
+
+        private bool IsFlatGrindstone(Grindstone grindStone)
+        {
+            return !grindStone.MainStat.Contains("%") && !grindStone.MainStat.ToLower().Contains("spd");
+        }
+
+        private bool IsHeroOrLegendGrindStone(Grindstone grindStone)
+        {
+            return grindStone.Rarity == Rune.RARITY.HERO || grindStone.Rarity == Rune.RARITY.LEGEND;
+        }
+
+
 
         private bool ShouldGetGem(EnchantedGem gem)
         {

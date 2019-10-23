@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SWRunnerApp
 {
@@ -36,6 +37,8 @@ namespace SWRunnerApp
             backgroundWorker.DoWork += BackgroundWorkerOnDoWork;
             backgroundWorker.ProgressChanged += BackgroundWorkerOnProgressChanged;
             backgroundWorker.RunWorkerCompleted += BackgroundWorkerRunCompleted;
+
+            cmbColors.ItemsSource = typeof(Colors).GetProperties();
         }
 
         private void BackgroundWorkerOnProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -145,5 +148,6 @@ namespace SWRunnerApp
         {
             log.ScrollToEnd();
         }
+
     }
 }
