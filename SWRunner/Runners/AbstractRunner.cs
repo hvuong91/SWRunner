@@ -105,7 +105,7 @@ namespace SWRunner.Runners
             return false;
         }
 
-        public bool IsFailed()
+        public virtual bool IsFailed()
         {
             // Check last modification timestamp of log file
             //DateTime lastModifiedTime = File.GetLastWriteTime(LogFile);
@@ -117,8 +117,8 @@ namespace SWRunner.Runners
                 Bitmap screenShot = Emulator.PrintWindow();
                 Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
                     500 * Emulator.Width / 1920, 300 * Emulator.Height / 1080));
-                failed = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal.PNG"), 0.81f);
-                Thread.Sleep(100);
+                failed = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\defeatCrystal2.PNG"), 0.82f);
+                Thread.Sleep(300);
                 if (failed)
                 {
                     break;

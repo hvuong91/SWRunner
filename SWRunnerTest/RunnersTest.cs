@@ -22,10 +22,18 @@ namespace SWRunnerTest
         }
 
         [Test]
-        public void TestIsFailedRun()
+        public void TestIsFailedCariosRun()
         {
             CairosRunner test = new CairosRunner(
                 new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log.txt", new CairosRunnerConfig(), new NoxEmulator(), new RunnerLogger());
+
+            Assert.True(test.IsFailed());
+        }
+
+        [Test]
+        public void TestIsFailedToaRun()
+        {
+            ToARunner test = new ToARunner("", "", new ToaRunnerConfig(), new NoxEmulator(), new RunnerLogger());
 
             Assert.True(test.IsFailed());
         }
