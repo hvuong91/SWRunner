@@ -46,7 +46,7 @@ namespace SWRunnerTest
         {
             Grindstone grindStone = new Grindstone("Violent", "%ATK", "5", "10");
             Assert.AreEqual(RUNESET.VIOLENT, grindStone.Set);
-            Assert.AreEqual(RARITY.LEGEND, grindStone.Rarity);
+            Assert.AreEqual(RARITY.LEGENDARY, grindStone.Rarity);
         }
 
         [Test]

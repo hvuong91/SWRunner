@@ -12,7 +12,7 @@ namespace SWRunner.Filters
     [XmlInclude(typeof(GemStone))]
     public class GemStoneFilter
     {
-        [XmlElement("GemStoneList")]
+        [XmlElement("GemStone")]
         public List<GemStone> GemStoneList { get; set; }
 
         public GemStoneFilter()

@@ -27,13 +27,13 @@ namespace SWRunner.Rewards
                         return RARITY.MAGIC;
                     }
                     else
-                        return RARITY.LEGEND; // SPD
+                        return RARITY.LEGENDARY; // SPD
                 case "6":
                     return RARITY.RARE;
                 case "7":
                     return RARITY.HERO;
                 case "10":
-                    return RARITY.LEGEND;
+                    return RARITY.LEGENDARY;
                 // flat DEF/ATK
                 case "12":
                     return RARITY.MAGIC;
@@ -42,7 +42,7 @@ namespace SWRunner.Rewards
                 case "22":
                     return RARITY.HERO;
                 case "30":
-                    return RARITY.LEGEND;
+                    return RARITY.LEGENDARY;
                 // flat hp
                 case "200":
                     return RARITY.MAGIC;
@@ -51,7 +51,7 @@ namespace SWRunner.Rewards
                 case "450":
                     return RARITY.HERO;
                 case "550":
-                    return RARITY.LEGEND;
+                    return RARITY.LEGENDARY;
                 // SPD
                 case "2":
                     return RARITY.MAGIC;

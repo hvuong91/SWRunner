@@ -37,7 +37,7 @@ namespace SWRunner.Filters
 
         private bool IsLegendary(Rune rune)
         {
-            return rune.Rarity == Rune.RARITY.LEGEND;
+            return rune.Rarity == Rune.RARITY.LEGENDARY;
         }
 
         private bool IsFlat246(Rune rune)

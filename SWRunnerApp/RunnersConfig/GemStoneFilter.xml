@@ -1,39 +1,29 @@
 <?xml version="1.0"?>
 <GemStoneFilter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GemStoneList xsi:type="Grindstone">
+  <GemStone xsi:type="Grindstone">
     <Type>GRINDSTONE</Type>
     <Set>VIOLENT</Set>
-    <MainStat>%HP</MainStat>
+    <MainStat>ALL</MainStat>
     <Rarity>HERO</Rarity>
-  </GemStoneList>
-  <GemStoneList xsi:type="Grindstone">
+  </GemStone>
+  <GemStone xsi:type="Grindstone">
     <Type>GRINDSTONE</Type>
-    <Set>BLADE</Set>
-    <MainStat>%HP</MainStat>
+    <Set>WILL</Set>
+    <MainStat>All</MainStat>
     <Rarity>HERO</Rarity>
-  </GemStoneList>
-  <GemStoneList xsi:type="Grindstone">
+  </GemStone>
+  <GemStone xsi:type="Grindstone">
     <Type>GRINDSTONE</Type>
-    <Set>RAGE</Set>
-    <MainStat>%HP</MainStat>
+    <Set>ALL</Set>
+    <MainStat>ALL</MainStat>
+    <Rarity>LEGENDARY</Rarity>
+  </GemStone>
+  
+  <!-- Fight -->
+  <GemStone xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>FIGHT</Set>
+    <MainStat>ALL</MainStat>
     <Rarity>HERO</Rarity>
-  </GemStoneList>
-  <GemStoneList xsi:type="Grindstone">
-    <Type>GRINDSTONE</Type>
-    <Set>ENDURE</Set>
-    <MainStat>Flat HP</MainStat>
-    <Rarity>MAGIC</Rarity>
-  </GemStoneList>
-  <GemStoneList xsi:type="Grindstone">
-    <Type>GRINDSTONE</Type>
-    <Set>DESTROY</Set>
-    <MainStat>SPD</MainStat>
-    <Rarity>LEGEND</Rarity>
-  </GemStoneList>
-  <GemStoneList xsi:type="Grindstone">
-    <Type>GRINDSTONE</Type>
-    <Set>RAGE</Set>
-    <MainStat>%DEF</MainStat>
-    <Rarity>LEGEND</Rarity>
-  </GemStoneList>
+  </GemStone>
 </GemStoneFilter>

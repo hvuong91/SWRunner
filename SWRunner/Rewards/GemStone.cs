@@ -6,8 +6,8 @@ using static SWRunner.Rewards.Rune;
 
 namespace SWRunner.Rewards
 {
-    [XmlType("GemStone")]
     [XmlInclude(typeof(Grindstone))]
+    [XmlInclude(typeof(EnchantedGem))]
     public abstract class GemStone : Reward
     {
         [XmlElement("Set")]
@@ -30,8 +30,11 @@ namespace SWRunner.Rewards
             }
             else
             {
-                GemStone gemStone = (GemStone)obj;
-                return (Type == gemStone.Type && Set == gemStone.Set && MainStat == gemStone.MainStat && Rarity == gemStone.Rarity);
+                GemStone other = (GemStone)obj;
+                return (Type == other.Type)
+                    && (Set == other.Set || Set == RUNESET.ALL || other.Set == RUNESET.ALL)
+                    && (MainStat == other.MainStat || MainStat.Equals("ALL") || other.MainStat.Equals("ALL"))
+                    && (Rarity == other.Rarity || Rarity == RARITY.ALL || other.Rarity == RARITY.ALL);
             }
         }
 

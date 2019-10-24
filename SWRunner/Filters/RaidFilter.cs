@@ -37,7 +37,7 @@ namespace SWRunner.Filters
 
         private bool IsHeroOrLegendGrindStone(Grindstone grindStone)
         {
-            return grindStone.Rarity == Rune.RARITY.HERO || grindStone.Rarity == Rune.RARITY.LEGEND;
+            return grindStone.Rarity == Rune.RARITY.HERO || grindStone.Rarity == Rune.RARITY.LEGENDARY;
         }
 
 
