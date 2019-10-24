@@ -77,20 +77,20 @@ namespace SWRunner
         {
             Reward reward = null;
 
-            RewardType type = GetRewardType(runResult.Drop);
+            REWARDTYPE type = GetRewardType(runResult.Drop);
 
             switch (type)
             {
-                case RewardType.RUNE:
+                case REWARDTYPE.RUNE:
                     reward = new Rune.RuneBuilder().Grade(runResult.Grade).Set(runResult.Set).Slot(runResult.Slot).
                         Rarity(runResult.Rarity).MainStat(runResult.MainStat).PrefixStat(runResult.PrefixStat).
                         SubStat1(runResult.SubStat1).SubStat2(runResult.SubStat2).SubStat3(runResult.SubStat3).
                         SubStat4(runResult.SubStat4).Build();
                     break;
-                case RewardType.GRIND_STONE:
+                case REWARDTYPE.GRINDSTONE:
                     reward = new Grindstone(runResult.Drop, "", "", "");
                     break;
-                case RewardType.ENCHANTED_GEM:
+                case REWARDTYPE.ENCHANTEDGEM:
                     reward = new EnchantedGem(runResult.Drop);
                     break;
                 default:
@@ -294,29 +294,29 @@ namespace SWRunner
             return copy;
         }
 
-        private static RewardType GetRewardType(string dropItem)
+        private static REWARDTYPE GetRewardType(string dropItem)
         {
-            RewardType type = RewardType.OTHER;
+            REWARDTYPE type = REWARDTYPE.OTHER;
 
             if (dropItem.Contains("Rune") && !dropItem.Contains("Rune Piece"))
             {
-                type = RewardType.RUNE;
+                type = REWARDTYPE.RUNE;
             }
             else if (dropItem.Contains("Grindstone"))
             {
-                type = RewardType.GRIND_STONE;
+                type = REWARDTYPE.GRINDSTONE;
             }
             else if (dropItem.Contains("Enchanted Gem"))
             {
-                type = RewardType.ENCHANTED_GEM;
+                type = REWARDTYPE.ENCHANTEDGEM;
             }
             else if (dropItem.Contains("Summoning Stone"))
             {
-                type = RewardType.SUMMON_STONE;
+                type = REWARDTYPE.SUMMONSTONE;
             }
             else if (dropItem.Contains("Mystical Scroll"))
             {
-                type = RewardType.MYSTICAL_SCROLL;
+                type = REWARDTYPE.MYSTICALSCROLL;
             }
 
             return type;

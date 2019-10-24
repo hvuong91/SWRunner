@@ -76,11 +76,11 @@ namespace SWRunner.Runners
                 Debug.WriteLine("Get reward");
                 switch (reward.Type)
                 {
-                    case RewardType.RUNE:
+                    case REWARDTYPE.RUNE:
                         Emulator.Click(RunnerConfig.GetRunePoint);
                         break;
-                    case RewardType.MYSTICAL_SCROLL:
-                    case RewardType.SUMMON_STONE:
+                    case REWARDTYPE.MYSTICALSCROLL:
+                    case REWARDTYPE.SUMMONSTONE:
                         Emulator.PressEsc();
                         break;
                     default:

@@ -1,11 +1,18 @@
 ﻿using SWRunner;
+using SWRunner.Filters;
+using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Xml.Serialization;
 
 namespace SWRunnerApp
 {
@@ -19,12 +26,12 @@ namespace SWRunnerApp
 
         BackgroundWorker backgroundWorker = new BackgroundWorker();
 
+        private GemStoneFilter gemStoneFilter;
 
 
         public MainWindow()
         {
             InitializeComponent();
-
             Logger = new RunnerLogger();
             Presenter = new SWRunnerPresenter(Logger);
 
@@ -36,6 +43,27 @@ namespace SWRunnerApp
             backgroundWorker.DoWork += BackgroundWorkerOnDoWork;
             backgroundWorker.ProgressChanged += BackgroundWorkerOnProgressChanged;
             backgroundWorker.RunWorkerCompleted += BackgroundWorkerRunCompleted;
+
+            LoadGemStoneFilter();
+
+            cmbColors.ItemsSource = typeof(Colors).GetProperties(); // Test
+
+            lvGemStoneList.ItemsSource = gemStoneFilter.GemStoneList;
+
+        }
+
+        private void LoadGemStoneFilter()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(GemStoneFilter), new XmlRootAttribute("GemStoneFilter"));
+
+            // Declare an object variable of the type to be deserialized.
+            string gemStoneFilterXml = @"RunnersConfig/GemStoneFilter.xml";
+
+            using (Stream reader = new FileStream(gemStoneFilterXml, FileMode.Open))
+            {
+                // Call the Deserialize method to restore the object's state.
+                gemStoneFilter = (GemStoneFilter)serializer.Deserialize(reader);
+            }
         }
 
         private void BackgroundWorkerOnProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -144,6 +172,30 @@ namespace SWRunnerApp
         private void Log_TextChanged(object sender, TextChangedEventArgs e)
         {
             log.ScrollToEnd();
+        }
+
+        private void btnRemoveGemStone_Click(object sender, RoutedEventArgs e)
+        {
+            List<GemStone> list = (List<GemStone>)lvGemStoneList.ItemsSource;
+            foreach (GemStone eachItem in lvGemStoneList.SelectedItems)
+            {
+                list.Remove(eachItem);
+            }
+            lvGemStoneList.ItemsSource = null;
+            lvGemStoneList.ItemsSource = list;
+        }
+
+        private void BtnSaveGemStoneList_Click(object sender, RoutedEventArgs e)
+        {
+            XmlSerializer writer = new XmlSerializer(typeof(GemStoneFilter));
+
+            var path = @"RunnersConfig/GemStoneFilter.xml";
+            FileStream file = File.Create(path);
+
+            writer.Serialize(file, gemStoneFilter);
+            file.Close();
+
+            MessageBox.Show("Filter has been saved!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

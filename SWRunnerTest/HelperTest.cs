@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SWEmulator;
 using SWRunner;
+using SWRunner.Filters;
 using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
@@ -54,6 +55,37 @@ namespace SWRunnerTest
 
             writer.Serialize(file, runConfig);
             file.Close();
+        }
+
+        [Test]
+        public void TestGemStoneListToXml()
+        {
+            //List<GemStone> items = new List<GemStone>();
+            //items.Add(new Grindstone("Violent", "%HP", "4", "7"));
+            //items.Add(new Grindstone("Blade", "%HP", "4", "7"));
+            //items.Add(new Grindstone("Rage", "%HP", "4", "7"));
+            //items.Add(new Grindstone("Endure", "Flat HP", "100", "200"));
+            //items.Add(new Grindstone("Destroy", "SPD", "4", "5"));
+            //items.Add(new Grindstone("Rage", "%DEF", "5", "10"));
+
+            GemStoneFilter filter = new GemStoneFilter();
+
+            filter.GemStoneList.Add(new Grindstone("Violent", "%HP", "4", "7"));
+            filter.GemStoneList.Add(new Grindstone("Blade", "%HP", "4", "7"));
+            filter.GemStoneList.Add(new Grindstone("Rage", "%HP", "4", "7"));
+            filter.GemStoneList.Add(new Grindstone("Endure", "Flat HP", "100", "200"));
+            filter.GemStoneList.Add(new Grindstone("Destroy", "SPD", "4", "5"));
+            filter.GemStoneList.Add(new Grindstone("Rage", "%DEF", "5", "10"));
+
+            XmlSerializer writer =
+           new XmlSerializer(typeof(GemStoneFilter));
+
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//GemStoneFilter.xml";
+            FileStream file = File.Create(path);
+
+            writer.Serialize(file, filter);
+            file.Close();
+
         }
 
         [Test]

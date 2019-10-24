@@ -68,7 +68,6 @@ namespace SWRunner.Runners
             Bitmap screenShot = Emulator.PrintWindow();
             Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(600, 75, 300, 200));
             return BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\toaDefeat.PNG"), 0.92f);
-
         }
     }
 }
