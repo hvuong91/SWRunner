@@ -37,7 +37,7 @@ namespace SWRunner
                 FailRuns += 1;
             }
 
-            if (reward.Type == RewardType.RUNE)
+            if (reward.Type == REWARDTYPE.RUNE)
             {
                 if (getReward)
                 {

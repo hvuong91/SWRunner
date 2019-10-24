@@ -28,7 +28,7 @@ namespace SWRunnerTest
         {
             Reward reward = new Reward("Drop Item Type x20");
 
-            Assert.AreEqual(RewardType.OTHER, reward.Type);
+            Assert.AreEqual(REWARDTYPE.OTHER, reward.Type);
             Assert.AreEqual(20, reward.Quantity);
         }
 
@@ -37,7 +37,7 @@ namespace SWRunnerTest
         {
             Reward reward = new Reward("Some random drop");
 
-            Assert.AreEqual(RewardType.OTHER, reward.Type);
+            Assert.AreEqual(REWARDTYPE.OTHER, reward.Type);
             Assert.AreEqual(1, reward.Quantity);
         }
 
@@ -56,7 +56,7 @@ namespace SWRunnerTest
             RunResult result = Helper.GetRunResult(runsPath);
             Assert.IsNotNull(result);
 
-            Assert.AreEqual(RewardType.RUNE, result.GetReward().Type);
+            Assert.AreEqual(REWARDTYPE.RUNE, result.GetReward().Type);
         }
         
         [Test]
@@ -64,7 +64,7 @@ namespace SWRunnerTest
         {
             Rune rune = new Rune.RuneBuilder().Set("Violent").Rarity("Hero").Build();
 
-            Assert.AreEqual(rune.Type, RewardType.RUNE);
+            Assert.AreEqual(rune.Type, REWARDTYPE.RUNE);
             Assert.AreEqual(rune.Set, RUNESET.VIOLENT);
             Assert.AreEqual(rune.Rarity, RARITY.HERO);
         }
@@ -74,7 +74,7 @@ namespace SWRunnerTest
         {
             Rune rune = new Rune.RuneBuilder().Set("Some invalid set").Rarity("blah").Build();
 
-            Assert.AreEqual(rune.Type, RewardType.RUNE);
+            Assert.AreEqual(rune.Type, REWARDTYPE.RUNE);
             Assert.AreEqual(rune.Set, RUNESET.UNKNOWN);
             Assert.AreEqual(rune.Rarity, RARITY.UNKNOWN);
         }

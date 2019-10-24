@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<GemStoneFilter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GemStoneList xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>VIOLENT</Set>
+    <MainStat>%HP</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStoneList>
+  <GemStoneList xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>BLADE</Set>
+    <MainStat>%HP</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStoneList>
+  <GemStoneList xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>RAGE</Set>
+    <MainStat>%HP</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStoneList>
+  <GemStoneList xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>ENDURE</Set>
+    <MainStat>Flat HP</MainStat>
+    <Rarity>MAGIC</Rarity>
+  </GemStoneList>
+  <GemStoneList xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>DESTROY</Set>
+    <MainStat>SPD</MainStat>
+    <Rarity>LEGEND</Rarity>
+  </GemStoneList>
+  <GemStoneList xsi:type="Grindstone">
+    <Type>GRINDSTONE</Type>
+    <Set>RAGE</Set>
+    <MainStat>%DEF</MainStat>
+    <Rarity>LEGEND</Rarity>
+  </GemStoneList>
+</GemStoneFilter>

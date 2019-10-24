@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SWRunner.Rewards
 {
-    public class EnchantedGem : Reward
+    public class EnchantedGem : GemStone
     {
         public EnchantedGem(string dropItem) : base(dropItem)
         {

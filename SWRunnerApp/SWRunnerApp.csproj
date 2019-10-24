@@ -20,6 +20,9 @@
     <None Update="RunnersConfig\CairosRunnerConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="RunnersConfig\GemStoneFilter.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="RunnersConfig\RiftRunnerConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -33,6 +36,7 @@
     <Content Include="..\Resources\captchaPopup\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\captchaPopup\%(Filename)%(Extension)" />
     <Content Include="..\Resources\*.txt" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\%(Filename)%(Extension)" />
     <Content Include="..\Resources\general\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\general\%(Filename)%(Extension)" />
+    <Content Include="..\Resources\assets\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\Resources\assets\%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>

@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 
 namespace SWRunner.Rewards
 {
     public class Reward
     {
+        [XmlIgnore]
         public int Quantity { get; private set; }
-        public RewardType Type { get; private set; }
+        public REWARDTYPE Type { get; set; }
 
+        [XmlIgnore]
         public string Drop { get; private set; }
 
-        public Reward(string dropItem, RewardType type)
+        public Reward(string dropItem, REWARDTYPE type)
         {
             Drop = dropItem;
             Type = type;
@@ -30,19 +33,19 @@ namespace SWRunner.Rewards
         {
             if (dropItem.Contains("Rune"))
             {
-                Type = RewardType.RUNE;
+                Type = REWARDTYPE.RUNE;
             }
             else if (dropItem.Contains("Grindstone"))
             {
-                Type = RewardType.GRIND_STONE;
+                Type = REWARDTYPE.GRINDSTONE;
             }
             else if (dropItem.Contains("Enchanted Gem"))
             {
-                Type = RewardType.ENCHANTED_GEM;
+                Type = REWARDTYPE.ENCHANTEDGEM;
             }
             else
             {
-                Type = RewardType.OTHER;
+                Type = REWARDTYPE.OTHER;
             }
             
         }
@@ -50,7 +53,7 @@ namespace SWRunner.Rewards
         private void SetQuantity(string dropItem)
         {
             Quantity = 1;
-            if (Type == RewardType.OTHER)
+            if (Type == REWARDTYPE.OTHER)
             {
                 Match match = Regex.Match(dropItem, @"(.*\s)(x)(\d*)", RegexOptions.IgnoreCase);
                 if (match.Success)
@@ -66,5 +69,5 @@ namespace SWRunner.Rewards
         }
     }
 
-    public enum RewardType { RUNE, GRIND_STONE, ENCHANTED_GEM, SUMMON_STONE, MYSTICAL_SCROLL, OTHER}
+    public enum REWARDTYPE { RUNE, GRINDSTONE, ENCHANTEDGEM, SUMMONSTONE, MYSTICALSCROLL, OTHER}
 }
