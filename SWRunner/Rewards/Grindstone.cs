@@ -3,11 +3,11 @@ using static SWRunner.Rewards.Rune;
 
 namespace SWRunner.Rewards
 {
-    public class Grindstone : GemStone
+    public class GrindStone : GemStone
     {
-        private Grindstone() : base("Grindstone") { }
+        private GrindStone() : base("Grindstone") { }
 
-        public Grindstone(string set, string mainStat, string min, string max) : base("Grindstone")
+        public GrindStone(string set, string mainStat, string min, string max) : base("Grindstone")
         {
             Set = Enum.TryParse(set, true, out RUNESET outSet) ? outSet : RUNESET.UNKNOWN;
             MainStat = mainStat;
@@ -15,7 +15,7 @@ namespace SWRunner.Rewards
             Type = REWARDTYPE.GRINDSTONE;
         }
 
-        public Grindstone(RUNESET set, string mainStat, RARITY rarity) : base("Grindstone")
+        public GrindStone(RUNESET set, string mainStat, RARITY rarity) : base("Grindstone")
         {
             Set = set;
             MainStat = mainStat;

@@ -41,4 +41,10 @@
     <Content Include="..\Resources\quiz_img\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\TestData\quiz_img\%(Filename)%(Extension)" />
     <Content Include="..\Resources\general\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" Link="\TestData\general\%(Filename)%(Extension)" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\GemStoneFilter.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

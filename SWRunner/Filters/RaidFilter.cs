@@ -10,9 +10,9 @@ namespace SWRunner.Filters
     {
         public bool ShouldGet(Reward reward)
         {
-            if (reward.GetType() != typeof(Grindstone))
+            if (reward.GetType() != typeof(GrindStone))
             {
-                return ShouldGetGrindStone((Grindstone)reward);
+                return ShouldGetGrindStone((GrindStone)reward);
             }
             else if (reward.GetType() != typeof(EnchantedGem))
             {
@@ -24,18 +24,18 @@ namespace SWRunner.Filters
             }
         }
 
-        private bool ShouldGetGrindStone(Grindstone grindStone)
+        private bool ShouldGetGrindStone(GrindStone grindStone)
         {
             // TODO
             return true;
         }
 
-        private bool IsFlatGrindstone(Grindstone grindStone)
+        private bool IsFlatGrindstone(GrindStone grindStone)
         {
             return !grindStone.MainStat.Contains("%") && !grindStone.MainStat.ToLower().Contains("spd");
         }
 
-        private bool IsHeroOrLegendGrindStone(Grindstone grindStone)
+        private bool IsHeroOrLegendGrindStone(GrindStone grindStone)
         {
             return grindStone.Rarity == Rune.RARITY.HERO || grindStone.Rarity == Rune.RARITY.LEGENDARY;
         }

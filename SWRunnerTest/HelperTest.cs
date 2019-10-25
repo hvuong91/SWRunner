@@ -70,12 +70,12 @@ namespace SWRunnerTest
 
             GemStoneFilter filter = new GemStoneFilter();
 
-            filter.GemStoneList.Add(new Grindstone("Violent", "%HP", "4", "7"));
-            filter.GemStoneList.Add(new Grindstone("Blade", "%HP", "4", "7"));
-            filter.GemStoneList.Add(new Grindstone("Rage", "%HP", "4", "7"));
-            filter.GemStoneList.Add(new Grindstone("Endure", "Flat HP", "100", "200"));
-            filter.GemStoneList.Add(new Grindstone("Destroy", "SPD", "4", "5"));
-            filter.GemStoneList.Add(new Grindstone("Rage", "%DEF", "5", "10"));
+            filter.GemStoneList.Add(new GrindStone("Violent", "%HP", "4", "7"));
+            filter.GemStoneList.Add(new GrindStone("Blade", "%HP", "4", "7"));
+            filter.GemStoneList.Add(new GrindStone("Rage", "%HP", "4", "7"));
+            filter.GemStoneList.Add(new GrindStone("Endure", "Flat HP", "100", "200"));
+            filter.GemStoneList.Add(new GrindStone("Destroy", "SPD", "4", "5"));
+            filter.GemStoneList.Add(new GrindStone("Rage", "%DEF", "5", "10"));
 
             XmlSerializer writer =
            new XmlSerializer(typeof(GemStoneFilter));

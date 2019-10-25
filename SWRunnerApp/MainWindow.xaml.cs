@@ -40,7 +40,7 @@ namespace SWRunnerApp
             InitializeGemStoneFilter();
 
             Logger = new RunnerLogger();
-            Presenter = new SWRunnerPresenter(Logger);
+            Presenter = new SWRunnerPresenter(Logger, gemStoneFilter.GemStoneList);
         }
 
         private void InitializeBackgroundWorker()
@@ -64,7 +64,7 @@ namespace SWRunnerApp
             // TODO: Update the list
             List<string> allMainStats = new List<string>()
             {
-                "% HP", "% DEF"
+                "HP flat", "HP%", "ATK flat", "ATK%", "DEF flat", "DEF%", "SPD", "CRate", "CDmg", "RES", "ACC", "ALL"
             };
 
             cbMainStat.ItemsSource = allMainStats;
@@ -231,12 +231,13 @@ namespace SWRunnerApp
 
             if (type == REWARDTYPE.GRINDSTONE)
             {
-                Grindstone grindStone = new Grindstone(set, mainStat, rarity);
+                GrindStone grindStone = new GrindStone(set, mainStat, rarity);
                 list.Add(grindStone);
             }
             else
             {
-                Debug.Write(type);
+                EnchantedGem enchantedGem = new EnchantedGem(set, mainStat, rarity);
+                list.Add(enchantedGem);
             }
 
             lvGemStoneList.ItemsSource = null;

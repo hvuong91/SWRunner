@@ -1,25 +1,34 @@
 ﻿using SWRunner.Rewards;
+using System.Collections.Generic;
 
 namespace SWRunner.Filters
 {
     public class RiftFilter : IFilter
     {
+        private List<GemStone> AcceptedGemStones { get; set; } = new List<GemStone>();
+
+        public RiftFilter(List<GemStone> acceptedGemStones)
+        {
+            AcceptedGemStones = acceptedGemStones;
+        }
+
         public bool ShouldGet(Reward reward)
         {
-            // Take all non-rune drops, might not applies to rift
-            if (reward.GetType() != typeof(Rune))
+            if (reward.GetType() == typeof(Rune))
             {
-                return true;
+                return ShouldGetRune((Rune)reward);
+            }
+            else if (typeof(GemStone).IsAssignableFrom(reward.GetType()))
+            {
+                return ShouldGetGemStone((GemStone)reward);
             }
 
-            Rune rune = (Rune)reward;
+            // Get other type
+            return true;
+        }
 
-            if (rune.Set == Rune.RUNESET.FIGHT)
-            {
-                // get trash fight rune for now
-                return true;
-            }
-
+        private bool ShouldGetRune(Rune rune)
+        {
             // only get legendary rune
             if (!IsLegendary(rune))
             {
@@ -33,6 +42,11 @@ namespace SWRunner.Filters
             }
 
             return true;
+        }
+
+        private bool ShouldGetGemStone(GemStone gemStone)
+        {
+            return AcceptedGemStones.Contains(gemStone);
         }
 
         private bool IsLegendary(Rune rune)

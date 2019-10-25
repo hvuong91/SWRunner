@@ -2,15 +2,19 @@
 using SWEmulator;
 using SWRunner;
 using SWRunner.Filters;
+using SWRunner.Rewards;
 using SWRunner.Runners;
+using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
+using static SWRunner.Rewards.Rune;
 
 namespace SWRunnerTest
 {
     [TestFixture]
     class RunnersTest
     {
-        private const string testLogFile = @"TestData/testLogFile.txt"; 
+        private const string testLogFile = @"TestData/testLogFile.txt";
 
         [Test]
         public void TestNeedRefill()

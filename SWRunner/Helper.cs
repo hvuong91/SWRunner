@@ -88,7 +88,7 @@ namespace SWRunner
                         SubStat4(runResult.SubStat4).Build();
                     break;
                 case REWARDTYPE.GRINDSTONE:
-                    reward = new Grindstone(runResult.Set, runResult.MainStat, runResult.SubStat1, runResult.SubStat2);
+                    reward = new GrindStone(runResult.Set, runResult.MainStat, runResult.SubStat1, runResult.SubStat2);
                     break;
                 case REWARDTYPE.ENCHANTEDGEM:
                     reward = new EnchantedGem(runResult.Set, runResult.MainStat, runResult.SubStat1, runResult.SubStat2);

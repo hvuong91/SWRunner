@@ -67,7 +67,7 @@
             <TabItem Header="Settings" Height="20" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
                         <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -121,7 +121,7 @@
                         <ListView Margin="10" Name="lvGemStoneList">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Type" Width="80" DisplayMemberBinding="{Binding Set}"/>
+                                    <GridViewColumn Header="Type" Width="150" DisplayMemberBinding="{Binding Type}"/>
                                     <GridViewColumn Header="Set" Width="80" DisplayMemberBinding="{Binding Set}"/>
                                     <GridViewColumn Header="Main Stat" Width="80" DisplayMemberBinding="{Binding MainStat}" />
                                     <GridViewColumn Header="Rarity" Width="80" DisplayMemberBinding="{Binding Rarity}"/>

@@ -14,7 +14,15 @@ namespace SWRunner.Rewards
             Set = Enum.TryParse(set, true, out RUNESET outSet) ? outSet : RUNESET.UNKNOWN;
             MainStat = mainStat;
             Rarity = GetRarirty(max, min, mainStat);
-            Type = REWARDTYPE.GRINDSTONE;
+            Type = REWARDTYPE.ENCHANTEDGEM;
+        }
+
+        public EnchantedGem(RUNESET set, string mainStat, RARITY rarity) : base("Enchanted Gem")
+        {
+            Set = set;
+            MainStat = mainStat;
+            Rarity = rarity;
+            Type = REWARDTYPE.ENCHANTEDGEM;
         }
 
         private RARITY GetRarirty(string max, string min, string mainStat)

@@ -1,6 +1,7 @@
 ﻿using SWEmulator;
 using SWRunner;
 using SWRunner.Filters;
+using SWRunner.Rewards;
 using SWRunner.Runners;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,13 @@ namespace SWRunnerApp
         public RiftRunner RiftRunner { get; private set; }
         public RunnerLogger Logger { get; private set; }
 
-        public SWRunnerPresenter(RunnerLogger logger)
+        public List<GemStone> AcceptedGemStones { get; set; }
+
+        public SWRunnerPresenter(RunnerLogger logger, List<GemStone> acceptedGemStones)
         {
             Logger = logger;
+            AcceptedGemStones = acceptedGemStones;
+
             InitCairosRunner();
             InitToaRunner();
             InitRiftRunner();
@@ -83,8 +88,7 @@ namespace SWRunnerApp
                 runConfig = (RiftRunnerConfig)serializer.Deserialize(reader);
             }
 
-            // TODO
-            RiftRunner = new RiftRunner(new RiftFilter(),riftLog, fullLog, runConfig, new NoxEmulator(), Logger);
+            RiftRunner = new RiftRunner(new RiftFilter(AcceptedGemStones),riftLog, fullLog, runConfig, new NoxEmulator(), Logger);
         }
 
     }

@@ -44,7 +44,7 @@ namespace SWRunnerTest
         [Test]
         public void TestGrindStoneCreation()
         {
-            Grindstone grindStone = new Grindstone("Violent", "%ATK", "5", "10");
+            GrindStone grindStone = new GrindStone("Violent", "%ATK", "5", "10");
             Assert.AreEqual(RUNESET.VIOLENT, grindStone.Set);
             Assert.AreEqual(RARITY.LEGENDARY, grindStone.Rarity);
         }
