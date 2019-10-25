@@ -78,28 +78,44 @@
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <ComboBox Name="cmbColors">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />
-                                                <TextBlock Text="{Binding Name}" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 10 0 0">
+                                    <TextBlock Text="Type" Margin="0 0 30 0" Width="50"/>
+                                    <ComboBox Name="cbType" SelectedIndex="0">
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 10 0 0">
+                                    <TextBlock Text="Set" Margin="0 0 30 0" Width="50"/>
+                                    <ComboBox Name="cbSet" SelectedIndex="0">
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0 10 0 0">
+                                    <TextBlock Text="Main Stat" Margin="0 0 30 0" Width="50"/>
+                                    <ComboBox Name="cbMainStat" SelectedIndex="0">
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0 10 0 0">
+                                    <TextBlock Text="Rarity" Margin="0 0 30 0" Width="50"/>
+                                    <ComboBox Name="cbRarity" SelectedIndex="4">
+                                    </ComboBox>
+                                </StackPanel>
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <Grid Grid.Column="1">
+                    <Grid Name="gridFilterControl" Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"></RowDefinition>
                             <RowDefinition Height="100"></RowDefinition>
                             <RowDefinition Height="100"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" VerticalAlignment="Bottom" Content=">>>" Margin="10" Height="30"></Button>
-                        <Button Grid.Row="1" Name="btnRemoveGemStone" VerticalAlignment="Center" Content="Delete" Margin="10" Height="30" Click="btnRemoveGemStone_Click"></Button>
-                        <Button Grid.Row="2" Name="btnSaveGemStoneList" VerticalAlignment="Top"  Content="Save" Margin="10" Height="30" Click="BtnSaveGemStoneList_Click"></Button>
+                        <Button Grid.Row="0" Name="btnAddGemStoneFilter" VerticalAlignment="Bottom" Content=">>>" Margin="10" Height="30" Click="BtnAddGemStoneFilter_Click"></Button>
+                        <Button Grid.Row="1" Name="btnRemoveGemStoneFilter" VerticalAlignment="Center" Content="Delete" Margin="10" Height="30" Click="btnRemoveGemStone_Click"></Button>
+                        <Button Grid.Row="2" Name="btnSaveGemStoneFilterList" VerticalAlignment="Top"  Content="Save" Margin="10" Height="30" Click="BtnSaveGemStoneList_Click"></Button>
                     </Grid>
                     <Grid Grid.Column="2">
                         <ListView Margin="10" Name="lvGemStoneList">

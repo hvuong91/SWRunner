@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using static SWRunner.Rewards.Rune;
 
 namespace SWRunnerApp
 {
@@ -32,9 +34,17 @@ namespace SWRunnerApp
         public MainWindow()
         {
             InitializeComponent();
+            InitializeBackgroundWorker();
+
+            LoadGemStoneFilter();
+            InitializeGemStoneFilter();
+
             Logger = new RunnerLogger();
             Presenter = new SWRunnerPresenter(Logger);
+        }
 
+        private void InitializeBackgroundWorker()
+        {
             backgroundWorker = new BackgroundWorker
             {
                 WorkerReportsProgress = true,
@@ -43,10 +53,22 @@ namespace SWRunnerApp
             backgroundWorker.DoWork += BackgroundWorkerOnDoWork;
             backgroundWorker.ProgressChanged += BackgroundWorkerOnProgressChanged;
             backgroundWorker.RunWorkerCompleted += BackgroundWorkerRunCompleted;
+        }
 
-            LoadGemStoneFilter();
+        private void InitializeGemStoneFilter()
+        {
+            cbSet.ItemsSource = Enum.GetValues(typeof(RUNESET)).Cast<RUNESET>();
+            cbType.Items.Add(REWARDTYPE.GRINDSTONE);
+            cbType.Items.Add(REWARDTYPE.ENCHANTEDGEM);
 
-            cmbColors.ItemsSource = typeof(Colors).GetProperties(); // Test
+            // TODO: Update the list
+            List<string> allMainStats = new List<string>()
+            {
+                "% HP", "% DEF"
+            };
+
+            cbMainStat.ItemsSource = allMainStats;
+            cbRarity.ItemsSource = Enum.GetValues(typeof(RARITY)).Cast<RARITY>();
 
             lvGemStoneList.ItemsSource = gemStoneFilter.GemStoneList;
 
@@ -196,6 +218,30 @@ namespace SWRunnerApp
             file.Close();
 
             MessageBox.Show("Filter has been saved!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BtnAddGemStoneFilter_Click(object sender, RoutedEventArgs e)
+        {
+            REWARDTYPE type = (REWARDTYPE) cbType.SelectedItem;
+            RUNESET set = (RUNESET)cbSet.SelectedItem;
+            string mainStat = (string)cbMainStat.SelectedItem;
+            RARITY rarity = (RARITY)cbRarity.SelectedItem;
+
+            List<GemStone> list = (List<GemStone>)lvGemStoneList.ItemsSource;
+
+            if (type == REWARDTYPE.GRINDSTONE)
+            {
+                Grindstone grindStone = new Grindstone(set, mainStat, rarity);
+                list.Add(grindStone);
+            }
+            else
+            {
+                Debug.Write(type);
+            }
+
+            lvGemStoneList.ItemsSource = null;
+            lvGemStoneList.ItemsSource = list;
+
         }
     }
 }

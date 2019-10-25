@@ -8,11 +8,18 @@ namespace SWRunner.Rewards
         private Grindstone() : base("Grindstone") { }
 
         public Grindstone(string set, string mainStat, string min, string max) : base("Grindstone")
-
         {
             Set = Enum.TryParse(set, true, out RUNESET outSet) ? outSet : RUNESET.UNKNOWN;
             MainStat = mainStat;
             Rarity = GetRarirty(max, min);
+            Type = REWARDTYPE.GRINDSTONE;
+        }
+
+        public Grindstone(RUNESET set, string mainStat, RARITY rarity) : base("Grindstone")
+        {
+            Set = set;
+            MainStat = mainStat;
+            Rarity = rarity;
             Type = REWARDTYPE.GRINDSTONE;
         }
 
