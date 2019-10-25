@@ -43,5 +43,13 @@ namespace SWRunner.Rewards
             return Type.GetHashCode() ^ Set.GetHashCode() ^ MainStat.GetHashCode() ^ Rarity.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Type).Append(" - ").Append(Set).Append(" - ").Append(Rarity).Append(Environment.NewLine);
+
+            return sb.ToString();
+        }
+
     }
 }

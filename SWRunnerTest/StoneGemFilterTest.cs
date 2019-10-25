@@ -170,5 +170,16 @@ namespace SWRunnerTest
             Assert.IsFalse(riftFilter.ShouldGet(rareRESEnchantedGem));
             Assert.IsFalse(riftFilter.ShouldGet(rareHPFlatEnchantedGem));
         }
+
+        [Test]
+        public void TestGetOther()
+        {
+            GrindStone heroDespairHPGrindStone = new GrindStone(RUNESET.DESPAIR, "HP%", RARITY.HERO);
+            Assert.IsTrue(riftFilter.ShouldGet(heroDespairHPGrindStone));
+
+            GrindStone legendaryEnergyDEFFlatGrindStone = new GrindStone(RUNESET.ENERGY, "DEF flat", RARITY.LEGENDARY);
+            Assert.IsTrue(riftFilter.ShouldGet(legendaryEnergyDEFFlatGrindStone));
+
+        }
     }
 }

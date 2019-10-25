@@ -60,6 +60,30 @@
     <MainStat>ATK%</MainStat>
     <Rarity>HERO</Rarity>
   </GemStone>
+    <GemStone xsi:type="EnchantedGem">
+    <Type>ENCHANTEDGEM</Type>
+    <Set>ALL</Set>
+    <MainStat>CRate</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStone>
+  <GemStone xsi:type="EnchantedGem">
+    <Type>ENCHANTEDGEM</Type>
+    <Set>ALL</Set>
+    <MainStat>CDmg</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStone>
+  <GemStone xsi:type="EnchantedGem">
+    <Type>ENCHANTEDGEM</Type>
+    <Set>ALL</Set>
+    <MainStat>RES</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStone>
+  <GemStone xsi:type="EnchantedGem">
+    <Type>ENCHANTEDGEM</Type>
+    <Set>ALL</Set>
+    <MainStat>ACC</MainStat>
+    <Rarity>HERO</Rarity>
+  </GemStone>
   <GemStone xsi:type="GrindStone">
     <Type>GRINDSTONE</Type>
     <Set>VIOLENT</Set>
