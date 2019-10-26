@@ -52,17 +52,22 @@
                         <GroupBox Header="Logs" Grid.Row="0">
                             <ScrollViewer>
                                 <StackPanel Orientation="Vertical">
-                                    <Grid>
+                                    <Grid Margin="0 10 0 10">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40"></ColumnDefinition>
-                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="10"></RowDefinition>
-                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="20"></RowDefinition>
+                                            <RowDefinition Height="80"></RowDefinition>
                                         </Grid.RowDefinitions>
-                                        <Image Source="assets/Blade.png" Grid.Column="0" Grid.RowSpan="2"></Image>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Width="60" Background="Green">
+                                            <Label Content="GET" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="8" Margin="-2 -2 -2 -2" FontWeight="Bold"/>
+                                        </Border>
+                                        <Grid Grid.Column="0" Grid.Row="1" Background="Orange" Margin="0 5 0 0">
+                                            <Image Source="assets/Blade.png" ></Image>
+                                        </Grid>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
                                             <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
                                             <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
                                             <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
@@ -70,10 +75,39 @@
                                             <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
                                             <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
                                         </StackPanel>
-                                        <Grid Grid.Column="1" Grid.Row="1">
-                                            <TextBlock Text="Content here"></TextBlock>
+                                        <Grid Grid.Column="1" Grid.Row="1" Margin="5 0 0 0">
+                                            <TextBlock Text="Blade (2) - ATK%&#x0a;SPD +6&#x0a;HP% +7&#x0a;CRate +5&#x0a;HP +230"></TextBlock>
                                         </Grid>
                                     </Grid>
+
+                                    <Grid Margin="0 10 0 10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"></RowDefinition>
+                                            <RowDefinition Height="80"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Width="60" Background="Red">
+                                            <Label Content="SELL" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="8" Margin="-2 -2 -2 -2" FontWeight="Bold"/>
+                                        </Border>
+                                        <Grid Grid.Column="0" Grid.Row="1" Background="MediumPurple" Margin="0 5 0 0">
+                                            <Image Source="assets/Violent.png" ></Image>
+                                        </Grid>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                        </StackPanel>
+                                        <Grid Grid.Column="1" Grid.Row="1" Margin="5 0 0 0">
+                                            <TextBlock Text="Violent Hero (2) - ATK%&#x0a;SPD +6&#x0a;HP% +7&#x0a;CRate +5&#x0a;HP +230"></TextBlock>
+                                        </Grid>
+                                    </Grid>
+
                                     <TextBlock Margin="5" Text="Test"></TextBlock>
                                     <TextBox TextWrapping="Wrap" Name="log" VerticalScrollBarVisibility="Visible"/>
                                 </StackPanel>

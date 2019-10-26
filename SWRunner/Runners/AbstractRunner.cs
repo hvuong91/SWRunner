@@ -163,8 +163,8 @@ namespace SWRunner.Runners
                 Debug.WriteLine("Checking for refill ...");
                 Bitmap screenShot = Emulator.PrintWindow();
                 Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
-                    500 * Emulator.Width / 1920, 600 * Emulator.Height / 1080));
-                needRefill = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.79f);
+                    700 * Emulator.Width / 1920, 400 * Emulator.Height / 1080));
+                needRefill = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\shop.PNG"), 0.75f);
                 if (needRefill)
                 {
                     break;
