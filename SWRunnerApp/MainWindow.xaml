@@ -41,6 +41,7 @@
                             </Grid>
                         </GroupBox>
                         <GroupBox Header="Arena" Grid.Row="1">
+                            <Button Margin="30" Name="btnTestLog" Click="btnTestLog_Click" Content="Test Log"></Button>
                         </GroupBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -49,7 +50,34 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <GroupBox Header="Logs" Grid.Row="0">
-                            <TextBox TextWrapping="Wrap" Name="log" TextChanged="Log_TextChanged" VerticalScrollBarVisibility="Visible"/>
+                            <ScrollViewer>
+                                <StackPanel Orientation="Vertical">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"></ColumnDefinition>
+                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="assets/Blade.png" Grid.Column="0" Grid.RowSpan="2"></Image>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                        </StackPanel>
+                                        <Grid Grid.Column="1" Grid.Row="1">
+                                            <TextBlock Text="Content here"></TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                    <TextBlock Margin="5" Text="Test"></TextBlock>
+                                    <TextBox TextWrapping="Wrap" Name="log" VerticalScrollBarVisibility="Visible"/>
+                                </StackPanel>
+                            </ScrollViewer>
                         </GroupBox>
                         <GroupBox Header="Drop Info" Grid.Row="1">
                             <Grid>

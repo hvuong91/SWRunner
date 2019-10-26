@@ -94,7 +94,9 @@ namespace SWRunnerApp
 
             RunnerLogger logger = (RunnerLogger)e.UserState;
 
-            log.Text += DateTime.Now + ": " + logger.Message + Environment.NewLine;
+            while(logger.Message.Count > 0){
+                log.Text += logger.Message.Dequeue();
+            }
 
             lblRuneCollect.Content = "Rune Collect: " + Logger.GetRunes;
             lblRuneSell.Content = "Rune Sell: " + Logger.SellRunes;
@@ -191,11 +193,6 @@ namespace SWRunnerApp
 
         }
 
-        private void Log_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            log.ScrollToEnd();
-        }
-
         private void btnRemoveGemStone_Click(object sender, RoutedEventArgs e)
         {
             List<GemStone> list = (List<GemStone>)lvGemStoneList.ItemsSource;
@@ -243,6 +240,17 @@ namespace SWRunnerApp
             lvGemStoneList.ItemsSource = null;
             lvGemStoneList.ItemsSource = list;
 
+        }
+
+        private void btnTestLog_Click(object sender, RoutedEventArgs e)
+        {
+            Logger.Log("Log 1");
+            Logger.Log("Log 2");
+
+            while (Logger.Message.Count >0)
+            {
+                log.Text = Logger.Message.Dequeue() + log.Text;
+            }
         }
     }
 }
