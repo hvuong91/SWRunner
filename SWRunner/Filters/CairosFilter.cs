@@ -32,6 +32,11 @@ namespace SWRunner.Filters
                 return false;
             }
 
+            if (Is5StarLegend(rune) && !HasSpeedSub(rune))
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -77,5 +82,11 @@ namespace SWRunner.Filters
         {
             return rune.Grade.Equals("5*");
         }
+
+        private bool Is5StarLegend(Rune rune)
+        {
+            return Is5Star(rune) && rune.Rarity == Rune.RARITY.LEGENDARY;
+        }
+
     }
 }
