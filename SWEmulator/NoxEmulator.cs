@@ -38,7 +38,14 @@ namespace SWEmulator
         public override Bitmap PrintWindow()
         {
             Rect rc;
-            GetWindowRect(Screen, out rc);
+            // TODO: This might be stuck forever. Use timer instead?
+            int tries = 100;
+            while (!GetWindowRect(Screen, out rc) && tries-- > 0) { };
+
+            if (tries <= 0)
+            {
+                throw new Exception("Failed to Print Window");
+            }
 
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format24bppRgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
