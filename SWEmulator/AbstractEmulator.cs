@@ -117,6 +117,7 @@ namespace SWEmulator
             Graphics gfxBmp = Graphics.FromImage(bmp);
             IntPtr hdcBitmap = gfxBmp.GetHdc();
 
+            // meh, gotta do this later
             PrintWindow(mainWindow, hdcBitmap, 0);
 
             gfxBmp.ReleaseHdc(hdcBitmap);
@@ -147,10 +148,18 @@ namespace SWEmulator
 
         private void GetWindowSize(IntPtr hWnd)
         {
-            if (!GetWindowRect(hWnd, out Rect rct))
+            // TODO: Timer on this since it might be stuck forever
+            int tries = 100;
+            Rect rct;
+            while (!GetWindowRect(hWnd, out rct) && tries-- > 0)
             {
                 // TODO: Log fail message
                 return;
+            }
+
+            if (tries <= 0)
+            {
+                throw new Exception("Failed to get Window Size");
             }
 
             Width = rct.right - rct.left;
