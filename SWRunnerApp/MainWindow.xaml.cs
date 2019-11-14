@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using static SWRunner.Rewards.Rune;
+using static SWRunner.RunnerLogger;
 
 namespace SWRunnerApp
 {
@@ -95,7 +96,7 @@ namespace SWRunnerApp
             RunnerLogger logger = (RunnerLogger)e.UserState;
 
             while(logger.Message.Count > 0){
-                log.Text += logger.Message.Dequeue();
+                log.Text += logger.Message.Dequeue().message.ToString();
             }
 
             lblRuneCollect.Content = "Rune Collect: " + Logger.GetRunes;
@@ -244,13 +245,116 @@ namespace SWRunnerApp
 
         private void btnTestLog_Click(object sender, RoutedEventArgs e)
         {
-            Logger.Log("Log 1");
-            Logger.Log("Log 2");
+            Rune rune1 = new Rune.RuneBuilder().Grade("6*").Set("Blade").Slot("4").
+                        Rarity("Legendary").MainStat("ATK%").PrefixStat("DEF +5").
+                        SubStat1("HP% +5").SubStat2("SPD +4").SubStat3("HP +200").
+                        SubStat4("CRATE +6").Build();
+            Logger.Log(ACTION.GET, rune1);
+            Thread.Sleep(1000);
+            Rune rune2 = new Rune.RuneBuilder().Grade("4*").Set("Violent").Slot("4").
+                        Rarity("Legendary").MainStat("ATK%").PrefixStat("DEF +5").
+                        SubStat1("HP% +5").SubStat2("SPD +4").SubStat3("HP +200").
+                        SubStat4("CRATE +6").Build();
+            Logger.Log(ACTION.SELL, rune2);
 
             while (Logger.Message.Count >0)
             {
-                log.Text = Logger.Message.Dequeue() + log.Text;
+                //log.Text = Logger.Message.Dequeue() + log.Text;
+                Grid grid = CreateMessageLog(Logger.Message.Dequeue());
+                logPanel.Children.Insert(0, grid);
             }
+
         }
+
+        private Grid CreateMessageLog((ACTION action, Object message, DateTime timeStamp) log)
+        {
+
+            Rune rune = (Rune) log.message;
+
+            // Main container
+            Grid grid = new Grid();
+            grid.Margin = new Thickness(0, 10, 0, 10);
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(80) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(250) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(200) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20) });
+            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(80) });
+
+            // Action
+            Border border = new Border();
+            border.BorderBrush = Brushes.Black;
+            border.BorderThickness = new Thickness(2);
+            border.CornerRadius = new CornerRadius(10);
+            border.Width = 60;
+            if (log.action == ACTION.GET)
+            {
+                border.Background = Brushes.Green;
+            }
+            else
+            {
+                border.Background = Brushes.Red;
+            }
+
+            Label lbl = new Label();
+            lbl.Content = log.action;
+            Grid.SetRow(lbl, 0);
+            Grid.SetColumn(lbl, 0);
+            lbl.HorizontalContentAlignment = HorizontalAlignment.Center;
+            lbl.FontSize = 8;
+            lbl.FontWeight = FontWeights.Bold;
+            lbl.Margin = new Thickness(-2, -2, -2, -2);
+            border.Child = lbl;
+
+            // Item image
+            Grid imageGrid = new Grid();
+            Grid.SetColumn(imageGrid, 0);
+            Grid.SetRow(imageGrid, 1);
+            imageGrid.Background = Brushes.Orange;
+            imageGrid.Margin = new Thickness(0, 5, 0, 0);
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri($"assets/{rune.Set}.png", UriKind.Relative));
+            imageGrid.Children.Add(image);
+
+            // Stars
+            StackPanel starPanel = new StackPanel();
+            starPanel.Orientation = Orientation.Horizontal;
+            starPanel.Margin = new Thickness(5, 0, 0, 0);
+            Grid.SetColumn(starPanel, 1);
+            Grid.SetRow(starPanel, 0);
+
+            int stars = 6;
+            while (stars-- > 0)
+            {
+                Image starImage = new Image();
+                starImage.Source = new BitmapImage(new Uri(@"assets/star-unawakened.png", UriKind.Relative));
+                Grid.SetRowSpan(starImage, 2);
+                starPanel.Children.Add(starImage);
+            }
+
+            // Text
+            TextBlock textBlock = new TextBlock();
+            textBlock.Margin = new Thickness(5, 0, 0, 0);
+            textBlock.Text = "Message Here" + Environment.NewLine + "With new line";
+            Grid.SetRow(textBlock, 1);
+            Grid.SetColumn(textBlock, 1);
+
+            // Timestamp
+            TextBlock timeStampTextBlock = new TextBlock();
+            timeStampTextBlock.Margin = new Thickness(5, 0, 0, 0);
+            timeStampTextBlock.Text = log.timeStamp.ToString();
+            Grid.SetRow(timeStampTextBlock, 0);
+            Grid.SetColumn(timeStampTextBlock, 2);
+
+
+            // Add all to grid container
+            grid.Children.Add(border);
+            grid.Children.Add(imageGrid);
+            grid.Children.Add(starPanel);
+            grid.Children.Add(textBlock);
+            grid.Children.Add(timeStampTextBlock);
+
+            return grid;
+        }
+
     }
 }

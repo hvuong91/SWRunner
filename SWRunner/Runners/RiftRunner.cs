@@ -4,6 +4,7 @@ using SWRunner.Rewards;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using static SWRunner.RunnerLogger;
 
 namespace SWRunner.Runners
 {
@@ -74,11 +75,11 @@ namespace SWRunner.Runners
                 Thread.Sleep(1500);
                 Emulator.Click(RunnerConfig.ConfirmSellRunePoint);
                 Thread.Sleep(1500);
-                Logger.Log("Sell: " + Environment.NewLine + reward.ToString());
+                Logger.Log(ACTION.SELL, reward);
             }
             else
             {
-                Logger.Log("Get: " + reward.ToString());
+                Logger.Log(ACTION.GET, reward);
             }
 
             Thread.Sleep(3000);

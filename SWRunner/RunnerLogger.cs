@@ -20,7 +20,7 @@ namespace SWRunner
         public int SellRunes { get; private set; } = 0;
 
         // TODO: stack of messages? Need to log run failed, refill etc. on the same run
-        public Queue<string> Message { get; private set; } = new Queue<string>();
+        public Queue<(ACTION action, Object message, DateTime timeStamp)> Message { get; private set; } = new Queue<(ACTION action, Object message, DateTime timeStamp)>();
 
         public void Log(RunResult runResult, Reward reward, bool getReward)
         {
@@ -42,24 +42,28 @@ namespace SWRunner
                 if (getReward)
                 {
                     GetRunes += 1;
-                    Log("Get Rune:" + Environment.NewLine + reward.ToString());
+                    Log(ACTION.GET,reward);
                 }
                 else
                 {
                     SellRunes += 1;
-                    Log("Sell Rune:" + Environment.NewLine + reward.ToString());
+                    Log(ACTION.SELL, reward);
                 }
             }
             else
             {
-                Log("Get " + reward.ToString());
+                Log(ACTION.GET, reward);
             }
         }
 
-        public void Log(string message)
+        public void Log(ACTION action, Object message)
         {
-            Message.Enqueue(DateTime.Now + ": " + message + Environment.NewLine);
+            Message.Enqueue((action, message, DateTime.Now));
         }
 
+        public enum ACTION
+        {
+            NONE, GET, SELL
+        }
     }
 }
