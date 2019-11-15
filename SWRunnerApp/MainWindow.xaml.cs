@@ -99,6 +99,7 @@ namespace SWRunnerApp
             while(logger.Message.Count > 0){
                 //log.Text += logger.Message.Dequeue().message.ToString();
                 UIElement logComponent = LogFactory.Build(Logger.Message.Dequeue());
+                SetLogVisibility(logComponent);
                 logPanel.Children.Insert(0, logComponent);
             }
 
@@ -262,7 +263,7 @@ namespace SWRunnerApp
             Logger.Log(ACTION.GET, rune1);
             Thread.Sleep(1000);
             Rune rune2 = new Rune.RuneBuilder().Grade("4*").Set("Violent").Slot("4").
-                        Rarity("Legendary").MainStat("ATK%").PrefixStat("DEF +5").
+                        Rarity("Magic").MainStat("ATK%").PrefixStat("DEF +5").
                         SubStat1("HP% +5").SubStat2("SPD +4").SubStat3("HP +200").
                         SubStat4("CRATE +6").Build();
             Logger.Log(ACTION.SELL, rune2);
@@ -279,6 +280,7 @@ namespace SWRunnerApp
             while (Logger.Message.Count >0)
             {
                 UIElement logComponent = LogFactory.Build(Logger.Message.Dequeue());
+                SetLogVisibility(logComponent);
                 logPanel.Children.Insert(0, logComponent);
             }
 
@@ -304,37 +306,42 @@ namespace SWRunnerApp
             // Check visibility of each child based on the settings
             foreach (UIElement child in logPanel.Children)
             {
-                if (IsChecked(cbShowAll))
+                SetLogVisibility(child);
+            }
+        }
+
+        private void SetLogVisibility(UIElement logEntry)
+        {
+            if (IsChecked(cbShowAll))
+            {
+                logEntry.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if ((logEntry.GetType() == typeof(GeneralLog) && IsChecked(cbLogsOnly))
+                    || (logEntry.GetType() == typeof(OtherRewardLog) && IsChecked(cbOtherRewards)))
                 {
-                    child.Visibility = Visibility.Visible;
+                    logEntry.Visibility = Visibility.Visible;
                 }
-                else
+                else if (logEntry.GetType() == typeof(RuneLog))
                 {
-                    if ((child.GetType() == typeof(GeneralLog) && IsChecked(cbLogsOnly)) 
-                        || (child.GetType() == typeof(OtherRewardLog) && IsChecked(cbOtherRewards)))
+                    RuneLog runeLog = (RuneLog)logEntry;
+                    if (runeLog.Action == ACTION.GET && IsChecked(cbCollectedRunes))
                     {
-                        child.Visibility = Visibility.Visible;
+                        logEntry.Visibility = Visibility.Visible;
                     }
-                    else if (child.GetType() == typeof(RuneLog))
+                    else if (runeLog.Action == ACTION.SELL && IsChecked(cbSoldRunes))
                     {
-                        RuneLog runeLog = (RuneLog)child;
-                        if (runeLog.Action == ACTION.GET && IsChecked(cbCollectedRunes))
-                        {
-                            child.Visibility = Visibility.Visible;
-                        }
-                        else if (runeLog.Action == ACTION.SELL && IsChecked(cbSoldRunes))
-                        {
-                            child.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            child.Visibility = Visibility.Collapsed;
-                        }
+                        logEntry.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        child.Visibility = Visibility.Collapsed;
+                        logEntry.Visibility = Visibility.Collapsed;
                     }
+                }
+                else
+                {
+                    logEntry.Visibility = Visibility.Collapsed;
                 }
             }
         }

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static SWRunner.Rewards.Rune;
 using static SWRunner.RunnerLogger;
 
 namespace SWRunnerApp.LogComponents
@@ -62,7 +63,7 @@ namespace SWRunnerApp.LogComponents
             Grid imageGrid = new Grid();
             Grid.SetColumn(imageGrid, 0);
             Grid.SetRow(imageGrid, 1);
-            imageGrid.Background = Brushes.Orange;
+            imageGrid.Background = GetRarityColor(rune.Rarity);
             imageGrid.Margin = new Thickness(0, 5, 0, 0);
             Image image = new Image
             {
@@ -113,6 +114,35 @@ namespace SWRunnerApp.LogComponents
             this.Children.Add(starPanel);
             this.Children.Add(textBlock);
             this.Children.Add(timeStampTextBlock);
+        }
+
+        private Brush GetRarityColor(RARITY rarity)
+        {
+            Brush color;
+
+            switch (rarity)
+            {
+                case RARITY.NORMAL:
+                    color = Brushes.Silver;
+                    break;
+                case RARITY.MAGIC:
+                    color = Brushes.ForestGreen;
+                    break;
+                case RARITY.RARE:
+                    color = Brushes.DeepSkyBlue;
+                    break;
+                case RARITY.HERO:
+                    color = Brushes.MediumPurple;
+                    break;
+                case RARITY.LEGENDARY:
+                    color = Brushes.Orange;
+                    break;
+                default:
+                    color = Brushes.White;
+                    break;
+            }
+
+            return color;
         }
     }
 }
