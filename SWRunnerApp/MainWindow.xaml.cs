@@ -2,6 +2,7 @@
 using SWRunner.Filters;
 using SWRunner.Rewards;
 using SWRunner.Runners;
+using SWRunnerApp.LogComponents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -91,12 +92,14 @@ namespace SWRunnerApp
 
         private void BackgroundWorkerOnProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            object userObject = e.UserState;
+            //object userObject = e.UserState;
 
             RunnerLogger logger = (RunnerLogger)e.UserState;
 
             while(logger.Message.Count > 0){
-                log.Text += logger.Message.Dequeue().message.ToString();
+                //log.Text += logger.Message.Dequeue().message.ToString();
+                UIElement logComponent = LogFactory.Build(Logger.Message.Dequeue());
+                logPanel.Children.Insert(0, logComponent);
             }
 
             lblRuneCollect.Content = "Rune Collect: " + Logger.GetRunes;
@@ -107,16 +110,22 @@ namespace SWRunnerApp
         {
             if (e.Cancelled)
             {
-                log.Text += DateTime.Now + ": === Canceled ===" + Environment.NewLine;
+                Logger.Log("Worker has been canceled!");
             }
             else if (e.Error != null)
             {
-                log.Text += DateTime.Now + ": === Error!!! ===" + Environment.NewLine;
-                log.Text += e.ToString() + Environment.NewLine;
+                Logger.Log("There's an error with worker");
+                Logger.Log(e.ToString());
             }
             else
             {
-                log.Text += DateTime.Now + ": === Stopped ===" + Environment.NewLine; 
+                Logger.Log("Worker has been stopped!");
+            }
+
+            while (Logger.Message.Count > 0)
+            {
+                UIElement logComponent = LogFactory.Build(Logger.Message.Dequeue());
+                logPanel.Children.Insert(0, logComponent);
             }
         }
 
@@ -245,6 +254,7 @@ namespace SWRunnerApp
 
         private void btnTestLog_Click(object sender, RoutedEventArgs e)
         {
+            // Rune
             Rune rune1 = new Rune.RuneBuilder().Grade("6*").Set("Blade").Slot("4").
                         Rarity("Legendary").MainStat("ATK%").PrefixStat("DEF +5").
                         SubStat1("HP% +5").SubStat2("SPD +4").SubStat3("HP +200").
@@ -257,104 +267,101 @@ namespace SWRunnerApp
                         SubStat4("CRATE +6").Build();
             Logger.Log(ACTION.SELL, rune2);
 
+            // Other
+            Reward reward1 = new Reward("Item 1", REWARDTYPE.SUMMONSTONE);
+            Reward reward2 = new Reward("Item 2", REWARDTYPE.GRINDSTONE);
+            Logger.Log(ACTION.GET, reward1);
+            Logger.Log(ACTION.GET, reward2);
+
+            // General
+            Logger.Log("General log");
+
             while (Logger.Message.Count >0)
             {
-                //log.Text = Logger.Message.Dequeue() + log.Text;
-                Grid grid = CreateMessageLog(Logger.Message.Dequeue());
-                logPanel.Children.Insert(0, grid);
+                UIElement logComponent = LogFactory.Build(Logger.Message.Dequeue());
+                logPanel.Children.Insert(0, logComponent);
             }
 
         }
 
-        private Grid CreateMessageLog((ACTION action, Object message, DateTime timeStamp) log)
+        private void cbLogSettings_Changed(object sender, RoutedEventArgs e)
         {
-
-            Rune rune = (Rune) log.message;
-
-            // Main container
-            Grid grid = new Grid();
-            grid.Margin = new Thickness(0, 10, 0, 10);
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(80) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(250) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(200) });
-            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20) });
-            grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(80) });
-
-            // Action
-            Border border = new Border();
-            border.BorderBrush = Brushes.Black;
-            border.BorderThickness = new Thickness(2);
-            border.CornerRadius = new CornerRadius(10);
-            border.Width = 60;
-            if (log.action == ACTION.GET)
+            if (logPanel == null)
             {
-                border.Background = Brushes.Green;
-            }
-            else
-            {
-                border.Background = Brushes.Red;
+                return;
             }
 
-            Label lbl = new Label();
-            lbl.Content = log.action;
-            Grid.SetRow(lbl, 0);
-            Grid.SetColumn(lbl, 0);
-            lbl.HorizontalContentAlignment = HorizontalAlignment.Center;
-            lbl.FontSize = 8;
-            lbl.FontWeight = FontWeights.Bold;
-            lbl.Margin = new Thickness(-2, -2, -2, -2);
-            border.Child = lbl;
-
-            // Item image
-            Grid imageGrid = new Grid();
-            Grid.SetColumn(imageGrid, 0);
-            Grid.SetRow(imageGrid, 1);
-            imageGrid.Background = Brushes.Orange;
-            imageGrid.Margin = new Thickness(0, 5, 0, 0);
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri($"assets/{rune.Set}.png", UriKind.Relative));
-            imageGrid.Children.Add(image);
-
-            // Stars
-            StackPanel starPanel = new StackPanel();
-            starPanel.Orientation = Orientation.Horizontal;
-            starPanel.Margin = new Thickness(5, 0, 0, 0);
-            Grid.SetColumn(starPanel, 1);
-            Grid.SetRow(starPanel, 0);
-
-            int stars = 6;
-            while (stars-- > 0)
+            // Auto check
+            if (sender.Equals(cbShowAll) && cbShowAll.IsChecked == true)
             {
-                Image starImage = new Image();
-                starImage.Source = new BitmapImage(new Uri(@"assets/star-unawakened.png", UriKind.Relative));
-                Grid.SetRowSpan(starImage, 2);
-                starPanel.Children.Add(starImage);
+                SetLogsSettings(true);
+            }
+            if (sender.Equals(cbShowAll) && cbShowAll.IsChecked == false)
+            {
+                SetLogsSettings(false);
             }
 
-            // Text
-            TextBlock textBlock = new TextBlock();
-            textBlock.Margin = new Thickness(5, 0, 0, 0);
-            textBlock.Text = "Message Here" + Environment.NewLine + "With new line";
-            Grid.SetRow(textBlock, 1);
-            Grid.SetColumn(textBlock, 1);
-
-            // Timestamp
-            TextBlock timeStampTextBlock = new TextBlock();
-            timeStampTextBlock.Margin = new Thickness(5, 0, 0, 0);
-            timeStampTextBlock.Text = log.timeStamp.ToString();
-            Grid.SetRow(timeStampTextBlock, 0);
-            Grid.SetColumn(timeStampTextBlock, 2);
-
-
-            // Add all to grid container
-            grid.Children.Add(border);
-            grid.Children.Add(imageGrid);
-            grid.Children.Add(starPanel);
-            grid.Children.Add(textBlock);
-            grid.Children.Add(timeStampTextBlock);
-
-            return grid;
+            // Check visibility of each child based on the settings
+            foreach (UIElement child in logPanel.Children)
+            {
+                if (IsChecked(cbShowAll))
+                {
+                    child.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    if ((child.GetType() == typeof(GeneralLog) && IsChecked(cbLogsOnly)) 
+                        || (child.GetType() == typeof(OtherRewardLog) && IsChecked(cbOtherRewards)))
+                    {
+                        child.Visibility = Visibility.Visible;
+                    }
+                    else if (child.GetType() == typeof(RuneLog))
+                    {
+                        RuneLog runeLog = (RuneLog)child;
+                        if (runeLog.Action == ACTION.GET && IsChecked(cbCollectedRunes))
+                        {
+                            child.Visibility = Visibility.Visible;
+                        }
+                        else if (runeLog.Action == ACTION.SELL && IsChecked(cbSoldRunes))
+                        {
+                            child.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            child.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    else
+                    {
+                        child.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
         }
 
+        private void SetLogsSettings(bool check)
+        {
+            // Remove event handler from the sender so it won't trigger infinite loop
+            cbCollectedRunes.Checked -= cbLogSettings_Changed;
+            cbCollectedRunes.IsChecked = check;
+            cbCollectedRunes.Checked += cbLogSettings_Changed;
+
+            cbSoldRunes.Checked -= cbLogSettings_Changed;
+            cbSoldRunes.IsChecked = check;
+            cbSoldRunes.Checked += cbLogSettings_Changed;
+
+            cbOtherRewards.Checked -= cbLogSettings_Changed;
+            cbOtherRewards.IsChecked = check;
+            cbOtherRewards.Checked += cbLogSettings_Changed;
+
+            cbLogsOnly.Checked -= cbLogSettings_Changed;
+            cbLogsOnly.IsChecked = check;
+            cbLogsOnly.Checked += cbLogSettings_Changed;
+        }
+
+        private bool IsChecked(CheckBox cb)
+        {
+            return cb.IsChecked ?? false;
+        }
     }
 }

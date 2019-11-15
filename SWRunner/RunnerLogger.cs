@@ -56,6 +56,11 @@ namespace SWRunner
             }
         }
 
+        public void Log(Object message)
+        {
+            Message.Enqueue((ACTION.NONE, message, DateTime.Now));
+        }
+
         public void Log(ACTION action, Object message)
         {
             Message.Enqueue((action, message, DateTime.Now));

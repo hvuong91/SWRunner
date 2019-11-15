@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWRunnerApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="487" Width="838"
         >
     <Grid>
         <TabControl>
@@ -50,73 +50,125 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <GroupBox Header="Logs" Grid.Row="0">
-                            <ScrollViewer>
-                                <StackPanel Orientation="Vertical" Name="logPanel">
-                                    <Grid Margin="0 10 0 10">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80"></ColumnDefinition>
-                                            <ColumnDefinition Width="250"></ColumnDefinition>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="20"></RowDefinition>
-                                            <RowDefinition Height="80"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Width="60" Background="Green">
-                                            <Label Content="GET" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="8" Margin="-2 -2 -2 -2" FontWeight="Bold"/>
-                                        </Border>
-                                        <Grid Grid.Column="0" Grid.Row="1" Background="Orange" Margin="0 5 0 0">
-                                            <Image Source="assets/Blade.png" ></Image>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!-- Controllers-->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0" IsChecked="True" Name="cbShowAll" Checked="cbLogSettings_Changed" Unchecked="cbLogSettings_Changed">
+                                        <TextBlock>
+                                            Show All
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox Grid.Column="1" Checked="cbLogSettings_Changed" Unchecked="cbLogSettings_Changed" Name="cbCollectedRunes" IsChecked="True">
+                                        <TextBlock>
+                                            Collected runes
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox Grid.Column="2" Checked="cbLogSettings_Changed" Unchecked="cbLogSettings_Changed" Name="cbSoldRunes" IsChecked="True">
+                                        <TextBlock>
+                                            Sold runes
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox Grid.Column="3" Checked="cbLogSettings_Changed" Unchecked="cbLogSettings_Changed" Name="cbOtherRewards" IsChecked="True">
+                                        <TextBlock>
+                                            Other Rewards
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox Grid.Column="4" Checked="cbLogSettings_Changed" Unchecked="cbLogSettings_Changed" Name="cbLogsOnly" IsChecked="True">
+                                        <TextBlock>
+                                            General Logs
+                                        </TextBlock>
+                                    </CheckBox>
+                                </Grid>
+                                <ScrollViewer Grid.Row="1">
+                                    <StackPanel Orientation="Vertical" Name="logPanel">
+                                        <!--
+                                        <Grid Margin="0 10 0 10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20"></RowDefinition>
+                                                <RowDefinition Height="80"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Width="60" Background="Green">
+                                                <Label Content="GET" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="8" Margin="-2 -2 -2 -2" FontWeight="Bold"/>
+                                            </Border>
+                                            <Grid Grid.Column="0" Grid.Row="1" Background="Orange" Margin="0 5 0 0">
+                                                <Image Source="assets/Blade.png" ></Image>
+                                            </Grid>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            </StackPanel>
+                                            <Grid Grid.Column="1" Grid.Row="1" Margin="5 0 0 0">
+                                                <TextBlock Text="Blade (2) - ATK%&#x0a;SPD +6&#x0a;HP% +7&#x0a;CRate +5&#x0a;HP +230"></TextBlock>
+                                            </Grid>
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="2019-10-10 12:12:20"></TextBlock>
                                         </Grid>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                        </StackPanel>
-                                        <Grid Grid.Column="1" Grid.Row="1" Margin="5 0 0 0">
-                                            <TextBlock Text="Blade (2) - ATK%&#x0a;SPD +6&#x0a;HP% +7&#x0a;CRate +5&#x0a;HP +230"></TextBlock>
-                                        </Grid>
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="2019-10-10 12:12:20"></TextBlock>
-                                    </Grid>
 
-                                    <Grid Margin="0 10 0 10">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80"></ColumnDefinition>
-                                            <ColumnDefinition Width="300"></ColumnDefinition>
-                                            <ColumnDefinition Width="100"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="20"></RowDefinition>
-                                            <RowDefinition Height="80"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Width="60" Background="Red">
-                                            <Label Content="SELL" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="8" Margin="-2 -2 -2 -2" FontWeight="Bold"/>
-                                        </Border>
-                                        <Grid Grid.Column="0" Grid.Row="1" Background="MediumPurple" Margin="0 5 0 0">
-                                            <Image Source="assets/Violent.png" ></Image>
+                                        <Grid Margin="0 10 0 10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="330"></ColumnDefinition>
+                                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="Collect Item" Margin="10 0 0 0"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text="2019-10-10 12:12:20"></TextBlock>
                                         </Grid>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                            <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
-                                        </StackPanel>
-                                        <Grid Grid.Column="1" Grid.Row="1" Margin="5 0 0 0">
-                                            <TextBlock Text="Violent Hero (2) - ATK%&#x0a;SPD +6&#x0a;HP% +7&#x0a;CRate +5&#x0a;HP +230"></TextBlock>
+                                    
+                                        <Grid Margin="0 10 0 10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20"></RowDefinition>
+                                                <RowDefinition Height="80"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Width="60" Background="Red">
+                                                <Label Content="SELL" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="8" Margin="-2 -2 -2 -2" FontWeight="Bold"/>
+                                            </Border>
+                                            <Grid Grid.Column="0" Grid.Row="1" Background="MediumPurple" Margin="0 5 0 0">
+                                                <Image Source="assets/Violent.png" ></Image>
+                                            </Grid>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                                <Image Source="assets\star-unawakened.png" Grid.RowSpan="2"></Image>
+                                            </StackPanel>
+                                            <Grid Grid.Column="1" Grid.Row="1" Margin="5 0 0 0">
+                                                <TextBlock Text="Violent Hero (2) - ATK%&#x0a;SPD +6&#x0a;HP% +7&#x0a;CRate +5&#x0a;HP +230"></TextBlock>
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-
-                                    <TextBlock Margin="5" Text="Test"></TextBlock>
-                                    <TextBox TextWrapping="Wrap" Name="log" VerticalScrollBarVisibility="Visible"/>
-                                </StackPanel>
-                            </ScrollViewer>
+                                    
+                                        <TextBlock Margin="5" Text="Test"></TextBlock>
+                                        <TextBox TextWrapping="Wrap" Name="log" VerticalScrollBarVisibility="Visible"/>
+                                        -->
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
                         </GroupBox>
-                        
+
                         <GroupBox Header="Drop Info" Grid.Row="1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
