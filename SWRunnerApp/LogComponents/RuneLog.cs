@@ -25,8 +25,8 @@ namespace SWRunnerApp.LogComponents
             this.Margin = new Thickness(0, 10, 0, 10);
 
             this.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(80) });
-            this.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(250) });
-            this.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(200) });
+            this.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            this.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20) });
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100) });
 
@@ -102,6 +102,7 @@ namespace SWRunnerApp.LogComponents
             // Timestamp
             TextBlock timeStampTextBlock = new TextBlock
             {
+                Margin = new Thickness(0, 0, 10, 0),
                 Text = timeStamp.ToString()
             };
             Grid.SetRow(timeStampTextBlock, 0);
