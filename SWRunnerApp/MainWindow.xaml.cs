@@ -272,10 +272,12 @@ namespace SWRunnerApp
             Reward reward1 = new Reward("Item 1", REWARDTYPE.SUMMONSTONE);
             Reward reward2 = new Reward("Item 2", REWARDTYPE.GRINDSTONE);
             Logger.Log(ACTION.GET, reward1);
-            Logger.Log(ACTION.GET, reward2);
+            Logger.Log(ACTION.SELL, reward2);
 
             // General
-            Logger.Log("General log");
+            Logger.Log("General log 1");
+            Logger.Log("General log 2");
+            Logger.Log("General log 3");
 
             while (Logger.Message.Count >0)
             {
@@ -298,9 +300,25 @@ namespace SWRunnerApp
             {
                 SetLogsSettings(true);
             }
-            if (sender.Equals(cbShowAll) && cbShowAll.IsChecked == false)
+            else if (sender.Equals(cbShowAll) && cbShowAll.IsChecked == false)
             {
                 SetLogsSettings(false);
+            }
+            else
+            {
+                cbShowAll.Checked -= cbLogSettings_Changed;
+                cbShowAll.Unchecked -= cbLogSettings_Changed;
+                if (IsChecked(cbLogsOnly) && IsChecked(cbOtherRewards) && IsChecked(cbCollectedRunes) && IsChecked(cbSoldRunes))
+                {
+                    
+                    cbShowAll.IsChecked = true;
+                }
+                else
+                {
+                    cbShowAll.IsChecked = false;
+                }
+                cbShowAll.Checked += cbLogSettings_Changed;
+                cbShowAll.Unchecked += cbLogSettings_Changed;
             }
 
             // Check visibility of each child based on the settings
@@ -350,20 +368,28 @@ namespace SWRunnerApp
         {
             // Remove event handler from the sender so it won't trigger infinite loop
             cbCollectedRunes.Checked -= cbLogSettings_Changed;
+            cbCollectedRunes.Unchecked -= cbLogSettings_Changed;
             cbCollectedRunes.IsChecked = check;
             cbCollectedRunes.Checked += cbLogSettings_Changed;
+            cbCollectedRunes.Unchecked += cbLogSettings_Changed;
 
             cbSoldRunes.Checked -= cbLogSettings_Changed;
+            cbSoldRunes.Unchecked -= cbLogSettings_Changed;
             cbSoldRunes.IsChecked = check;
             cbSoldRunes.Checked += cbLogSettings_Changed;
+            cbSoldRunes.Unchecked += cbLogSettings_Changed;
 
             cbOtherRewards.Checked -= cbLogSettings_Changed;
+            cbOtherRewards.Unchecked -= cbLogSettings_Changed;
             cbOtherRewards.IsChecked = check;
             cbOtherRewards.Checked += cbLogSettings_Changed;
+            cbOtherRewards.Unchecked += cbLogSettings_Changed;
 
             cbLogsOnly.Checked -= cbLogSettings_Changed;
+            cbLogsOnly.Unchecked -= cbLogSettings_Changed;
             cbLogsOnly.IsChecked = check;
             cbLogsOnly.Checked += cbLogSettings_Changed;
+            cbLogsOnly.Unchecked += cbLogSettings_Changed;
         }
 
         private bool IsChecked(CheckBox cb)
