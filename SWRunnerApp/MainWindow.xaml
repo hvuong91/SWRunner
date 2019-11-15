@@ -132,7 +132,7 @@
                                             <TextBlock Grid.Column="0" Text="Collect Item" Margin="10 0 0 0"></TextBlock>
                                             <TextBlock Grid.Column="1" Text="2019-10-10 12:12:20"></TextBlock>
                                         </Grid>
-                                        -->
+                                        
                                         <Grid Margin="0 10 0 10">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="80"></ColumnDefinition>
@@ -162,7 +162,6 @@
                                             </Grid>
                                         </Grid>
                                     
-                                        <!--
                                         <TextBlock Margin="5" Text="Test"></TextBlock>
                                         <TextBox TextWrapping="Wrap" Name="log" VerticalScrollBarVisibility="Visible"/>
                                         -->
@@ -177,8 +176,13 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" FontSize="20" Name="lblRuneCollect">Rune collect: 0</Label>
-                                <Label Grid.Column="1" FontSize="20" Name="lblRuneSell">Rune Sell: 0</Label>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" FontSize="20" Name="lblRuneCollect">Rune collect: 0</Label>
+                                <Label Grid.Column="1" Grid.Row="0" FontSize="20" Name="lblRuneSell">Rune Sell: 0</Label>
+                                <Label Grid.Column="0" Grid.Row="1" FontSize="20" Name="lblFailedRuns">Failed Runs: 0</Label>
                             </Grid>
                         </GroupBox>
                     </Grid>

@@ -92,19 +92,18 @@ namespace SWRunnerApp
 
         private void BackgroundWorkerOnProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //object userObject = e.UserState;
-
             RunnerLogger logger = (RunnerLogger)e.UserState;
 
             while(logger.Message.Count > 0){
-                //log.Text += logger.Message.Dequeue().message.ToString();
                 UIElement logComponent = LogFactory.Build(Logger.Message.Dequeue());
                 SetLogVisibility(logComponent);
                 logPanel.Children.Insert(0, logComponent);
             }
 
+            // Other labels
             lblRuneCollect.Content = "Rune Collect: " + Logger.GetRunes;
             lblRuneSell.Content = "Rune Sell: " + Logger.SellRunes;
+            lblFailedRuns.Content = "Failed Runs: " + Logger.FailedRuns;
         }
 
         private void BackgroundWorkerRunCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -145,40 +144,33 @@ namespace SWRunnerApp
                     Debug.WriteLine("Start logging ...");
                     worker.ReportProgress(0, Logger);
                 }
-
             }
         }
 
         private void StartCairos_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Add runner object to runworkerasync call
             while (backgroundWorker.IsBusy) { }
             Presenter.ActiveRunner = Presenter.CairosRunner;
             backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
 
-            // Update buttons
             UpdateButtons();
         }
 
         private void StartToa_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Add runner object to runworkerasync call
             while (backgroundWorker.IsBusy) { }
             Presenter.ActiveRunner = Presenter.ToaRunner;
             backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
 
-            // Update buttons
             UpdateButtons();
         }
 
         private void StartRift_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Add runner object to runworkerasync call
             while (backgroundWorker.IsBusy) { }
             Presenter.ActiveRunner = Presenter.RiftRunner;
             backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
 
-            // Update buttons
             UpdateButtons();
         }
 
@@ -193,13 +185,11 @@ namespace SWRunnerApp
 
         private void BtnStopRun_Click(object sender, RoutedEventArgs e)
         {
-            // Cancel backgroundworkers
             Presenter.ActiveRunner.StopRunner();
             Presenter.ActiveRunner = null;
 
             backgroundWorker.CancelAsync();
 
-            // Update buttons
             UpdateButtons();
 
         }

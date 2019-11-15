@@ -13,7 +13,7 @@ namespace SWRunner
 
         // TODO: Need a map of values need to be displayed on the UI
         public int SuccessRuns { get; private set; } = 0;
-        public int FailRuns { get; private set; } = 0;
+        public int FailedRuns { get; private set; } = 0;
 
         public int GetRunes { get; private set; } = 0;
 
@@ -34,7 +34,7 @@ namespace SWRunner
             }
             else
             {
-                FailRuns += 1;
+                FailedRuns += 1;
             }
 
             if (reward.Type == REWARDTYPE.RUNE)
