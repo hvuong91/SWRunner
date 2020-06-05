@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Text;
 
 namespace SWEmulator
@@ -37,27 +38,62 @@ namespace SWEmulator
 
         public override Bitmap PrintWindow()
         {
-            Rect rc;
             // TODO: This might be stuck forever. Use timer instead?
-            int tries = 100;
-            while (!GetWindowRect(Screen, out rc) && tries-- > 0) { };
+            //if(!GetWindowRect(Screen, out Rect rc))
+            //{
+            //    throw new Exception("Failed to Print Window");
+            //}
 
-            if (tries <= 0)
+            //Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppRgb);
+            //Graphics gfxBmp = Graphics.FromImage(bmp);
+            //IntPtr hdcBitmap = gfxBmp.GetHdc();
+
+            //if (!PrintWindow(Screen, hdcBitmap, 0))
+            //{
+            //    throw new Exception("Failed to Print Window");
+            //}
+
+            //gfxBmp.ReleaseHdc(hdcBitmap);
+            //gfxBmp.Dispose();
+
+            //string test = $"C:\\TestWin32\\{DateTime.Now.ToString("hhmmss", DateTimeFormatInfo.InvariantInfo)}-test.png";
+            //bmp.Save(test, ImageFormat.Png);
+
+            //return bmp;
+
+            // Test
+            if (!GetWindowRect(Screen, out Rect rc))
             {
                 throw new Exception("Failed to Print Window");
             }
+            var testBmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppRgb);
+            Graphics graphics = Graphics.FromImage(testBmp);
+            graphics.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
 
-            Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format24bppRgb);
-            Graphics gfxBmp = Graphics.FromImage(bmp);
-            IntPtr hdcBitmap = gfxBmp.GetHdc();
+            string test = $"C:\\TestWin32\\{DateTime.Now.ToString("hhmmss", DateTimeFormatInfo.InvariantInfo)}-test.png";
 
-            PrintWindow(Screen, hdcBitmap, 0);
+            //testBmp.Save(test, ImageFormat.Png);
 
-            gfxBmp.ReleaseHdc(hdcBitmap);
-            gfxBmp.Dispose();
+            return testBmp;
 
-            bmp.Save("C:\\TestWin32\\test.png", ImageFormat.Png);
-            return bmp;
+            // Test 2
+            //GetWindowRect(Screen, out Rect rc);
+            //Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
+
+
+            //Graphics gfxBmp = Graphics.FromImage(bmp);
+
+            //IntPtr hdcBitmap = gfxBmp.GetHdc();
+            ////hdcBitmap = GetWindowDC(Screen);
+            //BitBlt(hdcBitmap, 0, 0, rc.Width, rc.Height, GetWindowDC(Screen), 0, 0, TernaryRasterOperations.SRCCOPY);
+            //gfxBmp.ReleaseHdc(hdcBitmap);
+            //gfxBmp.Dispose();
+
+            //string test = $"C:\\TestWin32\\{DateTime.Now.ToString("hhmmss", DateTimeFormatInfo.InvariantInfo)}-test.png";
+            //bmp.Save(test, ImageFormat.Png);
+
+            //return bmp;
+
         }
     }
 }

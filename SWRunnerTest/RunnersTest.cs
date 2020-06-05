@@ -26,6 +26,15 @@ namespace SWRunnerTest
         }
 
         [Test]
+        public void TestFoundOkButton()
+        {
+            CairosRunner test = new CairosRunner(
+                new CairosFilter(), testLogFile, @"C:\Users\Administrator\Desktop\Rune\full_log.txt", new CairosRunnerConfig(), new NoxEmulator(), new RunnerLogger());
+
+            Assert.True(test.FoundOkButton());
+        }
+
+        [Test]
         public void TestIsFailedCariosRun()
         {
             CairosRunner test = new CairosRunner(
@@ -52,8 +61,28 @@ namespace SWRunnerTest
         [Test]
         public void EmulatorTestQuiz()
         {
+            BlueStacksEmulator emulator = new BlueStacksEmulator();
+            emulator.PrintWindow();
+        }
+
+        [Test]
+        public void NoxEmulatorTestQuiz()
+        {
             NoxEmulator emulator = new NoxEmulator();
             emulator.PrintWindow();
+        }
+
+        [Test]
+        public void NoxEmulatorTestSellRuneInRift()
+        {
+            NoxEmulator emulator = new NoxEmulator();
+
+            RiftRunnerConfig config = new RiftRunnerConfig();
+            config.SellRunePoint = new System.Drawing.PointF(0.417f, 0.750f);
+
+            Helper.UpdateRunConfig(emulator, config);
+
+            emulator.Click(config.SellRunePoint);
         }
 
     }

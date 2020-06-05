@@ -52,4 +52,8 @@
     <X>0.480</X>
     <Y>0.766</Y>
   </GetOtherPoint>
+  <EventOKPoint>
+    <X>0.500</X>
+    <Y>0.709</Y>
+  </EventOKPoint>
 </RunConfig>

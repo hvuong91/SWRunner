@@ -174,6 +174,15 @@ namespace SWRunnerApp
             UpdateButtons();
         }
 
+        private void StartRaid_Click(object sender, RoutedEventArgs e)
+        {
+            while (backgroundWorker.IsBusy) { }
+            Presenter.ActiveRunner = Presenter.RaidRunner;
+            backgroundWorker.RunWorkerAsync(Presenter.ActiveRunner);
+
+            UpdateButtons();
+        }
+
         private void UpdateButtons()
         {
             btnStopRun.IsEnabled = !btnStopRun.IsEnabled;
@@ -181,6 +190,7 @@ namespace SWRunnerApp
             btnCairos.IsEnabled = !btnCairos.IsEnabled;
             btnToa.IsEnabled = !btnToa.IsEnabled;
             btnRift.IsEnabled = !btnRift.IsEnabled;
+            btnRaid.IsEnabled = !btnRaid.IsEnabled;
         }
 
         private void BtnStopRun_Click(object sender, RoutedEventArgs e)

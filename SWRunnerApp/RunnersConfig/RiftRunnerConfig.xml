@@ -38,10 +38,14 @@
   </RuneInfoPoint>
   <SellRunePoint>
     <X>0.417</X>
-    <Y>0.807</Y>
+    <Y>0.780</Y>
   </SellRunePoint>
   <ConfirmSellRunePoint>
     <X>0.408</X>
     <Y>0.595</Y>
   </ConfirmSellRunePoint>
+  <EventOKPoint>
+    <X>0.500</X>
+    <Y>0.709</Y>
+  </EventOKPoint>
 </RunConfig>

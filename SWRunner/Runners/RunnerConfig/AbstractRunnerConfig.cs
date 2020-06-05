@@ -21,8 +21,8 @@ namespace SWRunner.Runners
         public PointF BuyOKPoint;
         public PointF CloseShopPoint;
 
-        // Captcha
-        // TODO
+        // Event
+        public PointF EventOKPoint;
     }
 
 }

@@ -20,7 +20,7 @@ namespace SWRunner
             }
 
             // Test
-            //target.Save("C:\\TestWin32\\crop.png", ImageFormat.Png);
+            //target.Save($"F:\\Test\\meh", ImageFormat.Png);
 
             return target;
         }

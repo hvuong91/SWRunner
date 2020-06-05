@@ -4,6 +4,7 @@ using SWRunnerApp;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -144,6 +145,15 @@ namespace SWRunner.Runners
         public virtual void StartNewRun()
         {
             Thread.Sleep(2000);
+
+            // Check special event
+            if (FoundOkButton())
+            {
+                Emulator.PressEsc();
+                Thread.Sleep(1000);
+                Logger.Log("Collected event reward");
+            }
+
             RandomSleep();
             Emulator.Click(RunnerConfig.ReplayPoint);
 
@@ -158,7 +168,9 @@ namespace SWRunner.Runners
         {
             bool needRefill = false;
 
-            for (int i = 0; i < 3; i++)
+            int tries = 15;
+
+            for (int i = 0; i < tries; i++)
             {
                 Bitmap screenShot = Emulator.PrintWindow();
                 Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
@@ -168,11 +180,37 @@ namespace SWRunner.Runners
                 {
                     break;
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
 
             return needRefill;
             //return GetCurrentEnergy() < MinEnergyRequired;
+        }
+
+        public bool FoundOkButton()
+        {
+            bool found = false;
+
+            int tries = 15;
+
+            for (int i = 0; i < tries; i++)
+            {
+                Bitmap screenShot = Emulator.PrintWindow();
+                Bitmap crop = BitmapUtils.CropImage(screenShot, new Rectangle(500 * Emulator.Width / 1920, 550 * Emulator.Height / 1080,
+                    700 * Emulator.Width / 1920, 600 * Emulator.Height / 1080));
+
+                //string filename = $"F:\\Test\\{i}.PNG";
+                //crop.Save(filename, ImageFormat.Png);
+
+                found = BitmapUtils.FindMatchImage(crop, new Bitmap(@"Resources\general\OK.PNG"), 0.82f);
+                if (found)
+                {
+                    break;
+                }
+                Thread.Sleep(100);
+            }
+
+            return found;
         }
 
         public int GetCurrentEnergy()

@@ -20,7 +20,11 @@ namespace SWRunnerApp
         public CairosRunner CairosRunner { get; private set; }
         public ToARunner ToaRunner { get; private set; }
         public RiftRunner RiftRunner { get; private set; }
+        public DimensionalRunner DimensionalRunner { get; private set; }
+        public RaidRunner RaidRunner { get; private set; }
         public RunnerLogger Logger { get; private set; }
+
+        
 
         public List<GemStone> AcceptedGemStones { get; set; }
 
@@ -32,6 +36,7 @@ namespace SWRunnerApp
             InitCairosRunner();
             InitToaRunner();
             InitRiftRunner();
+            InitRaidRunner();
         }
 
         private void InitCairosRunner()
@@ -89,6 +94,24 @@ namespace SWRunnerApp
             }
 
             RiftRunner = new RiftRunner(new RiftFilter(AcceptedGemStones),riftLog, fullLog, runConfig, new NoxEmulator(), Logger);
+        }
+
+        private void InitRaidRunner()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(RaidRunnerConfig), new XmlRootAttribute("RunConfig"));
+            string configXml = ConfigurationManager.AppSettings["RaidRunnerConfig"];
+            string riftLog = ConfigurationManager.AppSettings["Riftlog"];
+            string fullLog = ConfigurationManager.AppSettings["FullLog"];
+
+            RaidRunnerConfig runConfig;
+
+            using (Stream reader = new FileStream(configXml, FileMode.Open))
+            {
+                // Call the Deserialize method to restore the object's state.
+                runConfig = (RaidRunnerConfig)serializer.Deserialize(reader);
+            }
+
+            RaidRunner = new RaidRunner(new RaidFilter(AcceptedGemStones), riftLog, fullLog, runConfig, new NoxEmulator(), Logger);
         }
 
     }
