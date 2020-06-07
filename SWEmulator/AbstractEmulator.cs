@@ -18,6 +18,13 @@ namespace SWEmulator
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern bool PostMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
 
+        [DllImport("User32.dll")]
+        public static extern bool SendMessage(
+        IntPtr hWnd,               // handle to destination window
+        uint Msg,                // message
+        int wParam,             // first message parameter
+        int lParam); // second message parameter
+
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter,
             string className, string windowTitle);
@@ -149,7 +156,7 @@ namespace SWEmulator
         {
             PostMessage(MainWindow, Win32Constants.WM_KEYDOWN, key, 0);
             Thread.Sleep(200);
-            PostMessage(MainWindow, Win32Constants.WM_KEYUP, key, 0);
+            PostMessage(MainWindow, Win32Constants.WM_KEYUP, key, 1);
         }
 
         public abstract IntPtr GetMainWindow();

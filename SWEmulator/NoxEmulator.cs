@@ -72,7 +72,7 @@ namespace SWEmulator
 
             string test = $"C:\\TestWin32\\{DateTime.Now.ToString("hhmmss", DateTimeFormatInfo.InvariantInfo)}-test.png";
 
-            //testBmp.Save(test, ImageFormat.Png);
+            testBmp.Save(test, ImageFormat.Png);
 
             return testBmp;
 

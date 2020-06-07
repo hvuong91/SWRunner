@@ -18,82 +18,39 @@ namespace SWEmulator
 
         public override IntPtr GetMainWindow()
         {
-            // 1. Caption: "Nox", Class: "Qt5QWindowIcon"
-            // 2. Caption: "ScreenBoardClassWindow", Class: "Qt5QWindowIcon"
-            // 3. Caption: "QWidgetClassWindow", Class: "Qt5QWindowIcon"
-
-            IntPtr parent = FindWindow("Qt5QWindowIcon", "Nox");
-            IntPtr subWindow = FindWindowEx(parent, IntPtr.Zero, "Qt5QWindowIcon", "ScreenBoardClassWindow");
-            IntPtr mainWindow = FindWindowEx(subWindow, IntPtr.Zero, "Qt5QWindowIcon", "QWidgetClassWindow");
-
-            return mainWindow;
+            IntPtr parent = FindWindow(null, "BlueStacks");
+            IntPtr subWindow = FindWindowEx(parent, IntPtr.Zero, null, "BlueStacks Android PluginAndroid");
+            //IntPtr mainWindow = FindWindowEx(subWindow, IntPtr.Zero, "BlueStacksApp", null);
+            IntPtr mainWindow = FindWindowEx(subWindow, IntPtr.Zero, null, "_ctl.Window");
+            return subWindow;
         }
 
         private IntPtr GetScreen()
         {
             IntPtr parent = FindWindow(null, "BlueStacks");
             IntPtr subWindow = FindWindowEx(parent, IntPtr.Zero, null, "BlueStacks Android PluginAndroid");
-            IntPtr mainWindow = FindWindowEx(subWindow, IntPtr.Zero, "BlueStacksApp", null);
+            //IntPtr mainWindow = FindWindowEx(subWindow, IntPtr.Zero, "BlueStacksApp", null);
             //IntPtr mainWindow = FindWindowEx(subWindow, IntPtr.Zero, null, "_ctl.Window");
-            return mainWindow;
+            return subWindow;
         }
 
         public override Bitmap PrintWindow()
         {
-            //Rect rc;
-            //// TODO: This might be stuck forever. Use timer instead?
-            //int tries = 100;
-            //while (!GetWindowRect(Screen, out rc) && tries-- > 0) { };
-
-            //if (tries <= 0)
-            //{
-            //    throw new Exception("Failed to Print Window");
-            //}
-
-            //Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format24bppRgb);
-            //Graphics gfxBmp = Graphics.FromImage(bmp);
-            //IntPtr hdcBitmap = gfxBmp.GetHdc();
-
-            //PrintWindow(Screen, hdcBitmap, 0);
-
-            //gfxBmp.ReleaseHdc(hdcBitmap);
-            //gfxBmp.Dispose();
-
-            //bmp.Save("C:\\TestWin32\\test.png", ImageFormat.Png);
-
-            //return bmp;
 
             // get te hDC of the target window
-            IntPtr hdcSrc = GetWindowDC(Screen);
-            // get the size
-            Rect windowRect;
-            GetWindowRect(Screen, out windowRect);
-            int width = windowRect.right - windowRect.left;
-            int height = windowRect.bottom - windowRect.top;
-            // create a device context we can copy to
-            IntPtr hdcDest = GDI32.CreateCompatibleDC(hdcSrc);
-            // create a bitmap we can copy it to,
-            // using GetDeviceCaps to get the width/height
-            IntPtr hBitmap = GDI32.CreateCompatibleBitmap(hdcSrc, width, height);
-            // select the bitmap object
-            IntPtr hOld = GDI32.SelectObject(hdcDest, hBitmap);
-            // bitblt over
-            GDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, GDI32.SRCCOPY);
-            // restore selection
-            GDI32.SelectObject(hdcDest, hOld);
-            // clean up 
-            GDI32.DeleteDC(hdcDest);
-            ReleaseDC(Screen, hdcSrc);
+            if (!GetWindowRect(Screen, out Rect rc))
+            {
+                throw new Exception("Failed to Print Window");
+            }
+            var testBmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppRgb);
+            Graphics graphics = Graphics.FromImage(testBmp);
+            graphics.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
 
-            // get a .NET image object for it
-            Image img = Image.FromHbitmap(hBitmap);
-            // free up the Bitmap object
-            GDI32.DeleteObject(hBitmap);
+            string test = $"C:\\TestWin32\\bs-test.png";
 
-            ((Bitmap)img).Save("C:\\TestWin32\\test.png", ImageFormat.Png);
-            ((Bitmap)img).Save("C:\\TestWin32\\test2.jpeg", ImageFormat.Jpeg);
+            testBmp.Save(test, ImageFormat.Png);
 
-            return (Bitmap)img;
+            return testBmp;
         }
 
         private class GDI32

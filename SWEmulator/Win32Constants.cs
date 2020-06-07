@@ -18,5 +18,7 @@ namespace SWEmulator
         public const int WM_RBUTTONDOWN = 0x204;
         public const int WM_RBUTTONUP = 0x205;
         public const int WM_RBUTTONDBLCLK = 0x206;
+
+        public const int VB_KEY3 = 51;
     }
 }
